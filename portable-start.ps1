@@ -20,8 +20,9 @@ print_title "Load global variables"
 create_folder_variables
 create_file_variables
 
-# . ./Cmder-Config-Interfacing.ps1
-# $createConfig = cmder_config_exists
+print_title "Create Cmder config files"
+. ./Cmder-Config-Interfacing.ps1
+$isConfigPreexisting = cmder_config_exists
 
 
 

@@ -22,7 +22,7 @@ function create_file_variables() {
   Set-Variable -Name "psConfig" -Value $psConfig -Scope Global
   print_info "psConfig" $psConfig
 
-  $cmdConfig = Join-Path -Path $cmderConfigDir -ChildPath "user_profile.ps1"
+  $cmdConfig = Join-Path -Path $cmderConfigDir -ChildPath "user_profile.cmd"
   Set-Variable -Name "cmdConfig" -Value $cmdConfig -Scope Global
   print_info "cmdConfig" $cmdConfig
 
