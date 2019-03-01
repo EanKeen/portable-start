@@ -1,0 +1,67 @@
+{
+  "config": {
+    "name": "Edwin Kofler",
+    "relativePathToBinary": "../_binary",
+    "relativePathToCmderConfig": "../cmder/config",
+    "relativePathToApplications": [
+      {
+        "name": "QuickLook",
+        "relativePathToName": "../quicklook/QuickLook",
+        "launchStatus": "prompt"
+      }
+    ]
+  },
+  "paths": [
+    {
+      "name": "7-zip-cli"
+    },
+    {
+      "name": "7zip-cli-a"
+    },
+    {
+      "name": "cmake/bin"
+    },
+    {
+      "name": "gcc-c++/bin"
+    },
+    {
+      "name": "gcc-core/bin"
+    },
+    {
+      "name": "gdb/bin"
+    },
+    {
+      "name": "go/bin"
+    },
+    {
+      "name": "gradle/bin"
+    },
+    {
+      "name": "java/bin"
+    },
+    {
+      "name": "make/bin"
+    },
+    {
+      "name": "miktex/texmfs/install/miktex/bin"
+    },
+    {
+      "name": "node"
+    },
+    {
+      "name": "python"
+    }
+  ],
+  "aliases": [
+    {
+      "alias": "gs",
+      "value": "git status"
+    }
+  ],
+  "variables": [
+    {
+      "variable": "six",
+      "value": "6"
+    }
+  ]
+}
