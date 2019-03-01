@@ -14,15 +14,15 @@ function create_folder_variables() {
 }
 
 function create_file_variables() {
-  $bashConfig = "$cmderConfigDir/user_profile.sh"
+  $bashConfig = Join-Path -Path $cmderConfigDir -ChildPath "user_profile.sh"
   Set-Variable -Name "bashConfig" -Value $bashConfig -Scope Global
   print_info "bashConfig" $bashConfig
 
-  $psConfig = "$cmderConfigDir/user_profile.ps1"
+  $psConfig = Join-Path -Path $cmderConfigDir -ChildPath "user_profile.ps1"
   Set-Variable -Name "psConfig" -Value $psConfig -Scope Global
   print_info "psConfig" $psConfig
 
-  $cmdConfig = "$cmderConfigDir/user_profile.ps1"
+  $cmdConfig = Join-Path -Path $cmderConfigDir -ChildPath "user_profile.ps1"
   Set-Variable -Name "cmdConfig" -Value $cmdConfig -Scope Global
   print_info "cmdConfig" $cmdConfig
 

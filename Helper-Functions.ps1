@@ -12,7 +12,7 @@ function print_warning($highlighted, $plain) {
     Write-Host $highlighted -NoNewLine -BackgroundColor DarkOrange -ForegroundColor White
     Write-Host " $plain"
 }
-
+    
 function print_error($highlighted, $plain) {
     Write-Host $highlighted -NoNewLine -BackgroundColor DarkPurple -ForegroundColor White
     Write-Host " $plain"

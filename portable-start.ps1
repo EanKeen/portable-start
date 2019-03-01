@@ -9,16 +9,14 @@ $variables = $json.variables
 
 # Load functions required by nearly all modules
 . ./Helper-Functions.ps1
-print_title "Loading helper functions"
+print_title "Load helper functions"
 
 
-# Load in globaal variables. They include
-# $binaryDir, $cmderConfigDir, $portableDir
-
-# $bashConfig, $psConfig, $cmdConfig, $allConfig
+# Load global variables
+# Dirs:  $binaryDir, $cmderConfigDir, $portableDir
+# Files: $bashConfig, $psConfig, $cmdConfig, $allConfig
+print_title "Load global variables"
 . ./Create-Necessary-Variables.ps1
-
-
 create_folder_variables
 create_file_variables
 
