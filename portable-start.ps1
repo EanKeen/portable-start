@@ -7,19 +7,17 @@ $paths = $json.paths
 $aliases = $json.aliases
 $variables = $json.variables
 
-# Load in support PowerShell files
+# Load functions required by nearly all modules
 . ./Helper-Functions.ps1
+print_title "Loading helper functions"
 
+
+# Load in globaal variables. They include
+# $binaryDir, $cmderConfigDir, $portableDir
+
+# $bashConfig, $psConfig, $cmdConfig, $allConfig
 . ./Create-Necessary-Variables.ps1
-# Variables created in this file
-# $binaryDir
-# $cmderConfigDir
-# $portableDir
 
-# $bashConfig
-# $psConfig
-# $cmdConfig
-# $allConfig
 
 create_folder_variables
 create_file_variables

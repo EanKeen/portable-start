@@ -1,13 +1,20 @@
-function print_info($warning, $content) {
-    Write-Host $warning -
+function print_title($highlighted) {
+    Write-Host $highlighted -BackgroundColor White -ForegroundColor Black
 }
 
-function print_warning() {
-
+function print_info($highlighted, $plain) {
+    Write-Host $highlighted -NoNewLine -BackgroundColor DarkGreen -ForegroundColor White
+    Write-Host $plain
 }
 
-function print_error() {
-    
+function print_warning($highlighted, $plain) {
+    Write-Host $highlighted -NoNewLine -BackgroundColor DarkOrange -ForegroundColor White
+    Write-Host $plain
+}
+
+function print_error($highlighted, $plain) {
+    Write-Host $highlighted -NoNewLine -BackgroundColor DarkPurple -ForegroundColor White
+    Write-Host $plain
 }
 
 function write_line_to_file($myContent, $file) {
@@ -24,4 +31,3 @@ function get_directory($dir) {
     (Resolve-Path "$dir").Path
     return
 }
-
