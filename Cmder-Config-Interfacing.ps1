@@ -1,8 +1,6 @@
 # Creates / overwrites config files
 function create_config_files {
-  Set-Location -Path $cmderConfigDir
-
-  # Remove config files if they exist
+  # Remove config files if they already exist
   if(Test-Path $bashConfig -PathType Leaf) {
     Remove-Item -Path $bashConfig
   }
@@ -14,16 +12,18 @@ function create_config_files {
   }
 
   # Create new config items (none should exist in dir now)
-  New-Item "user_profile.cmd" | Out-Null
-  New-Item "user_profile.ps1" | Out-Null
-  New-Item "user_profile.sh" | Out-Null
+  New-Item $bashConfig | Out-Null
+  New-Item $psConfig | Out-Null
+  New-Item $cmdConfig | Out-Null
+}
 
-  Set-Location -Path portableDir
+function write_config_files() {
+
 }
 
 function cmder_config_exists() {
   if((Test-Path $cmdConfig) -or (Test-Path $psConfig) -or (Test-Path $bashConfig)) {
-    Write-Host "You already have config files. Overwrite them?"
+    print_warning "You alrady have config files. Overwrite them?"
 
     $key = $Host.UI.RawUI.ReadKey()
     Write-Host "`n`n"
