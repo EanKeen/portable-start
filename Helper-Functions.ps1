@@ -4,17 +4,17 @@ function print_title($highlighted) {
 }
 
 function print_info($highlighted, $plain) {
-    Write-Host $highlighted -NoNewLine -BackgroundColor DarkBlue -ForegroundColor White
+    Write-Host $highlighted -NoNewLine -BackgroundColor DarkGreen -ForegroundColor White
     Write-Host " $plain"
 }
 
 function print_warning($highlighted, $plain) {
-    Write-Host $highlighted -NoNewLine -BackgroundColor DarkOrange -ForegroundColor White
+    Write-Host $highlighted -NoNewLine -BackgroundColor DarkYellow -ForegroundColor White
     Write-Host " $plain"
 }
-    
+
 function print_error($highlighted, $plain) {
-    Write-Host $highlighted -NoNewLine -BackgroundColor DarkPurple -ForegroundColor White
+    Write-Host $highlighted -NoNewLine -BackgroundColor DarkMagenta -ForegroundColor White
     Write-Host " $plain"
 }
 

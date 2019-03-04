@@ -25,8 +25,7 @@ print_title "Create Cmder config files"
 $isConfigPreexisting = cmder_config_exists
 
 
-
-Write-Host "Press any key to exit" 
+print_title "Press any key to exit"
 $key = $Host.UI.RawUI.ReadKey()
 Write-Host "`n"
 exit
