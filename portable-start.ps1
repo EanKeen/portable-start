@@ -21,8 +21,8 @@ create_folder_variables
 create_file_variables
 
 print_title "Create Cmder config files"
-. ./Cmder-Config-Interfacing.ps1
-$isConfigPreexisting = cmder_config_exists
+. ./Cmder-Config-Create.ps1
+cmder_config_exists
 
 
 print_title "Press any key to exit"

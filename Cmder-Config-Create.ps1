@@ -46,23 +46,3 @@ function cmder_config_exists() {
     write_config_files
   }
 }
-
-function create_cmder_configs() {
-  Set-Location $cmderConfigDir
-
-  # Remove config files if they exist
-  if(Test-Path $bashConfig -PathType Leaf) {
-    Remove-Item $bashConfig
-  }
-  if(Test-Path $psConfig -PathType Leaf) {
-    Remove-Item $psConfig
-  }
-  if(Test-Path $cmdConfig -PathType Leaf) {
-    Remove-Item $cmdConfig
-  }
-
-  # Create new config items (none should exist in dir now)
-  New-Item "user_profile.cmd" | Out-Null
-  New-Item "user_profile.ps1" | Out-Null
-  New-Item "user_profile.sh" | Out-Null
-}

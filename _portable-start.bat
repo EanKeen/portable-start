@@ -1,1 +1,1 @@
-start ../_binary/powershell/pwsh.exe -noexit -ExecutionPolicy Bypass -file "portable-start.ps1"
+start ../_binary/powershell/pwsh.exe -ExecutionPolicy Bypass -file "portable-start.ps1"
