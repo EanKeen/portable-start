@@ -20,11 +20,21 @@ print_title "Load global variables"
 create_folder_variables
 create_file_variables
 
+# Creates Cmder config files
+# cmder_config_exists auto creates files if they don't exist
+# If file exists, prompt to overwrite
 print_title "Create Cmder config files"
 . ./Cmder-Config-Create.ps1
-cmder_config_exists
+$willWriteConfig = cmder_config_ask_create
+print_info "willWriteConfig" $willWriteConfig
 
+# If no config exists or if want to overwrite config, create config
+if($willWriteConig -eq $true) {
+    . ./Create-Config-Write.ps1
+    cmder_config_write
+}
 
+# End
 print_title "Press any key to exit"
 $key = $Host.UI.RawUI.ReadKey()
 Write-Host "`n"

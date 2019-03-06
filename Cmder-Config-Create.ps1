@@ -16,33 +16,29 @@ function create_config_files {
   New-Item $psConfig | Out-Null
   New-Item $cmdConfig | Out-Null
 }
-
-function write_config_files() {
-
-}
-
-function cmder_config_exists() {
+ 
+function cmder_config_ask_create() {
   if((Test-Path $cmdConfig) -or (Test-Path $psConfig) -or (Test-Path $bashConfig)) {
-    print_warning "You alrady have config files. Overwrite them?"
+    print_warning "You alrady have Cmder config files. Overwrite them?"
 
     $key = $Host.UI.RawUI.ReadKey()
     Write-Host "`n`n"
     if($key.Character -eq 'y') {
       # Yes, overwrite existing config files
       create_config_files
-      write_config_files
+      $True
     }
     elseif($key.Character -eq 'n') {
       # No, don't want to overwrite existing config files, do nothing
     }
     else {
       # Any other character, repeat input
-      cmder_config_exists
+      cmder_config_create
     }
   }
   else {
     # No config files exist, make and write to them
-    create_config_files
-    write_config_files
+    cmder_config_create
+    $True
   }
 }
