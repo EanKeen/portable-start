@@ -1,32 +1,30 @@
-function create_folder_variables() {
-  # Get the directories of folders
+function create_folder_variables($json, $variables) {
   $binaryDir = get_directory($config.relativePathToBinary)
-  Set-Variable -Name "binaryDir" -Value $binaryDir -Scope Global
-  print_info "binaryDir" $binaryDir
-
   $cmderConfigDir = get_directory($config.relativePathToCmderConfig)
-  Set-Variable -Name "cmderConfigDir" -Value $cmderConfigDir -Scope Global
-  print_info "cmderConfigDir" $cmderConfigDir
-
   $portableDir = $(Split-Path $PSCommandPath)
-  Set-Variable -Name "portableDir" -Value $portableDir -Scope Global
-  print_info "portableDir" $portableDir
+
+  $variables | Add-Member -MemberType NoteProperty -Name binaryDir -Value $binaryDir
+  $variables | Add-Member -MemberType NoteProperty -Name cmderConfigDir -Value $cmderConfigDir
+  $variables | Add-Member -MemberTYpe NoteProperty -Name portableDir -Value $portableDir
+  
+  print_info "`$variables.binaryDir" $variables.binaryDir
+  print_info "`$variables.cmderConfigDir" $variables.cmderConfigDir
+  print_info "`$variables.portableDir" $variables.portableDir
 }
 
-function create_file_variables() {
-  $bashConfig = Join-Path -Path $cmderConfigDir -ChildPath "user_profile.sh"
-  Set-Variable -Name "bashConfig" -Value $bashConfig -Scope Global
-  print_info "bashConfig" $bashConfig
-
-  $psConfig = Join-Path -Path $cmderConfigDir -ChildPath "user_profile.ps1"
-  Set-Variable -Name "psConfig" -Value $psConfig -Scope Global
-  print_info "psConfig" $psConfig
-
-  $cmdConfig = Join-Path -Path $cmderConfigDir -ChildPath "user_profile.cmd"
-  Set-Variable -Name "cmdConfig" -Value $cmdConfig -Scope Global
-  print_info "cmdConfig" $cmdConfig
-
+function create_file_variables($json, $variables) {
+  $bashConfig = Join-Path -Path $variables.cmderConfigDir -ChildPath "user_profile.sh"
+  $psConfig = Join-Path -Path $variables.cmderConfigDir -ChildPath "user_profile.ps1"
+  $cmdConfig = Join-Path -Path $variables.cmderConfigDir -ChildPath "user_profile.cmd"
   $allConfig = "allConfigFiles"
-  Set-Variable -Name "allConfig" -Value $allConfig -Scope Global
-  print_info "allConfig" $allConfig
+
+  $variables | Add-Member -MemberType NoteProperty -Name bashConfig -Value $bashConfig
+  $variables | Add-Member -MemberType NoteProperty -Name psConfig -Value $psConfig
+  $variables | Add-Member -MemberType NoteProperty -Name cmdConfig -Value $cmdConfig
+  $variables | Add-Member -MemberType NoteProperty -Name allConfig -value $allConfig
+  
+  print_info "`$variables.bashConfig" $bashConfig
+  print_info "`$variables.psConfig" $psConfig
+  print_info "`$variables.cmdConfig" $cmdConfig
+  print_info "`$variables.allConfig" $allConfig
 }

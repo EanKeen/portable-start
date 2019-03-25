@@ -58,7 +58,7 @@
       "value": "git status"
     }
   ],
-  "variables": [
+  "vars": [
     {
       "variable": "six",
       "value": "6"
