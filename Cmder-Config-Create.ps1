@@ -1,20 +1,20 @@
 # Creates / overwrites config files
-function create_config_files($json, $variables) {
+function create_config_files($json, $v) {
     # Remove config files if they already exist
-    if (Test-Path $variables.bashConfig -PathType Leaf) {
-        Remove-Item -Path $variables.bashConfig
+    if (Test-Path $v.bashConfig -PathType Leaf) {
+        Remove-Item -Path $v.bashConfig
     }
-    if (Test-Path $variables.psConfig -PathType Leaf) {
-        Remove-Item -Path $variables.psConfig
+    if (Test-Path $v.psConfig -PathType Leaf) {
+        Remove-Item -Path $v.psConfig
     }
-    if (Test-Path $variables.cmdConfig -PathType Leaf) {
-        Remove-Item -Path $variables.cmdConfig
+    if (Test-Path $v.cmdConfig -PathType Leaf) {
+        Remove-Item -Path $v.cmdConfig
     }
 
     # Create new config items (none should exist in dir now)
-    New-Item $variables.bashConfig | Out-Null
-    New-Item $variables.psConfig | Out-Null
-    New-Item $variables.cmdConfig | Out-Null
+    New-Item $v.bashConfig | Out-Null
+    New-Item $v.psConfig | Out-Null
+    New-Item $v.cmdConfig | Out-Null
 }
  
 function cmder_config_ask_create($json, $v) {
