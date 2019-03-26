@@ -7,8 +7,8 @@ print_title "Load helper functions"
 
 # Load variables
 print_title "Create variables"
-$vars = New-Object -TypeName psobject
-Set-Variable -Name "variables" -Value $vars -Scope Private
+$variable = New-Object -TypeName psobject
+Set-Variable -Name "vars" -Value $variable -Scope Private
 
 . ./Create-Variables.ps1
 create_folder_variables $json $vars
