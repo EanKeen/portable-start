@@ -1,14 +1,9 @@
 # Import necessary JSON
 $json = Get-Content portable-config.json | ConvertFrom-Json
 
-# Creating variables that will be referenced later
-# TODO: Remove these
-$variables = $json.variables
-
 # Load functions required by nearly all modules
 . ./Helper-Functions.ps1
 print_title "Load helper functions"
-
 
 # Load variables
 print_title "Create variables"
