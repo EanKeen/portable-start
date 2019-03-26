@@ -12,7 +12,7 @@ function create_folder_variables($json, $var) {
   print_info "`$vars.portableDir" $variables.portableDir
 }
 
-function create_file_variables($json, $var) {
+function create_config_file_variables($json, $var) {
   $bashConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.sh"
   $psConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.ps1"
   $cmdConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.cmd"
