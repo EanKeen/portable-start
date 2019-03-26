@@ -13,7 +13,6 @@ Set-Variable -Name "variables" -Value $vars -Scope Private
 . ./Create-Variables.ps1
 create_folder_variables $json $vars
 create_config_file_variables $json $vars
-create_other_variables $json $vars
 
 # Creates Cmder config files
 # cmder_config_exists auto creates files if they don't exist

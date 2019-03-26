@@ -1,6 +1,7 @@
 {
   "config": {
     "name": "Edwin Kofler",
+    "verbose": "false",
     "relativePathToBinary": "../_binary",
     "relativePathToCmderConfig": "../cmder/config",
     "relativePathToApplications": [

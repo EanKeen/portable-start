@@ -9,15 +9,15 @@ function cmder_config_write($json, $var) {
         write_line_to_file $vars $var.psConfig "`$env:Path = `"${absolutePathToBinary};`" + `$env:Path"
         write_line_to_file $vars $var.cmdConfig "set PATH=${absolutePathToBinary};%PATH%"
 
-        if($var.verbose -eq $true) {
-            Write-Host "Adding `"$binName`" to PATH for `"$($var.bashConfig)`""
-            Write-Host "Adding `"$binName`" to PATH for `"$($var.psConfig)`""
-            Write-Host "Adding `"$binName`" to PATH for `"$($var.cmdConfig)`""
-        }
-        else {
+        if($json.config.verbose -eq $true) {
             Write-Host "Adding `"$absolutePathToBinary`" to PATH for `"$($var.bashConfig)`""
             Write-Host "Adding `"$absolutePathToBinary`" to PATH for `"$($var.psConfig)`""
             Write-Host "Adding `"$absolutePathToBinary`" to PATH for `"$($var.cmdConfig)`""
+        }
+        else {
+            Write-Host "Adding `"$binName`" to PATH for `"$($var.bashConfig)`""
+            Write-Host "Adding `"$binName`" to PATH for `"$($var.psConfig)`""
+            Write-Host "Adding `"$binName`" to PATH for `"$($var.cmdConfig)`""
         }
         Write-Host "`r`n"
     }

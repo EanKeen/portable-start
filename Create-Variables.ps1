@@ -28,7 +28,3 @@ function create_config_file_variables($json, $var) {
   print_info "`$vars.cmdConfig" $cmdConfig
   print_info "`$vars.allConfig" $allConfig
 }
-
-function create_other_variables($json, $var) {
-  $var | Add-Member -MemberType NoteProperty -Name verbose -Value $false
-}
