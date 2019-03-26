@@ -1,6 +1,6 @@
 function create_folder_variables($json, $variables) {
-  $binaryDir = get_directory($config.relativePathToBinary)
-  $cmderConfigDir = get_directory($config.relativePathToCmderConfig)
+  $binaryDir = get_directory($json.config.relativePathToBinary)
+  $cmderConfigDir = get_directory($json.config.relativePathToCmderConfig)
   $portableDir = $(Split-Path $PSCommandPath)
 
   $variables | Add-Member -MemberType NoteProperty -Name binaryDir -Value $binaryDir

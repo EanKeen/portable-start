@@ -3,9 +3,6 @@ $json = Get-Content portable-config.json | ConvertFrom-Json
 
 # Creating variables that will be referenced later
 # TODO: Remove these
-$config = $json.config
-$paths = $json.paths
-$aliases = $json.aliases
 $variables = $json.variables
 
 # Load functions required by nearly all modules
@@ -13,9 +10,8 @@ $variables = $json.variables
 print_title "Load helper functions"
 
 
-# Load global variables
-# $variables (properties shown on print verbose)
-print_title "Create / load global variables"
+# Load variables
+print_title "Create variables"
 $variables = New-Object -TypeName psobject
 Set-Variable -Name "variables" -Value $variables -Scope Private
 
