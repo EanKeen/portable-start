@@ -20,19 +20,21 @@ function print_error($highlighted, $plain) {
 
 function write_line_to_file($var, $file, $content) {
     if($file -eq $var.allConfig) {
-        write_line_to_file $addToPath $var.bashConfig
-        write_line_to_file $addToPath $var.psConfig
-        write_line_to_file $addToPath $var.cmdConfig
+        write_line_to_file $var $var.bashConfig $content
+        write_line_to_file $var $var.psConfig $content
+        write_line_to_file $var $var.cmdConfig $content
         return
     }
     "$content" | Out-File -Encoding "ASCII" -Append -FilePath $file  
 }
 
 function write_path_line_to_file($var, $file, $content) {
+    # print_warning "test" $content
     if($file -eq $var.allConfig) {
         write_path_line_to_file $var $var.bashConfig $content
         write_path_line_to_file $var $var.psConfig $content
         write_path_line_to_file $var $var.cmdConfig $content
+        return
     }
     elseif($file -eq $var.bashConfig) {
         write_line_to_file $vars $var.bashConfig "export PATH=\$((Convert-Path $content)):`$PATH".Replace(":\", "\").Replace("\", "/")
