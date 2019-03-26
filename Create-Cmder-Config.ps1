@@ -1,5 +1,8 @@
-function cmder_config_write($json, $var) {
-    # Add paths
+function write_config_comments($json, $var) {
+    write_line_to_file $vars $var
+}
+
+function write_config_paths($json, $var) {
     $json.paths | ForEach-Object -Process {
         # loop through each path declared in the json file
         $binName = $_.Name
@@ -21,8 +24,21 @@ function cmder_config_write($json, $var) {
         }
         Write-Host "`r`n"
     }
-    # Add variables
-    # Add aliases
+}
+
+function write_config_variables($json, $var) {
+
+}
+
+function write_config_aliases($json, $var) {
+
+}
+
+function cmder_config_write($json, $var) {
+    write_config_comments $json $var
+    write_config_paths $json $var
+    write_config_variables $json $var
+    write_config_aliases $json $var
 }
 
 # Creates / overwrites config files

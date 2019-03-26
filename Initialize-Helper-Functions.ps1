@@ -18,8 +18,8 @@ function print_error($highlighted, $plain) {
     Write-Host " $plain"
 }
 
-function write_line_to_file($vars, $file, $content) {
-    if($file -eq $vars.allConfig) {
+function write_line_to_file($var, $file, $content) {
+    if($file -eq $var.allConfig) {
         write_line_to_file $addToPath $var.bashConfig
         write_line_to_file $addToPath $var.psConfig
         write_line_to_file $addToPath $var.cmdConfig
@@ -27,6 +27,24 @@ function write_line_to_file($vars, $file, $content) {
     }
     "$content" | Out-File -Encoding "ASCII" -Append -FilePath $file  
 }
+
+function write_path_line_to_file($var, $file, $content) {
+    if($file -eq $var.allConfig) {
+        write_path_line_to_file $var $var.bashConfig $content
+        write_path_line_to_file $var $var.psConfig $content
+        write_path_line_to_file $var $var.cmdConfig $content
+    }
+    elseif($file -eq $var.bashConfig) {
+        write_line_to_file $vars $var.bashConfig "export PATH=\$((Convert-Path $content)):`$PATH".Replace(":\", "\").Replace("\", "/")
+    }
+    elseif($file -eq $var.psConfig) {
+        write_line_to_file $vars $var.psConfig "`$env:Path = `"${content};`" + `$env:Path"
+    }
+    elseif($file -eq $var.cmdConfig) {
+        write_line_to_file $var $var.cmdConfig "set PATH=${content};%PATH%"
+    }
+}
+
 
 function get_directory($dir) {
     (Resolve-Path "$dir").Path
