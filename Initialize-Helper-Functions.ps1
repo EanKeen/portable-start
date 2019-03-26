@@ -18,17 +18,23 @@ function print_error($highlighted, $plain) {
     Write-Host " $plain"
 }
 
-function write_line_to_file($myContent, $file) {
-    if($file -eq $allConfig) {
-        write_line_to_file $myContent $bashConfig
-        write_line_to_file $myContent $psConfig
-        write_line_to_file $myContent $cmdConfig
+function write_line_to_file($vars, $file, $content) {
+    if($file -eq $vars.allConfig) {
+        write_line_to_file $addToPath $var.bashConfig
+        write_line_to_file $addToPath $var.psConfig
+        write_line_to_file $addToPath $var.cmdConfig
         return
     }
-    "$myContent" | Out-File -Encoding "ASCII" -Append -FilePath $file
+    "$content" | Out-File -Encoding "ASCII" -Append -FilePath $file  
 }
 
 function get_directory($dir) {
     (Resolve-Path "$dir").Path
+    return
+}
+
+# Combines relative path relative to absolute path
+function normalize_path($absPath, $relPath) {
+    [IO.Path]::GetFullPath((Join-Path $absPath $relPath))
     return
 }

@@ -7,16 +7,19 @@
       {
         "name": "QuickLook",
         "relativePathToName": "../quicklook/QuickLook",
-        "launchStatus": "prompt"
+        "launchStatus": "prmopt"
       }
     ]
   },
   "paths": [
     {
-      "name": "7-zip-cli"
+      "name": "7zip-cli"
     },
     {
       "name": "7zip-cli-a"
+    },
+    {
+      "name": "../vscode"
     },
     {
       "name": "cmake/bin"
