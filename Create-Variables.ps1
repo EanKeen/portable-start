@@ -7,9 +7,9 @@ function create_folder_variables($json, $var) {
   $var | Add-Member -MemberType NoteProperty -Name cmderConfigDir -Value $cmderConfigDir
   $var | Add-Member -MemberTYpe NoteProperty -Name portableDir -Value $portableDir
   
-  print_info "`$vars.binaryDir" $variables.binaryDir
-  print_info "`$vars.cmderConfigDir" $variables.cmderConfigDir
-  print_info "`$vars.portableDir" $variables.portableDir
+  print_info "`$vars.binaryDir" $var.binaryDir
+  print_info "`$vars.cmderConfigDir" $var.cmderConfigDir
+  print_info "`$vars.portableDir" $var.portableDir
 }
 
 function create_config_file_variables($json, $var) {
