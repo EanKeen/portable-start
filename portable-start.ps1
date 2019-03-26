@@ -2,7 +2,7 @@
 $json = Get-Content portable-config.json | ConvertFrom-Json
 
 # Load functions required by nearly all modules
-. ./Helper-Functions.ps1
+. ./Initialize-Helper-Functions.ps1
 print_title "Load helper functions"
 
 # Load variables
@@ -10,17 +10,16 @@ print_title "Create variables"
 $vars = New-Object -TypeName psobject
 Set-Variable -Name "variables" -Value $vars -Scope Private
 
-. ./Create-Necessary-Variables.ps1
+. ./Create-Variables.ps1
 create_folder_variables $json $vars
 create_config_file_variables $json $vars
-
 
 # Creates Cmder config files
 # cmder_config_exists auto creates files if they don't exist
 # If file exists, prompt to overwrite
 print_title "Create Cmder config files"
-. ./Cmder-Config-Create.ps1
-$willWriteConfig = cmder_config_ask_create $json $vars
+. ./Create-Cmder-Config.ps1
+$willWriteConfig = ask_to_create_cmder_config $json $vars
 print_info "willWriteConfig" $willWriteConfig
 
 # If no config exists or if want to overwrite config, create config

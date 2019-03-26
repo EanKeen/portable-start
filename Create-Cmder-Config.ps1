@@ -17,7 +17,7 @@ function create_config_files($json, $var) {
     New-Item $var.cmdConfig | Out-Null
 }
  
-function cmder_config_ask_create($json, $var) {
+function ask_to_create_cmder_config($json, $var) {
     if ((Test-Path -Path $var.cmdConfig) -or
         (Test-Path -Path $var.psConfig) -or
         (Test-Path -Path $var.bashConfig)) {
@@ -35,7 +35,7 @@ function cmder_config_ask_create($json, $var) {
         }
         else {
             # Any other character, repeat input
-            cmder_config_ask_create $json $var
+            ask_to_create_cmder_config $json $var
         }
     }
     else {
