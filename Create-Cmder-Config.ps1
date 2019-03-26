@@ -49,10 +49,11 @@ function ask_to_create_cmder_config($json, $var) {
         if ($key.Character -eq 'y') {
             # Yes, overwrite existing config files
             create_config_files $json $var
-            $True
+            $true
         }
         elseif ($key.Character -eq 'n') {
             # No, don't want to overwrite existing config files, do nothing
+            $false
         }
         else {
             # Any other character, repeat input
@@ -62,6 +63,6 @@ function ask_to_create_cmder_config($json, $var) {
     else {
         # No config files exist, make and write to them
         create_config_files $json $var
-        $True
+        $true
     }
 }
