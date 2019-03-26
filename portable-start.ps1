@@ -24,7 +24,6 @@ print_info "willWriteConfig" $willWriteConfig
 
 # If no config exists or if want to overwrite config, create config
 if($willWriteConfig -eq $true) {
-    . ./Create-Config-Write.ps1
     cmder_config_write $json $vars
 }
 
