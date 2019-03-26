@@ -7,12 +7,12 @@ print_title "Load helper functions"
 
 # Load variables
 print_title "Create variables"
-$variables = New-Object -TypeName psobject
-Set-Variable -Name "variables" -Value $variables -Scope Private
+$vars = New-Object -TypeName psobject
+Set-Variable -Name "variables" -Value $vars -Scope Private
 
 . ./Create-Necessary-Variables.ps1
-create_folder_variables $json $variables
-create_file_variables $json $variables
+create_folder_variables $json $vars
+create_file_variables $json $vars
 
 
 # Creates Cmder config files
@@ -20,13 +20,13 @@ create_file_variables $json $variables
 # If file exists, prompt to overwrite
 print_title "Create Cmder config files"
 . ./Cmder-Config-Create.ps1
-$willWriteConfig = cmder_config_ask_create $json $variables
+$willWriteConfig = cmder_config_ask_create $json $vars
 print_info "willWriteConfig" $willWriteConfig
 
 # If no config exists or if want to overwrite config, create config
 if($willWriteConfig -eq $true) {
     . ./Create-Config-Write.ps1
-    cmder_config_write $json $variables
+    cmder_config_write $json $vars
 }
 
 # End
