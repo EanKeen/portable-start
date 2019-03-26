@@ -45,7 +45,7 @@ function ask_to_create_cmder_config($json, $var) {
         print_warning "You alrady have Cmder config files. Overwrite them?"
 
         $key = $Host.UI.RawUI.ReadKey()
-        Write-Host "`n`n"
+        Write-Host "`r`n"
         if ($key.Character -eq 'y') {
             # Yes, overwrite existing config files
             create_config_files $json $var
