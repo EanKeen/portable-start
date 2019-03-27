@@ -137,7 +137,7 @@
         },
         {
           "win64": {
-            "url": "https://miktex.org/download/ctan/systems/win32/miktex/setup/windows-x64/miktexsetup-%%VERSION%%-x64.zip"
+            "url": "https://miktex.org/download/ctan/systems/win32/miktex/setup/windows-x64/miktexsetup-2.9.6942-x64.zip"
           }
         }
       ]

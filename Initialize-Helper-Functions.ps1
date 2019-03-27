@@ -44,7 +44,7 @@ function write_comment_to_config($var, $file, $content) {
     elseif($file -eq $var.cmdConfig) {
         write_to_config $var $var.cmdConfig ":: $content"
     }
-    print_info "comment" "Adding `"$($content.Substring(0, 10))...`" to `"$(config_file_readable $var $file)`""
+    print_info "comment" "Adding `"$($content.Substring(0, 15))...`" to `"$(config_file_readable $var $file)`""
 }
 
 function write_variable_to_config($var, $file, $variableName, $variableValue) {
@@ -63,7 +63,7 @@ function write_variable_to_config($var, $file, $variableName, $variableValue) {
     elseif($file -eq $var.cmdConfig) {
         write_to_config $var $file "set $variableName=$variableValue"
     }
-    print_info "variable" "Setting `"$variableName`" VARIABLE to `"$variableValue`" for `"$(config_file_readable $var $file)`""
+    print_info "variable" "Setting `"$variableName`" to `"$variableValue`" for `"$(config_file_readable $var $file)`""
 }
 
 function write_path_to_config($var, $file, $binName, $content) {
@@ -105,7 +105,7 @@ function write_alias_to_config($var, $file, $aliasName, $aliasValue) {
         # Write-Line-To-File "alias $alias=$aliasValue" $file
         # Write-Line-To-File "doskey $alias=$aliasValue" $file
     }
-    print_info "alias" "Setting `"$aliasName`" ALIAS to `"$aliasValue`" for `"$(config_file_readable $var $file)`""
+    print_info "alias" "Setting `"$aliasName`" to `"$aliasValue`" for `"$(config_file_readable $var $file)`""
 }
 
 function get_directory($dir) {

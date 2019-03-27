@@ -27,7 +27,7 @@ if($willWriteConfig -eq $true) {
 
 # Creates Cmder Binaries
 print_title "Create binaries"
-. ./Create-Binaries.ps1
+. ./Download-Binaries.ps1
 
 # End
 print_title "Press any key to exit"
