@@ -7,9 +7,7 @@ function write_config_comments($json, $var) {
 
     write_line_to_file $var $var.cmdConfig ":: $msg"
 
-    write_line_to_file $var $var.allConfig " "
-    
-    print_warning "gamma" $vars
+    write_line_to_file $var $var.allConfig ""
 }
 
 function write_config_paths($json, $var) {
@@ -46,8 +44,8 @@ function write_config_aliases($json, $var) {
 
 function cmder_config_write($json, $var) {
     write_config_comments $json $var
-    write_config_paths $json $var
     write_config_variables $json $var
+    write_config_paths $json $var
     write_config_aliases $json $var
 }
 
