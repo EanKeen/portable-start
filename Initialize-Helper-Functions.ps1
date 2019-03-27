@@ -62,7 +62,7 @@ function write_variable_line_to_file($var, $file, $variableName, $variableValue)
     elseif($file -eq $var.cmdConfig) {
         write_line_to_file $var $file "set $variableName=$variableValue"
     }
-    # print_info "var" "Setting `"$variableName`" VARIABLE to `"$variableValue`" for `"$file`""
+    print_info "line" "Setting `"$variableName`" VARIABLE to `"$variableValue`" for `"$file`""
 }
 
 function write_path_line_to_file($var, $file, $content) {

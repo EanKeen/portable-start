@@ -11,8 +11,12 @@ function write_config_variables($json, $var) {
         $variableValue = $_.Value
 
         write_variable_line_to_file $var $var.allConfig $variableName $variableValue
-        # Write-Output `r
     }
+    write_variable_line_to_file $var $var.allConfig "portableDir" $var.portableDir
+    write_variable_line_to_file $var $var.allConfig "binDir" $var.binDir
+    write_variable_line_to_file $var $var.allConfig "cmderConfigDir" $var.cmderConfigDir
+    write_variable_line_to_file $var $var.allConfig "JAVA_HOME" $(normalize_path $var.binDir $json.paths[9].name)
+    write_line_to_file $var $var.allConfig ""
 }
 
 function write_config_paths($json, $var) {
@@ -21,7 +25,6 @@ function write_config_paths($json, $var) {
         $absolutePathToBin = normalize_path $var.binDir $relativePathToBin
 
         write_path_line_to_file $var $var.allConfig $absolutePathToBin
-        # Write-Output `r
     }
 }
 
