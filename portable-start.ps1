@@ -1,5 +1,5 @@
-# Import necessary JSON
-$json = Get-Content portable-config.json | ConvertFrom-Json
+# Import JSON
+$json = Get-Content portable.config.json | ConvertFrom-Json
 
 # Load functions required by nearly all modules
 Write-Host "Load helper functions" -BackgroundColor White -ForegroundColor Black
