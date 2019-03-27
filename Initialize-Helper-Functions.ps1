@@ -65,11 +65,11 @@ function write_variable_to_config($var, $file, $variableName, $variableValue) {
     print_info "line" "Setting `"$variableName`" VARIABLE to `"$variableValue`" for `"$file`""
 }
 
-function write_path_to_config($var, $file, $content) {
+function write_path_to_config($var, $file, $binName, $content) {
     if($file -eq $var.allConfig) {
-        write_path_to_config $var $var.bashConfig $content
-        write_path_to_config $var $var.psConfig $content
-        write_path_to_config $var $var.cmdConfig $content
+        write_path_to_config $var $var.bashConfig $binName $content
+        write_path_to_config $var $var.psConfig $binName $content
+        write_path_to_config $var $var.cmdConfig $binName $content
         return
     }
     elseif($file -eq $var.bashConfig) {
@@ -81,7 +81,7 @@ function write_path_to_config($var, $file, $content) {
     elseif($file -eq $var.cmdConfig) {
         write_to_config $var $var.cmdConfig "set PATH=${content};%PATH%"
     }
-    print_info "path" "Adding `"$content`" to PATH for `"$file`""
+    print_info "path" "Adding `"$binName`" to PATH for `"$file`""
 }
 
 function write_alias_to_config($var, $file, $aliasName, $aliasValue) {

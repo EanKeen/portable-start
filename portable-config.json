@@ -14,46 +14,56 @@
   },
   "paths": [
     {
-      "name": "7zip-cli"
+      "path": "7zip-cli"
     },
     {
-      "name": "7zip-cli-a"
+      "path": "7zip-cli-a"
     },
     {
-      "name": "../vscode"
+      "name": "vscode",
+      "path": "../vscode"
     },
     {
-      "name": "cmake/bin"
+      "name": "cmake",
+      "path": "cmake/bin"
     },
     {
-      "name": "gcc-c++/bin"
+      "name": "gcc-c++",
+      "path": "gcc-c++/bin"
     },
     {
-      "name": "gcc-core/bin"
+      "name": "gcc-core",
+      "path": "gcc-core/bin"
     },
     {
-      "name": "gdb/bin"
+      "name": "gdb",
+      "path": "gdb/bin"
     },
     {
-      "name": "go/bin"
+      "name": "go",
+      "path": "go/bin"
     },
     {
-      "name": "gradle/bin"
+      "name": "gradle",
+      "path": "gradle/bin"
     },
     {
-      "name": "java/bin"
+      "name": "java",
+      "path": "java/bin"
     },
     {
-      "name": "make/bin"
+      "name": "make",
+      "path": "make/bin"
     },
     {
-      "name": "miktex/texmfs/install/miktex/bin"
+      "name": "miktex",
+      "path": "miktex/texmfs/install/miktex/bin"
     },
     {
-      "name": "node"
+      "path": "node"
     },
     {
-      "name": "python"
+      "path": "python"
     }
   ],
   "aliases": [

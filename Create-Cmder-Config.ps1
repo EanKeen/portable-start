@@ -21,10 +21,14 @@ function write_config_variables($var, $json) {
 
 function write_config_paths($var, $json) {
     $json.paths | ForEach-Object -Process {
-        $relativePathToBin = $_.Name
+        $nameOfBin = $_.Name
+        $relativePathToBin = $_.Path
         $absolutePathToBin = normalize_path $var.binDir $relativePathToBin
-
-        write_path_to_config $var $var.allConfig $absolutePathToBin
+        
+        if($nameOfBin -eq $null) {
+            $nameOfBin = $relativePathToBin
+        }
+        write_path_to_config $var $var.allConfig $nameOfBin $absolutePathToBin
     }
     write_to_config $var $var.allConfig ""
 }
