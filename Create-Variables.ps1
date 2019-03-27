@@ -1,4 +1,4 @@
-function create_folder_variables($json, $var) {
+function create_folder_variables($var, $json) {
   $binDir = get_directory($json.config.relativePathToBinary)
   $cmderConfigDir = get_directory($json.config.relativePathToCmderConfig)
   $portableDir = $(Split-Path $PSCommandPath)
@@ -12,7 +12,7 @@ function create_folder_variables($json, $var) {
   print_info "`$vars.portableDir" $var.portableDir
 }
 
-function create_config_file_variables($json, $var) {
+function create_config_file_variables($var, $json) {
   $bashConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.sh"
   $psConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.ps1"
   $cmdConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.cmd"

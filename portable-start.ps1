@@ -11,20 +11,20 @@ $variable = New-Object -TypeName psobject
 Set-Variable -Name "vars" -Value $variable -Scope Private
 
 . ./Create-Variables.ps1
-create_folder_variables $json $vars
-create_config_file_variables $json $vars
+create_folder_variables $vars $json
+create_config_file_variables $vars $json
 
 # Creates Cmder config files
 # cmder_config_exists auto creates files if they don't exist
 # If file exists, prompt to overwrite
 print_title "Create Cmder config files"
 . ./Create-Cmder-Config.ps1
-$willWriteConfig = ask_to_create_cmder_config $json $vars
+$willWriteConfig = ask_to_create_cmder_config $vars $json
 print_info "willWriteConfig" $willWriteConfig
 
 # If no config exists or if want to overwrite config, create config
 if($willWriteConfig -eq $true) {
-    cmder_config_write $json $vars
+    cmder_config_write $vars $json
 }
 
 # End
