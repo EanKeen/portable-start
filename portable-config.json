@@ -3,14 +3,15 @@
     "name": "Edwin Kofler",
     "relativePathToBinary": "../_binary",
     "relativePathToCmderConfig": "../cmder/config",
-    "relativePathToApplications": [
-      {
-        "name": "QuickLook",
-        "relativePathToName": "../quicklook/QuickLook",
-        "launchStatus": "prompt"
-      }
-    ]
+    "relativePathToApplications": "../"
   },
+  "applications": [
+    {
+      "name": "QuickLook",
+      "relativePathToName": "quicklook/QuickLook",
+      "launchStatus": "prompt"
+    }
+  ],
   "paths": [
     {
       "path": "7zip-cli"
@@ -65,12 +66,6 @@
       "path": "python"
     }
   ],
-  "aliases": [
-    {
-      "name": "gs",
-      "value": "git status"
-    }
-  ],
   "variables": [
     {
       "name": "six",
@@ -79,6 +74,12 @@
     {
       "name": "seven",
       "value": "7"
+    }
+  ],
+  "aliases": [
+    {
+      "name": "gs",
+      "value": "git status"
     }
   ]
 }

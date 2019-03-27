@@ -25,6 +25,10 @@ if($willWriteConfig -eq $true) {
     cmder_config_write $vars $json
 }
 
+# Creates Cmder Binaries
+print_title "Create binaries"
+. ./Create-Binaries.ps1
+
 # End
 print_title "Press any key to exit"
 $key = $Host.UI.RawUI.ReadKey()
