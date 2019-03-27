@@ -28,11 +28,11 @@ function write_line_to_file($var, $file, $content) {
     "$content" | Out-File -Encoding "ASCII" -Append -FilePath $file  
 }
 
-function write_comment_line_to_file($var, $file, $content) {
+function write_comment_to_config($var, $file, $content) {
     if($file -eq $var.allConfig) {
-        write_comment_line_to_file $var $var.bashConfig $content
-        write_comment_line_to_file $var $var.psConfig $content
-        write_comment_line_to_file $var $var.cmdConfig $content
+        write_comment_to_config $var $var.bashConfig $content
+        write_comment_to_config $var $var.psConfig $content
+        write_comment_to_config $var $var.cmdConfig $content
         return
     }
     elseif($file -eq $var.bashConfig) {
@@ -46,11 +46,11 @@ function write_comment_line_to_file($var, $file, $content) {
     }
 }
 
-function write_variable_line_to_file($var, $file, $variableName, $variableValue) {
+function write_variable_to_config($var, $file, $variableName, $variableValue) {
     if($file -eq $var.allConfig) {
-        write_variable_line_to_file $var $var.bashConfig $variableName $variableValue
-        write_variable_line_to_file $var $var.psConfig $variableName $variableValue
-        write_variable_line_to_file $var $var.cmdConfig $variableName $variableValue
+        write_variable_to_config $var $var.bashConfig $variableName $variableValue
+        write_variable_to_config $var $var.psConfig $variableName $variableValue
+        write_variable_to_config $var $var.cmdConfig $variableName $variableValue
         return
     }
     elseif($file -eq $var.bashConfig) {
@@ -65,11 +65,11 @@ function write_variable_line_to_file($var, $file, $variableName, $variableValue)
     print_info "line" "Setting `"$variableName`" VARIABLE to `"$variableValue`" for `"$file`""
 }
 
-function write_path_line_to_file($var, $file, $content) {
+function write_path_to_config($var, $file, $content) {
     if($file -eq $var.allConfig) {
-        write_path_line_to_file $var $var.bashConfig $content
-        write_path_line_to_file $var $var.psConfig $content
-        write_path_line_to_file $var $var.cmdConfig $content
+        write_path_to_config $var $var.bashConfig $content
+        write_path_to_config $var $var.psConfig $content
+        write_path_to_config $var $var.cmdConfig $content
         return
     }
     elseif($file -eq $var.bashConfig) {
@@ -84,11 +84,11 @@ function write_path_line_to_file($var, $file, $content) {
     print_info "path" "Adding `"$content`" to PATH for `"$file`""
 }
 
-function write_alias_line_to_file($var, $file, $aliasName, $aliasValue) {
+function write_alias_to_config($var, $file, $aliasName, $aliasValue) {
     if($file -eq $var.allConfig) {
-        write_alias_line_to_file $var $var.bashConfig $aliasName $aliasValue
-        write_alias_line_to_file $var $var.psConfig $aliasName $aliasValue
-        write_alias_line_to_file $var $var.cmdConfig $aliasName $aliasValue
+        write_alias_to_config $var $var.bashConfig $aliasName $aliasValue
+        write_alias_to_config $var $var.psConfig $aliasName $aliasValue
+        write_alias_to_config $var $var.cmdConfig $aliasName $aliasValue
         return
     }
     elseif($file -eq $var.bashConfig) {
