@@ -58,7 +58,7 @@
   ],
   "aliases": [
     {
-      "alias": "gs",
+      "name": "gs",
       "value": "git status"
     }
   ],

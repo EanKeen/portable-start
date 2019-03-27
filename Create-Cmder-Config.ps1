@@ -26,10 +26,17 @@ function write_config_paths($json, $var) {
 
         write_path_line_to_file $var $var.allConfig $absolutePathToBin
     }
+    write_line_to_file $var $var.allConfig ""
 }
 
 function write_config_aliases($json, $var) {
+    $json.aliases | ForEach-Object -Process {
+        $aliasName = $_.Name
+        $aliasValue = $_.Value
 
+        write_alias_line_to_file $var $var.allConfig $aliasName $aliasValue
+    }
+    write_line_to_file $var $var.allConfig ""
 }
 
 function cmder_config_write($json, $var) {

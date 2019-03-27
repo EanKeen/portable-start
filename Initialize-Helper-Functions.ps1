@@ -84,6 +84,28 @@ function write_path_line_to_file($var, $file, $content) {
     print_info "path" "Adding `"$content`" to PATH for `"$file`""
 }
 
+function write_alias_line_to_file($var, $file, $aliasName, $aliasValue) {
+    if($file -eq $var.allConfig) {
+        write_alias_line_to_file $var $var.bashConfig $aliasName $aliasValue
+        write_alias_line_to_file $var $var.psConfig $aliasName $aliasValue
+        write_alias_line_to_file $var $var.cmdConfig $aliasName $aliasValue
+        return
+    }
+    elseif($file -eq $var.bashConfig) {
+        write_line_to_file $var $file "alias $aliasName=`"$aliasValue`""
+    }
+    elseif($file -eq $var.psConfig) {
+        write_line_to_file $var $file "function fn-$aliasName { $aliasValue }"
+        write_line_to_file $var $file "Set-Alias -Name `"$aliasName`" -Value `"fn-$aliasName`""
+    }
+    elseif($file -eq $var.cmdConfig) {
+        # For now, aliases are not included for batch
+        # Append to pre-created user_aliases.cmd
+        # Write-Line-To-File "alias $alias=$aliasValue" $file
+        # Write-Line-To-File "doskey $alias=$aliasValue" $file
+    }
+    print_info "alias" "Setting `"$aliasName`" ALIAS to `"$aliasValue`" for `"$file`""
+}
 
 function get_directory($dir) {
     (Resolve-Path "$dir").Path
