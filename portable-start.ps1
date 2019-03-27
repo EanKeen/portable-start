@@ -15,8 +15,7 @@ create_folder_variables $vars $json
 create_config_file_variables $vars $json
 
 # Creates Cmder config files
-# cmder_config_exists auto creates files if they don't exist
-# If file exists, prompt to overwrite
+# cmder_config_exists creates files if they don't exist, else prompt to override
 print_title "Create Cmder config files"
 . ./Create-Cmder-Config.ps1
 $willWriteConfig = ask_to_create_cmder_config $vars $json

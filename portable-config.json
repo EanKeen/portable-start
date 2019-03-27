@@ -7,7 +7,7 @@
       {
         "name": "QuickLook",
         "relativePathToName": "../quicklook/QuickLook",
-        "launchStatus": "prmopt"
+        "launchStatus": "prompt"
       }
     ]
   },
