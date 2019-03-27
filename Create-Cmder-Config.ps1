@@ -6,7 +6,12 @@ function write_config_comments($json, $var) {
 }
 
 function write_config_variables($json, $var) {
-
+    $json.variables | ForEach-Object -Process {
+        $variableName = $_.Name
+        $variableValue = $_.Value
+        
+        write_variable_line_to_file $var $var.allConfig $variableName $variableValue
+    }
 }
 
 function write_config_paths($json, $var) {

@@ -33,6 +33,7 @@ function write_comment_line_to_file($var, $file, $content) {
         write_comment_line_to_file $var $var.bashConfig $content
         write_comment_line_to_file $var $var.psConfig $content
         write_comment_line_to_file $var $var.cmdConfig $content
+        return
     }
     elseif($file -eq $var.bashConfig) {
         write_line_to_file $var $var.bashConfig "# $content"
@@ -43,6 +44,25 @@ function write_comment_line_to_file($var, $file, $content) {
     elseif($file -eq $var.cmdConfig) {
         write_line_to_file $var $var.cmdConfig ":: $content"
     }
+}
+
+function write_variable_line_to_file($var, $file, $variableName, $variableValue) {
+    if($file -eq $var.allConfig) {
+        write_variable_line_to_file $var $var.bashConfig $variableName $variableValue
+        write_variable_line_to_file $var $var.psConfig $variableName $variableValue
+        write_variable_line_to_file $var $var.cmdConfig $variableName $variableValue
+        return
+    }
+    elseif($file -eq $var.bashConfig) {
+        write_line_to_file $var $file "$variableName=`"$variableValue`""
+    }
+    elseif($file -eq $var.psConfig) {
+        write_line_to_file $var $file "`$$variableName=`"$variableValue`""
+    }
+    elseif($file -eq $var.cmdConfig) {
+        write_line_to_file $var $file "set $variableName=$variableValue"
+    }
+    Write-Host "Setting `"$variableName`" VARIABLE to `"$variableValue`" for `"$file`"" 
 }
 
 function write_path_line_to_file($var, $file, $content) {
