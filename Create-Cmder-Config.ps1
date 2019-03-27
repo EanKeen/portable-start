@@ -11,23 +11,22 @@ function write_config_variables($json, $var) {
 
 function write_config_paths($json, $var) {
     $json.paths | ForEach-Object -Process {
-        # loop through each path declared in the json file
-        $binName = $_.Name
-        $absolutePathToBinary = normalize_path $var.binaryDir $binName
+        $relativePathToBin = $_.Name
+        $absolutePathToBin = normalize_path $var.binDir $relativePathToBin
 
-        write_path_line_to_file $var $var.bashConfig $absolutePathToBinary
-        write_path_line_to_file $var $var.psConfig $absolutePathToBinary
-        write_path_line_to_file $var $var.cmdConfig $absolutePathToBinary
+        write_path_line_to_file $var $var.bashConfig $absolutePathToBin
+        write_path_line_to_file $var $var.psConfig $absolutePathToBin
+        write_path_line_to_file $var $var.cmdConfig $absolutePathToBin
 
         if($json.config.verbose -eq $true) {
-            Write-Host "Adding `"$absolutePathToBinary`" to PATH for `"$($var.bashConfig)`""
-            Write-Host "Adding `"$absolutePathToBinary`" to PATH for `"$($var.psConfig)`""
-            Write-Host "Adding `"$absolutePathToBinary`" to PATH for `"$($var.cmdConfig)`""
+            Write-Host "Adding `"$absolutePathToBin`" to PATH for `"$($var.bashConfig)`""
+            Write-Host "Adding `"$absolutePathToBin`" to PATH for `"$($var.psConfig)`""
+            Write-Host "Adding `"$absolutePathToBin`" to PATH for `"$($var.cmdConfig)`""
         }
         else {
-            Write-Host "Adding `"$binName`" to PATH for `"$($var.bashConfig)`""
-            Write-Host "Adding `"$binName`" to PATH for `"$($var.psConfig)`""
-            Write-Host "Adding `"$binName`" to PATH for `"$($var.cmdConfig)`""
+            Write-Host "Adding `"$relativePathToBin`" to PATH for `"$($var.bashConfig)`""
+            Write-Host "Adding `"$relativePathToBin`" to PATH for `"$($var.psConfig)`""
+            Write-Host "Adding `"$relativePathToBin`" to PATH for `"$($var.cmdConfig)`""
         }
         Write-Host "`r`n"
     }
