@@ -44,9 +44,13 @@ function write_config_aliases($var, $json) {
 }
 
 function cmder_config_write($var, $json) {
+    print_title "Add comments"
     write_config_comments $var $json
+    print_title "Add variables"
     write_config_variables $var $json
+    print_title "Add paths"
     write_config_paths $var $json
+    print_title "Add aliases"
     write_config_aliases $var $json
 }
 

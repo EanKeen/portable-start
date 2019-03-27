@@ -2,8 +2,8 @@
 $json = Get-Content portable-config.json | ConvertFrom-Json
 
 # Load functions required by nearly all modules
+Write-Host "Load helper functions" -BackgroundColor White -ForegroundColor Black
 . ./Initialize-Helper-Functions.ps1
-print_title "Load helper functions"
 
 # Load variables
 print_title "Create variables"
@@ -20,7 +20,6 @@ create_config_file_variables $vars $json
 print_title "Create Cmder config files"
 . ./Create-Cmder-Config.ps1
 $willWriteConfig = ask_to_create_cmder_config $vars $json
-print_info "willWriteConfig" $willWriteConfig
 
 # If no config exists or if want to overwrite config, create config
 if($willWriteConfig -eq $true) {
