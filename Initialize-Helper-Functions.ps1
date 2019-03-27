@@ -17,11 +17,11 @@ function print_error($highlighted, $plain) {
     Write-Host " $plain"
 }
 
-function write_line_to_file($var, $file, $content) {
+function write_to_config($var, $file, $content) {
     if($file -eq $var.allConfig) {
-        write_line_to_file $var $var.bashConfig $content
-        write_line_to_file $var $var.psConfig $content
-        write_line_to_file $var $var.cmdConfig $content
+        write_to_config $var $var.bashConfig $content
+        write_to_config $var $var.psConfig $content
+        write_to_config $var $var.cmdConfig $content
         return
     }
     # Add-Content -Path $file -Value $content -Encoding "ASCII"
@@ -36,13 +36,13 @@ function write_comment_to_config($var, $file, $content) {
         return
     }
     elseif($file -eq $var.bashConfig) {
-        write_line_to_file $var $var.bashConfig "# $content"
+        write_to_config $var $var.bashConfig "# $content"
     }
     elseif($file -eq $var.psConfig) {
-        write_line_to_file $var $var.psConfig "# $content"
+        write_to_config $var $var.psConfig "# $content"
     }
     elseif($file -eq $var.cmdConfig) {
-        write_line_to_file $var $var.cmdConfig ":: $content"
+        write_to_config $var $var.cmdConfig ":: $content"
     }
 }
 
@@ -54,13 +54,13 @@ function write_variable_to_config($var, $file, $variableName, $variableValue) {
         return
     }
     elseif($file -eq $var.bashConfig) {
-        write_line_to_file $var $file "$variableName=`"$variableValue`""
+        write_to_config $var $file "$variableName=`"$variableValue`""
     }
     elseif($file -eq $var.psConfig) {
-        write_line_to_file $var $file "`$$variableName=`"$variableValue`""
+        write_to_config $var $file "`$$variableName=`"$variableValue`""
     }
     elseif($file -eq $var.cmdConfig) {
-        write_line_to_file $var $file "set $variableName=$variableValue"
+        write_to_config $var $file "set $variableName=$variableValue"
     }
     print_info "line" "Setting `"$variableName`" VARIABLE to `"$variableValue`" for `"$file`""
 }
@@ -73,13 +73,13 @@ function write_path_to_config($var, $file, $content) {
         return
     }
     elseif($file -eq $var.bashConfig) {
-        write_line_to_file $vars $var.bashConfig "export PATH=\$((Convert-Path $content)):`$PATH".Replace(":\", "\").Replace("\", "/")
+        write_to_config $vars $var.bashConfig "export PATH=\$((Convert-Path $content)):`$PATH".Replace(":\", "\").Replace("\", "/")
     }
     elseif($file -eq $var.psConfig) {
-        write_line_to_file $vars $var.psConfig "`$env:Path = `"${content};`" + `$env:Path"
+        write_to_config $vars $var.psConfig "`$env:Path = `"${content};`" + `$env:Path"
     }
     elseif($file -eq $var.cmdConfig) {
-        write_line_to_file $var $var.cmdConfig "set PATH=${content};%PATH%"
+        write_to_config $var $var.cmdConfig "set PATH=${content};%PATH%"
     }
     print_info "path" "Adding `"$content`" to PATH for `"$file`""
 }
@@ -92,11 +92,11 @@ function write_alias_to_config($var, $file, $aliasName, $aliasValue) {
         return
     }
     elseif($file -eq $var.bashConfig) {
-        write_line_to_file $var $file "alias $aliasName=`"$aliasValue`""
+        write_to_config $var $file "alias $aliasName=`"$aliasValue`""
     }
     elseif($file -eq $var.psConfig) {
-        write_line_to_file $var $file "function fn-$aliasName { $aliasValue }"
-        write_line_to_file $var $file "Set-Alias -Name `"$aliasName`" -Value `"fn-$aliasName`""
+        write_to_config $var $file "function fn-$aliasName { $aliasValue }"
+        write_to_config $var $file "Set-Alias -Name `"$aliasName`" -Value `"fn-$aliasName`""
     }
     elseif($file -eq $var.cmdConfig) {
         # For now, aliases are not included for batch
