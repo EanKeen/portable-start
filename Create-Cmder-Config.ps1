@@ -9,8 +9,9 @@ function write_config_variables($json, $var) {
     $json.variables | ForEach-Object -Process {
         $variableName = $_.Name
         $variableValue = $_.Value
-        
+
         write_variable_line_to_file $var $var.allConfig $variableName $variableValue
+        Write-Host "`r`n"
     }
 }
 
@@ -19,20 +20,7 @@ function write_config_paths($json, $var) {
         $relativePathToBin = $_.Name
         $absolutePathToBin = normalize_path $var.binDir $relativePathToBin
 
-        write_path_line_to_file $var $var.bashConfig $absolutePathToBin
-        write_path_line_to_file $var $var.psConfig $absolutePathToBin
-        write_path_line_to_file $var $var.cmdConfig $absolutePathToBin
-
-        if($json.config.verbose -eq $true) {
-            Write-Host "Adding `"$absolutePathToBin`" to PATH for `"$($var.bashConfig)`""
-            Write-Host "Adding `"$absolutePathToBin`" to PATH for `"$($var.psConfig)`""
-            Write-Host "Adding `"$absolutePathToBin`" to PATH for `"$($var.cmdConfig)`""
-        }
-        else {
-            Write-Host "Adding `"$relativePathToBin`" to PATH for `"$($var.bashConfig)`""
-            Write-Host "Adding `"$relativePathToBin`" to PATH for `"$($var.psConfig)`""
-            Write-Host "Adding `"$relativePathToBin`" to PATH for `"$($var.cmdConfig)`""
-        }
+        write_path_line_to_file $var $var.allConfig $absolutePathToBin
         Write-Host "`r`n"
     }
 }

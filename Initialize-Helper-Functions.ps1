@@ -81,6 +81,8 @@ function write_path_line_to_file($var, $file, $content) {
     elseif($file -eq $var.cmdConfig) {
         write_line_to_file $var $var.cmdConfig "set PATH=${content};%PATH%"
     }
+    Write-Host "Adding `"$content`" to PATH for `"$file`""
+    Write-Host "`r`n"
 }
 
 
