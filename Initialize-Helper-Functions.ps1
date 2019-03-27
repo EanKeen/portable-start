@@ -1,6 +1,5 @@
 function print_title($highlighted) {
-    Write-Host
-    Write-Host $highlighted -BackgroundColor White -ForegroundColor Black
+    Write-Host "`r`n$highlighted" -BackgroundColor White -ForegroundColor Black
 }
 
 function print_info($highlighted, $plain) {
@@ -25,6 +24,7 @@ function write_line_to_file($var, $file, $content) {
         write_line_to_file $var $var.cmdConfig $content
         return
     }
+    # Add-Content -Path $file -Value $content -Encoding "ASCII"
     "$content" | Out-File -Encoding "ASCII" -Append -FilePath $file  
 }
 
@@ -62,7 +62,7 @@ function write_variable_line_to_file($var, $file, $variableName, $variableValue)
     elseif($file -eq $var.cmdConfig) {
         write_line_to_file $var $file "set $variableName=$variableValue"
     }
-    Write-Host "Setting `"$variableName`" VARIABLE to `"$variableValue`" for `"$file`"" 
+    # print_info "var" "Setting `"$variableName`" VARIABLE to `"$variableValue`" for `"$file`""
 }
 
 function write_path_line_to_file($var, $file, $content) {
@@ -81,8 +81,7 @@ function write_path_line_to_file($var, $file, $content) {
     elseif($file -eq $var.cmdConfig) {
         write_line_to_file $var $var.cmdConfig "set PATH=${content};%PATH%"
     }
-    Write-Host "Adding `"$content`" to PATH for `"$file`""
-    Write-Host "`r`n"
+    print_info "path" "Adding `"$content`" to PATH for `"$file`""
 }
 
 

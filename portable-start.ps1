@@ -30,5 +30,5 @@ if($willWriteConfig -eq $true) {
 # End
 print_title "Press any key to exit"
 $key = $Host.UI.RawUI.ReadKey()
-Write-Host "`r`n"
+Write-Host `r`n
 exit

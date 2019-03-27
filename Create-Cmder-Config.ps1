@@ -11,7 +11,7 @@ function write_config_variables($json, $var) {
         $variableValue = $_.Value
 
         write_variable_line_to_file $var $var.allConfig $variableName $variableValue
-        Write-Host "`r`n"
+        # Write-Output `r
     }
 }
 
@@ -21,7 +21,7 @@ function write_config_paths($json, $var) {
         $absolutePathToBin = normalize_path $var.binDir $relativePathToBin
 
         write_path_line_to_file $var $var.allConfig $absolutePathToBin
-        Write-Host "`r`n"
+        # Write-Output `r
     }
 }
 
