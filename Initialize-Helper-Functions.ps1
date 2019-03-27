@@ -28,8 +28,24 @@ function write_line_to_file($var, $file, $content) {
     "$content" | Out-File -Encoding "ASCII" -Append -FilePath $file  
 }
 
+function write_comment_line_to_file($var, $file, $content) {
+    if($file -eq $var.allConfig) {
+        write_comment_line_to_file $var $var.bashConfig $content
+        write_comment_line_to_file $var $var.psConfig $content
+        write_comment_line_to_file $var $var.cmdConfig $content
+    }
+    elseif($file -eq $var.bashConfig) {
+        write_line_to_file $var $var.bashConfig "# $content"
+    }
+    elseif($file -eq $var.psConfig) {
+        write_line_to_file $var $var.psConfig "# $content"
+    }
+    elseif($file -eq $var.cmdConfig) {
+        write_line_to_file $var $var.cmdConfig ":: $content"
+    }
+}
+
 function write_path_line_to_file($var, $file, $content) {
-    # print_warning "test" $content
     if($file -eq $var.allConfig) {
         write_path_line_to_file $var $var.bashConfig $content
         write_path_line_to_file $var $var.psConfig $content
