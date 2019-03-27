@@ -62,7 +62,7 @@ function write_variable_to_config($var, $file, $variableName, $variableValue) {
     elseif($file -eq $var.cmdConfig) {
         write_to_config $var $file "set $variableName=$variableValue"
     }
-    print_info "line" "Setting `"$variableName`" VARIABLE to `"$variableValue`" for `"$file`""
+    print_info "line" "Setting `"$variableName`" VARIABLE to `"$variableValue`" for `"$(config_file_readable $var $file)`""
 }
 
 function write_path_to_config($var, $file, $binName, $content) {
@@ -81,7 +81,7 @@ function write_path_to_config($var, $file, $binName, $content) {
     elseif($file -eq $var.cmdConfig) {
         write_to_config $var $var.cmdConfig "set PATH=${content};%PATH%"
     }
-    print_info "path" "Adding `"$binName`" to PATH for `"$file`""
+    print_info "path" "Adding `"$binName`" to PATH for `"$(config_file_readable $var $file)`""
 }
 
 function write_alias_to_config($var, $file, $aliasName, $aliasValue) {
@@ -104,11 +104,24 @@ function write_alias_to_config($var, $file, $aliasName, $aliasValue) {
         # Write-Line-To-File "alias $alias=$aliasValue" $file
         # Write-Line-To-File "doskey $alias=$aliasValue" $file
     }
-    print_info "alias" "Setting `"$aliasName`" ALIAS to `"$aliasValue`" for `"$file`""
+    print_info "alias" "Setting `"$aliasName`" ALIAS to `"$aliasValue`" for `"$(config_file_readable $var $file)`""
 }
 
 function get_directory($dir) {
     (Resolve-Path "$dir").Path
+    return
+}
+
+function config_file_readable($var, $configFile) {
+    if($configFile -eq $var.bashConfig) {
+        "user_profile.sh"
+    }
+    elseif($configFile -eq $var.psConfig) {
+        "user_profile.ps1"
+    }
+    elseif($configFile -eq $var.cmdConfig) {
+        "user_profile.cmd"
+    }
     return
 }
 
