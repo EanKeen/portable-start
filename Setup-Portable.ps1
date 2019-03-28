@@ -7,7 +7,8 @@ function check_paths_in_config_exist($var, $json) {
       print_info $relPath.Name "`"$((Resolve-Path -Path $relPath.Value).Path)`" exists"
     }
     else {
-      print_error $relPath.Name "Reference to `"$($relPath.Value)`" does not exist. Exiting script."
+      print_error $relPath.Name "Reference to `"$($relPath.Value)`" does not exist"
+      exit_program
     }
   }
 }

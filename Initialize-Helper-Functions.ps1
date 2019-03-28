@@ -25,6 +25,12 @@ function normalize_path($absPath, $relPath) {
   return
 }
 
+function exit_program() {
+  print_title "Exiting program. Press any key to exit"
+  $key = $Host.UI.RawUI.ReadKey()
+  exit
+}
+
 ## Writes to a particular Cmder config
 function write_to_config($var, $configFile, $content) {
   if($configFile -eq $var.allConfig) {

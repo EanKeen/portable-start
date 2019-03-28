@@ -36,8 +36,4 @@ print_title "Launch applications"
 . ./Launch-Applications
 prompt_to_launch_apps $vars $json
 
-# End
-print_title "Press any key to exit"
-$key = $Host.UI.RawUI.ReadKey()
-Write-Host `r`n
-exit
+exit_program

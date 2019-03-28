@@ -14,8 +14,7 @@
   "path": "../_bin",
   "exclude": "glob",
   "include": ["glob1", "glob2"]
-} -
-- wrap ending part into new function
+}
 ```
 
 ## Schema for portable.config.json
