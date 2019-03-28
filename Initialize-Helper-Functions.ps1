@@ -19,19 +19,6 @@ function print_error($highlighted, $plain) {
 }
 
 ## Other helper functions
-function config_file_readable($var, $configFile) {
-    if($configFile -eq $var.bashConfig) {
-        "user_profile.sh"
-    }
-    elseif($configFile -eq $var.psConfig) {
-        "user_profile.ps1"
-    }
-    elseif($configFile -eq $var.cmdConfig) {
-        "user_profile.cmd"
-    }
-    return
-}
-
 # Combines relative path relative to absolute path
 function normalize_path($absPath, $relPath) {
     [IO.Path]::GetFullPath((Join-Path $absPath $relPath))
@@ -67,7 +54,7 @@ function write_comment_to_config($var, $file, $content) {
     elseif($file -eq $var.cmdConfig) {
         write_to_config $var $var.cmdConfig ":: $content"
     }
-    print_info "comment" "Adding `"$($content.Substring(0, 15))...`" to `"$(config_file_readable $var $file)`""
+    print_info "comment" "Adding `"$($content.Substring(0, 15))...`" to `"$(Split-Path $file -Leaf)`""
 }
 
 function write_variable_to_config($var, $file, $variableName, $variableValue) {
@@ -86,7 +73,7 @@ function write_variable_to_config($var, $file, $variableName, $variableValue) {
     elseif($file -eq $var.cmdConfig) {
         write_to_config $var $file "set $variableName=$variableValue"
     }
-    print_info "variable" "Setting `"$variableName`" to `"$variableValue`" for `"$(config_file_readable $var $file)`""
+    print_info "variable" "Setting `"$variableName`" to `"$variableValue`" for `"$(Split-path $file -Leaf)`""
 }
 
 function write_path_to_config($var, $file, $binName, $content) {
@@ -105,7 +92,7 @@ function write_path_to_config($var, $file, $binName, $content) {
     elseif($file -eq $var.cmdConfig) {
         write_to_config $var $var.cmdConfig "set PATH=${content};%PATH%"
     }
-    print_info "path" "Adding `"$binName`" to PATH for `"$(config_file_readable $var $file)`""
+    print_info "path" "Adding `"$binName`" to PATH for `"$(Split-Path $file -Leaf)`""
 }
 
 function write_alias_to_config($var, $file, $aliasName, $aliasValue) {
@@ -128,5 +115,5 @@ function write_alias_to_config($var, $file, $aliasName, $aliasValue) {
         # Write-Line-To-File "alias $alias=$aliasValue" $file
         # Write-Line-To-File "doskey $alias=$aliasValue" $file
     }
-    print_info "alias" "Setting `"$aliasName`" to `"$aliasValue`" for `"$(config_file_readable $var $file)`""
+    print_info "alias" "Setting `"$aliasName`" to `"$aliasValue`" for `"$(Split-Path $file -Path)`""
 }
