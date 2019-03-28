@@ -15,16 +15,14 @@ function write_config_variables($var, $json) {
   write_to_config $var $var.allConfig ""
 }
 
-function write_config_paths($var, $json) {
-  foreach($path in $json.paths) {
-    $nameOfBin = $path.name
-    $relativePathToBin = $path.path
-    $absolutePathToBin = normalize_path $var.binDir $relativePathToBin
+function write_config_bins($var, $json) {
+  foreach($binary in $json.binaries) {
+    $absolutePathToBin = normalize_path $var.binDir $binary.path
     
-    if($nameOfBin -eq $null) {
-      $nameOfBin = $relativePathToBin
+    if($binary.name -eq $null) {
+      Add-Member -InputObject $binary -MemberType NoteProperty -Name "name" -Value $binary.path
     }
-    write_path_to_config $var $var.allConfig $nameOfBin $absolutePathToBin
+    write_path_to_config $var $var.allConfig $binary.name $absolutePathToBin
   }
   write_to_config $var $var.allConfig ""
 }
@@ -42,7 +40,7 @@ function cmder_config_write($var, $json) {
   print_title "Add variables"
   write_config_variables $var $json
   print_title "Add paths"
-  write_config_paths $var $json
+  write_config_bins $var $json
   print_title "Add aliases"
   write_config_aliases $var $json
 }

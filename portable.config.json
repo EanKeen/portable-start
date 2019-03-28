@@ -27,7 +27,7 @@
       "launch": "auto"
     }
   ],
-  "paths": [
+  "binaries": [
     {
       "path": "7zip-cli"
     },
