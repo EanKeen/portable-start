@@ -4,10 +4,10 @@ function create_folder_variables($var, $json) {
   $absolutePathToAppDir = (Resolve-Path -Path $json.config.relativePathToApplications).Path
   $absolutePathToPortableDir = $(Split-Path $PSCommandPath)
 
-  $var | Add-Member -MemberType NoteProperty -Name binDir -Value $absolutePathToBinDir
-  $var | Add-Member -MemberType NoteProperty -Name cmderConfigDir -Value $absolutePathToCmderConfigDir
-  $var | Add-Member -MemberType NoteProperty -Name appDir -Value $absolutePathToAppDir
-  $var | Add-Member -MemberType NoteProperty -Name portableDir -Value $absolutePathToPortableDir
+  Add-Member -InputObject $var -MemberType NoteProperty -Name binDir -Value $absolutePathToBinDir
+  Add-Member -InputObject $var -MemberType NoteProperty -Name cmderConfigDir -Value $absolutePathToCmderConfigDir
+  Add-Member -InputObject $var -MemberType NoteProperty -Name appDir -Value $absolutePathToAppDir
+  Add-Member -InputObject $var -MemberType NoteProperty -Name portableDir -Value $absolutePathToPortableDir
   
   print_info "`$vars.binDir" $var.binDir
   print_info "`$vars.cmderConfigDir" $var.cmderConfigDir
@@ -21,10 +21,10 @@ function create_config_file_variables($var, $json) {
   $cmdConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.cmd"
   $allConfig = "allConfigFiles"
 
-  $var | Add-Member -MemberType NoteProperty -Name bashConfig -Value $bashConfig
-  $var | Add-Member -MemberType NoteProperty -Name psConfig -Value $psConfig
-  $var | Add-Member -MemberType NoteProperty -Name cmdConfig -Value $cmdConfig
-  $var | Add-Member -MemberType NoteProperty -Name allConfig -value $allConfig
+  Add-Member -InputObject $var -MemberType NoteProperty -Name bashConfig -Value $bashConfig
+  Add-Member -InputObject $var -MemberType NoteProperty -Name psConfig -Value $psConfig
+  Add-Member -InputObject $var -MemberType NoteProperty -Name cmdConfig -Value $cmdConfig
+  Add-Member -InputObject $var -MemberType NoteProperty -Name allConfig -value $allConfig
   
   print_info "`$vars.bashConfig" $bashConfig
   print_info "`$vars.psConfig" $psConfig

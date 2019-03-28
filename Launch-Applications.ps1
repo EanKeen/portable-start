@@ -1,6 +1,8 @@
 function launch_app($app, $absolutePathToApp) {
   print_info "application" "launching $($app.name)"
-  Start-Process -FilePath $absolutePathToApp | Out-Null
+  &$absolutePathToApp
+  # Start-Process -FilePath $absolutePathToApp
+  # Start-Process -FilePath $absolutePathToApp -RedirectStandardOutput "./stdout.txt" -RedirectStandardError "./stderr.txt" -WindowStyle Minimized
 }
 
 function prompt_to_launch_app($app, $appExeName, $absolutePathToApp) {

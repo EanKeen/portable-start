@@ -1,5 +1,11 @@
 # portable-workstation
 
+## RoadMap
+
+- Automatically create shortcuts
+- Download binaries and unpackage them automatically
+- Automatically look for applications and stuff under path - add them automatically
+
 ## Schema for portable.config.json
 
 will have actual good documentation later
@@ -24,7 +30,7 @@ will have actual good documentation later
     ],
     "paths": [
       {
-        "name": "cmake", // optional. Just for better loggin in output
+        "name": "cmake", // optional. Just for better logging in output
         "path": "cmake/bin"
       }
     ],
