@@ -1,13 +1,13 @@
 function create_folder_variables($var, $json) {
-  $binDir = get_directory($json.config.relativePathToBinary)
-  $cmderConfigDir = get_directory($json.config.relativePathToCmderConfig)
-  $appDir = get_directory($json.config.relativePathToApplications)
-  $portableDir = $(Split-Path $PSCommandPath)
+  $absolutePathToBinDir = get_directory($json.config.relativePathToBinary)
+  $absolutePathToCmderConfigDir = get_directory($json.config.relativePathToCmderConfig)
+  $absolutePathToAppDir = get_directory($json.config.relativePathToApplications)
+  $absolutePathToPortableDir = $(Split-Path $PSCommandPath)
 
-  $var | Add-Member -MemberType NoteProperty -Name binDir -Value $binDir
-  $var | Add-Member -MemberType NoteProperty -Name cmderConfigDir -Value $cmderConfigDir
-  $var | Add-Member -MemberType NoteProperty -Name portableDir -Value $portableDir
-  $var | Add-Member -MemberType NoteProperty -Name appDir -Value $appDir
+  $var | Add-Member -MemberType NoteProperty -Name binDir -Value $absolutePathToBinDir
+  $var | Add-Member -MemberType NoteProperty -Name cmderConfigDir -Value $absolutePathToCmderConfigDir
+  $var | Add-Member -MemberType NoteProperty -Name appDir -Value $absolutePathToAppDir
+  $var | Add-Member -MemberType NoteProperty -Name portableDir -Value $absolutePathToPortableDir
   
   print_info "`$vars.binDir" $var.binDir
   print_info "`$vars.cmderConfigDir" $var.cmderConfigDir
