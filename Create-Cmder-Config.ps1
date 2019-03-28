@@ -4,7 +4,6 @@ function write_config_comments($var, $json) {
   write_comment_to_config $var $var.allConfig $msg
   write_to_config $var $var.allConfig ""
 }
-
 function write_config_variables($var, $json) {
   foreach($variable in $json.variables) {
     write_variable_to_config $var $var.allConfig $variable.name $variable.value
@@ -14,7 +13,6 @@ function write_config_variables($var, $json) {
   write_variable_to_config $var $var.allConfig "cmderConfigDir" $var.cmderConfigDir
   write_to_config $var $var.allConfig ""
 }
-
 function write_config_bins($var, $json) {
   foreach($binary in $json.binaries) {
     $absolutePathToBin = normalize_path $var.binDir $binary.path
@@ -63,7 +61,6 @@ function create_config_files($json, $var) {
   New-Item $var.psConfig | Out-Null
   New-Item $var.cmdConfig | Out-Null
 }
- 
 function ask_to_create_cmder_config($var, $json) {
   if ((Test-Path -Path $var.cmdConfig) -or
   (Test-Path -Path $var.psConfig) -or

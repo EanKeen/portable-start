@@ -1,12 +1,18 @@
 # Check to be sure all paths user is entering is correct
 function check_paths_in_config_exist($var, $json) {
-    # foreach($relPath in $json.relPathsTo) {
-
-    # }
-  Test-Path $json.relPathsTo.binary
+  # For each relative path check if it's valid)
+  foreach($relPath in $json.relPathsTo.PsObject.Properties) {
+    $baseRelpathExists = Test-Path -Path $relPath.Value
+    if($baseRelPathExists) {
+      print_info $relPath.Name "`"$((Resolve-Path -Path $relPath.Value).Path)`" exists"
+    }
+    else {
+      print_error $relPath.Name "Reference to `"$($relPath.Value)`" does not exist. Exiting script."
+    }
+  }
 }
 function create_folder_variables($var, $json) {
-  $absolutePathToBinDir = (Resolve-Path -Path $json.relPathsTo.binary).Path
+  $absolutePathToBinDir = (Resolve-Path -Path $json.relPathsTo.binaries).Path
   $absolutePathToCmderConfigDir = (Resolve-Path -Path $json.relPathsTo.cmderConfig).Path
   $absolutePathToAppDir = (Resolve-Path -Path $json.relPathsTo.applications).Path
   $absolutePathToPortableDir = $(Split-Path $PSCommandPath)

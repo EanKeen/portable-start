@@ -1,9 +1,10 @@
 {
   "name": "Edwin Kofler",
   "relPathsTo": {
-    "binary": "../_bin",
+    "binaries": "../_bin",
     "cmderConfig": "../cmder/config",
-    "applications": "../"
+    "applications": "../",
+    "foo": "./bar"
   },
   "applications": [
     {

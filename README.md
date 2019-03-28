@@ -8,13 +8,16 @@
 - create cli to launch apps from and do more stuff
 - create hooks for people that want to extend some parts
 - modify scheme such that the following can be used
+
 ```json
 "binary": {
   "path": "../_bin",
   "exclude": "glob",
   "include": ["glob1", "glob2"]
-}
-``` 
+} -
+- wrap ending part into new function
+```
+
 ## Schema for portable.config.json
 
 will have actual good documentation later
