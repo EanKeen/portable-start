@@ -6,11 +6,13 @@ Write-Host "Load helper functions" -BackgroundColor White -ForegroundColor Black
 . ./Initialize-Helper-Functions.ps1
 
 # Load variables
-print_title "Create variables"
 $variable = New-Object -TypeName psobject
 Set-Variable -Name "vars" -Value $variable -Scope Private
 
-. ./Create-Variables.ps1
+. ./Setup-Portable.ps1
+print_title "Check file paths exist"
+check_paths_in_config_exist $vars $json
+print_title "Create variabels"
 create_folder_variables $vars $json
 create_config_file_variables $vars $json
 

@@ -1,3 +1,7 @@
+# Check to be sure all paths user is entering is correct
+function check_paths_in_config_exist($var, $json) {
+  Test-Path $json.config.relativePathToBinary
+}
 function create_folder_variables($var, $json) {
   $absolutePathToBinDir = (Resolve-Path -Path $json.config.relativePathToBinary).Path
   $absolutePathToCmderConfigDir = (Resolve-Path -Path $json.config.relativePathToCmderConfig).Path
