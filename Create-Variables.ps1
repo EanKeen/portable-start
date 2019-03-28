@@ -1,7 +1,7 @@
 function create_folder_variables($var, $json) {
-  $absolutePathToBinDir = get_directory($json.config.relativePathToBinary)
-  $absolutePathToCmderConfigDir = get_directory($json.config.relativePathToCmderConfig)
-  $absolutePathToAppDir = get_directory($json.config.relativePathToApplications)
+  $absolutePathToBinDir = (Resolve-Path -Path $json.config.relativePathToBinary).Path
+  $absolutePathToCmderConfigDir = (Resolve-Path -Path $json.config.relativePathToCmderConfig).Path
+  $absolutePathToAppDir = (Resolve-Path -Path $json.config.relativePathToApplications).Path
   $absolutePathToPortableDir = $(Split-Path $PSCommandPath)
 
   $var | Add-Member -MemberType NoteProperty -Name binDir -Value $absolutePathToBinDir

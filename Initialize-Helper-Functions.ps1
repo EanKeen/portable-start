@@ -19,11 +19,6 @@ function print_error($highlighted, $plain) {
 }
 
 ## Other helper functions
-function get_directory($dir) {
-    (Resolve-Path "$dir").Path
-    return
-}
-
 function config_file_readable($var, $configFile) {
     if($configFile -eq $var.bashConfig) {
         "user_profile.sh"
