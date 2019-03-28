@@ -29,6 +29,11 @@ if($willWriteConfig -eq $true) {
 print_title "Create binaries"
 . ./Download-Binaries.ps1
 
+# Launch Applications
+print_title "Launching applications"
+. ./Launch-Applications
+prompt_to_launch_apps $vars $json
+
 # End
 print_title "Press any key to exit"
 $key = $Host.UI.RawUI.ReadKey()

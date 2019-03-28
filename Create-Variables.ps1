@@ -1,15 +1,18 @@
 function create_folder_variables($var, $json) {
   $binDir = get_directory($json.config.relativePathToBinary)
   $cmderConfigDir = get_directory($json.config.relativePathToCmderConfig)
+  $appDir = get_directory($json.config.relativePathToApplications)
   $portableDir = $(Split-Path $PSCommandPath)
 
   $var | Add-Member -MemberType NoteProperty -Name binDir -Value $binDir
   $var | Add-Member -MemberType NoteProperty -Name cmderConfigDir -Value $cmderConfigDir
-  $var | Add-Member -MemberTYpe NoteProperty -Name portableDir -Value $portableDir
+  $var | Add-Member -MemberType NoteProperty -Name portableDir -Value $portableDir
+  $var | Add-Member -MemberType NoteProperty -Name appDir -Value $appDir
   
   print_info "`$vars.binDir" $var.binDir
   print_info "`$vars.cmderConfigDir" $var.cmderConfigDir
   print_info "`$vars.portableDir" $var.portableDir
+  print_info "`$vars.appDir" $var.appDir
 }
 
 function create_config_file_variables($var, $json) {
