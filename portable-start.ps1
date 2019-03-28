@@ -30,7 +30,7 @@ print_title "Create binaries"
 . ./Download-Binaries.ps1
 
 # Launch Applications
-print_title "Launching applications"
+print_title "Launch applications"
 . ./Launch-Applications
 prompt_to_launch_apps $vars $json
 

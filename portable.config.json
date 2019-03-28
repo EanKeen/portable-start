@@ -7,9 +7,18 @@
   },
   "applications": [
     {
+      "name": "Cmder",
+      "path": "cmder/Cmder"
+    },
+    {
       "name": "QuickLook",
-      "relativePathToName": "quicklook/QuickLook",
-      "launchStatus": "prompt"
+      "path": "quicklook/QuickLook",
+      "launch": "auto"
+    },
+    {
+      "name": "Ueli",
+      "path": "ueli/ueli",
+      "launch": "auto"
     }
   ],
   "paths": [
