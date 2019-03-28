@@ -1,3 +1,4 @@
+## Prints with different formatting
 function print_title($highlighted) {
     Write-Host "`r`n$highlighted" -BackgroundColor White -ForegroundColor Black
 }
@@ -17,6 +18,32 @@ function print_error($highlighted, $plain) {
     Write-Host " $plain"
 }
 
+## Other helper functions
+function get_directory($dir) {
+    (Resolve-Path "$dir").Path
+    return
+}
+
+function config_file_readable($var, $configFile) {
+    if($configFile -eq $var.bashConfig) {
+        "user_profile.sh"
+    }
+    elseif($configFile -eq $var.psConfig) {
+        "user_profile.ps1"
+    }
+    elseif($configFile -eq $var.cmdConfig) {
+        "user_profile.cmd"
+    }
+    return
+}
+
+# Combines relative path relative to absolute path
+function normalize_path($absPath, $relPath) {
+    [IO.Path]::GetFullPath((Join-Path $absPath $relPath))
+    return
+}
+
+## Writes to a particular Cmder config
 function write_to_config($var, $file, $content) {
     if($file -eq $var.allConfig) {
         write_to_config $var $var.bashConfig $content
@@ -28,6 +55,7 @@ function write_to_config($var, $file, $content) {
     "$content" | Out-File -Encoding "ASCII" -Append -FilePath $file  
 }
 
+## Writes to a particular Cmder config, but more suited to a specific case (comment, variable, path, alias)
 function write_comment_to_config($var, $file, $content) {
     if($file -eq $var.allConfig) {
         write_comment_to_config $var $var.bashConfig $content
@@ -106,28 +134,4 @@ function write_alias_to_config($var, $file, $aliasName, $aliasValue) {
         # Write-Line-To-File "doskey $alias=$aliasValue" $file
     }
     print_info "alias" "Setting `"$aliasName`" to `"$aliasValue`" for `"$(config_file_readable $var $file)`""
-}
-
-function get_directory($dir) {
-    (Resolve-Path "$dir").Path
-    return
-}
-
-function config_file_readable($var, $configFile) {
-    if($configFile -eq $var.bashConfig) {
-        "user_profile.sh"
-    }
-    elseif($configFile -eq $var.psConfig) {
-        "user_profile.ps1"
-    }
-    elseif($configFile -eq $var.cmdConfig) {
-        "user_profile.cmd"
-    }
-    return
-}
-
-# Combines relative path relative to absolute path
-function normalize_path($absPath, $relPath) {
-    [IO.Path]::GetFullPath((Join-Path $absPath $relPath))
-    return
 }

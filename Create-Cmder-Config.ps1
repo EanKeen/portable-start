@@ -15,7 +15,6 @@ function write_config_variables($var, $json) {
     write_variable_to_config $var $var.allConfig "portableDir" $var.portableDir
     write_variable_to_config $var $var.allConfig "binDir" $var.binDir
     write_variable_to_config $var $var.allConfig "cmderConfigDir" $var.cmderConfigDir
-    write_variable_to_config $var $var.allConfig "JAVA_HOME" $(normalize_path $var.binDir $json.paths[9].name)
     write_to_config $var $var.allConfig ""
 }
 

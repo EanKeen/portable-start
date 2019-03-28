@@ -18,10 +18,10 @@ create_config_file_variables $vars $json
 # cmder_config_exists creates files if they don't exist, else prompt to override
 print_title "Create Cmder config files"
 . ./Create-Cmder-Config.ps1
-$willWriteConfig = ask_to_create_cmder_config $vars $json
+$willWriteCmderConfig = ask_to_create_cmder_config $vars $json
 
 # If no config exists or if want to overwrite config, create config
-if($willWriteConfig -eq $true) {
+if($willWriteCmderConfig -eq $true) {
     cmder_config_write $vars $json
 }
 
