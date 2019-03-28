@@ -8,7 +8,13 @@
   "applications": [
     {
       "name": "Cmder",
-      "path": "cmder/Cmder"
+      "path": "cmder/Cmder",
+      "launch": "autoForce"
+    },
+    {
+      "name": "VSCode",
+      "path": "vscode/Code",
+      "launch": "prompt"
     },
     {
       "name": "QuickLook",

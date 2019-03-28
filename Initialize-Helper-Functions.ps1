@@ -115,5 +115,5 @@ function write_alias_to_config($var, $file, $aliasName, $aliasValue) {
     # Write-Line-To-File "alias $alias=$aliasValue" $file
     # Write-Line-To-File "doskey $alias=$aliasValue" $file
   }
-  print_info "alias" "Setting `"$aliasName`" to `"$aliasValue`" for `"$(Split-Path $file -Path)`""
+  print_info "alias" "Setting `"$aliasName`" to `"$aliasValue`" for `"$(Split-Path -Path $file)`""
 }

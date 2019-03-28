@@ -1,40 +1,57 @@
-function launch_app($appName, $absolutePathsToApp) {
-  # if(Get-Process $exeName -ea SilentlyContinue) {
-
-  # }
-  print_info "application" "launching $appName"
-  Start-Process -FilePath $absolutePathsToApp | Out-Null
+function launch_app($app, $absolutePathToApp) {
+  print_info "application" "launching $($app.name)"
+  Start-Process -FilePath $absolutePathToApp | Out-Null
 }
 
-function prompt_to_launch_app($appName, $exeName, $absolutePathsToApp, $appPrompt) {
-  if($appPrompt -eq "prompt") {
-    print_warning "Would you like to open ${appName}?"
+function prompt_to_launch_app($app, $appExeName, $absolutePathToApp) {
+  # If app is already running
+  if(Get-Process $appExeName -ea SilentlyContinue) {
+    $appAlreadyRunning = $true
+  }
+  else {
+    $appAlreadyRunning = $false
+  }
+
+  if($app.launch -eq "prompt") {
+    if($appAlreadyRunning) {
+      $warning = "Would you like to open $($app.name) again? It's already running."
+    }
+    elseif(!$appAlreadyRunning) {
+      $warning = "Would you like to open $($app.name)?"
+    }
+    print_warning $warning
+
     $key = $Host.UI.RawUI.ReadKey()
     Write-Host "`r`n"
-    if($key.Character -eq 'y') {
-      launch_app $appName $absolutePathsToApp
+    if($key.Character -eq "y") {
+      launch_app $app $absolutePathToApp
+      return
     }
-    elseif($key.Character -eq 'n') {}
-    else {
-      # Any other character, repeat input
-      prompt_to_launch_app $appName $absolutePathsToApp $appPrompt
+    elseif($key.Character -eq "n") {
+      print_info "application" "not launching $($app.name)"
+      return
     }
+
+    # Any other character, repeat input
+    prompt_to_launch_app $app $appExeName $absolutePathToApp
   }
-  elseif($appPrompt -eq "auto") {
-    launch_app $appName $absolutePathsToApp
+  elseif($app.launch -eq "auto" -and $appAlreadyRunning -eq $false) {
+    launch_app $app $absolutePathToApp
+  }
+  elseif($app.launch -eq "autoForce") {
+    launch_app $app $absolutePathToApp
   }
 }
 
 function prompt_to_launch_apps($var, $json) {
-  foreach($app in $json.applications)
-    $absolutePathsToApp = normalize_path $var.appDir $appPathRelative
-    $appExeName = Split-Path -Path $appPathRelative -Leaf
+  foreach($app in $json.applications) {
+    $absolutePathToApp = normalize_path $var.appDir $app.path
+    $appExeName = Split-Path -Path $app.path -Leaf
 
     if($app.launch -eq $null) {
-      $app.launch = "prompt"
+      Add-Member -InputObject $app -MemberType NoteProperty -Name "launch" -Value "prompt"
     }
 
-
-    prompt_to_launch_app $appName $pathExeName $absolutePathsToApp
+    prompt_to_launch_app $app $appExeName $absolutePathToApp
   }
 }
