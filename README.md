@@ -6,6 +6,10 @@
 - Download binaries and unpackage them automatically
 - Automatically look for applications and stuff under path - add them automatically
 
+### Todo
+- Stop using For-Eachobject in favor of foreach
+- Fix some variable names that should be more specific
+
 ## Schema for portable.config.json
 
 will have actual good documentation later

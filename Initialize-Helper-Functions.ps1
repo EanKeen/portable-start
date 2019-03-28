@@ -1,21 +1,21 @@
 ## Prints with different formatting
-function print_title($highlighted) {
-  Write-Host "`r`n$highlighted" -BackgroundColor White -ForegroundColor Black
+function print_title($highlightedText) {
+  Write-Host "`r`n$highlightedText" -BackgroundColor White -ForegroundColor Black
 }
 
-function print_info($highlighted, $plain) {
-  Write-Host $highlighted -NoNewLine -BackgroundColor DarkGreen -ForegroundColor White
-  Write-Host " $plain"
+function print_info($highlightedText, $plainText) {
+  Write-Host $highlightedText -NoNewLine -BackgroundColor DarkGreen -ForegroundColor White
+  Write-Host " $plainText"
 }
 
-function print_warning($highlighted, $plain) {
-  Write-Host $highlighted -NoNewLine -BackgroundColor DarkYellow -ForegroundColor White
-  Write-Host " $plain"
+function print_warning($highlightedText, $plainText) {
+  Write-Host $highlightedText -NoNewLine -BackgroundColor DarkYellow -ForegroundColor White
+  Write-Host " $plainText"
 }
 
-function print_error($highlighted, $plain) {
-  Write-Host $highlighted -NoNewLine -BackgroundColor DarkMagenta -ForegroundColor White
-  Write-Host " $plain"
+function print_error($highlightedText, $plainText) {
+  Write-Host $highlightedText -NoNewLine -BackgroundColor DarkMagenta -ForegroundColor White
+  Write-Host " $plainText"
 }
 
 ## Other helper functions
@@ -38,23 +38,23 @@ function write_to_config($var, $configFile, $content) {
 }
 
 ## Writes to a particular Cmder config, but more suited to a specific case (comment, variable, path, alias)
-function write_comment_to_config($var, $configFile, $content) {
+function write_comment_to_config($var, $configFile, $comment) {
   if($configFile -eq $var.allConfig) {
-    write_comment_to_config $var $var.bashConfig $content
-    write_comment_to_config $var $var.psConfig $content
-    write_comment_to_config $var $var.cmdConfig $content
+    write_comment_to_config $var $var.bashConfig $comment
+    write_comment_to_config $var $var.psConfig $comment
+    write_comment_to_config $var $var.cmdConfig $comment
     return
   }
   elseif($configFile -eq $var.bashConfig) {
-    write_to_config $var $var.bashConfig "# $content"
+    write_to_config $var $var.bashConfig "# $comment"
   }
   elseif($configFile -eq $var.psConfig) {
-    write_to_config $var $var.psConfig "# $content"
+    write_to_config $var $var.psConfig "# $comment"
   }
   elseif($configFile -eq $var.cmdConfig) {
-    write_to_config $var $var.cmdConfig ":: $content"
+    write_to_config $var $var.cmdConfig ":: $comment"
   }
-  print_info "comment" "Adding `"$($content.Substring(0, 15))...`" to `"$(Split-Path $configFile -Leaf)`""
+  print_info "comment" "Adding `"$($comment.Substring(0, 15))...`" to `"$(Split-Path $configFile -Leaf)`""
 }
 
 function write_variable_to_config($var, $configFile, $variableName, $variableValue) {
@@ -76,21 +76,21 @@ function write_variable_to_config($var, $configFile, $variableName, $variableVal
   print_info "variable" "Setting `"$variableName`" to `"$variableValue`" for `"$(Split-path $configFile -Leaf)`""
 }
 
-function write_path_to_config($var, $configFile, $binName, $content) {
+function write_path_to_config($var, $configFile, $binName, $filePath) {
   if($configFile -eq $var.allConfig) {
-    write_path_to_config $var $var.bashConfig $binName $content
-    write_path_to_config $var $var.psConfig $binName $content
-    write_path_to_config $var $var.cmdConfig $binName $content
+    write_path_to_config $var $var.bashConfig $binName $filePath
+    write_path_to_config $var $var.psConfig $binName $filePath
+    write_path_to_config $var $var.cmdConfig $binName $filePath
     return
   }
   elseif($configFile -eq $var.bashConfig) {
-    write_to_config $vars $var.bashConfig "export PATH=\$((Convert-Path $content)):`$PATH".Replace(":\", "\").Replace("\", "/")
+    write_to_config $vars $var.bashConfig "export PATH=\$((Convert-Path $filePath)):`$PATH".Replace(":\", "\").Replace("\", "/")
   }
   elseif($configFile -eq $var.psConfig) {
-    write_to_config $vars $var.psConfig "`$env:Path = `"${content};`" + `$env:Path"
+    write_to_config $vars $var.psConfig "`$env:Path = `"${filePath};`" + `$env:Path"
   }
   elseif($configFile -eq $var.cmdConfig) {
-    write_to_config $var $var.cmdConfig "set PATH=${content};%PATH%"
+    write_to_config $var $var.cmdConfig "set PATH=${filePath};%PATH%"
   }
   print_info "path" "Adding `"$binName`" to PATH for `"$(Split-Path $configFile -Leaf)`""
 }
