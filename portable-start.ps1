@@ -22,7 +22,7 @@ $willWriteCmderConfig = ask_to_create_cmder_config $vars $json
 
 # If no config exists or if want to overwrite config, create config
 if($willWriteCmderConfig -eq $true) {
-    cmder_config_write $vars $json
+  cmder_config_write $vars $json
 }
 
 # Creates Cmder Binaries
