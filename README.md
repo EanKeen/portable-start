@@ -26,39 +26,39 @@ will have actual good documentation later
     "relativePathToBinary": "../_binary",
     "relativePathToCmderConfig": "../cmder/config",
     "relativePathToApplications": "../",
-    "applications": [
-      {
-        "name": "Cmder",
-        "path": "cmder/Cmder"
-      },
-      {
-        "name": "QuickLook",
-        "path": "quicklook/QuickLook",
-        "launch": "auto" // optional. Launch keywords include auto, prompt, and autoForce. "prompt" is default. autoForce launches the app even if it already exists
-      }
-    ],
+  },
+  "applications": [
+    {
+      "name": "Cmder",
+      "path": "cmder/Cmder"
+    },
+    {
+      "name": "QuickLook",
+      "path": "quicklook/QuickLook",
+      "launch": "auto" // optional. Launch keywords include auto, prompt, and autoForce. "prompt" is default. autoForce launches the app even if it already exists
+    }
+  ],
     "paths": [
-      {
-        "name": "cmake", // optional. Just for better logging in output
-        "path": "cmake/bin"
-      }
-    ],
-    "variables": [
-      {
-        "name": "six",
-        "value": "6"
-      },
-      {
-        "name": "seven",
-        "value": "7"
-      }
-    ],
-    "aliases": [
-      {
-        "name": "gs",
-        "value": "git status"
-      }
-    ]
-  }
+    {
+      "name": "cmake", // optional. Just for better logging in output
+      "path": "cmake/bin"
+    }
+  ],
+  "variables": [
+    {
+      "name": "six",
+      "value": "6"
+    },
+    {
+      "name": "seven",
+      "value": "7"
+    }
+  ],
+  "aliases": [
+    {
+      "name": "gs",
+      "value": "git status"
+    }
+  ]
 }
 ```
