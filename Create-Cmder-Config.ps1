@@ -6,11 +6,8 @@ function write_config_comments($var, $json) {
 }
 
 function write_config_variables($var, $json) {
-  $json.variables | ForEach-Object -Process {
-    $variableName = $_.Name
-    $variableValue = $_.Value
-
-    write_variable_to_config $var $var.allConfig $variableName $variableValue
+  foreach($variable in $json.variables) {
+    write_variable_to_config $var $var.allConfig $variable.name $variable.value
   }
   write_variable_to_config $var $var.allConfig "portableDir" $var.portableDir
   write_variable_to_config $var $var.allConfig "binDir" $var.binDir
@@ -19,9 +16,9 @@ function write_config_variables($var, $json) {
 }
 
 function write_config_paths($var, $json) {
-  $json.paths | ForEach-Object -Process {
-    $nameOfBin = $_.Name
-    $relativePathToBin = $_.Path
+  foreach($path in $json.paths) {
+    $nameOfBin = $path.name
+    $relativePathToBin = $path.path
     $absolutePathToBin = normalize_path $var.binDir $relativePathToBin
     
     if($nameOfBin -eq $null) {
@@ -33,11 +30,8 @@ function write_config_paths($var, $json) {
 }
 
 function write_config_aliases($var, $json) {
-  $json.aliases | ForEach-Object -Process {
-    $aliasName = $_.Name
-    $aliasValue = $_.Value
-
-    write_alias_to_config $var $var.allConfig $aliasName $aliasValue
+  foreach($alias in $json.alisases) {
+    write_alias_to_config $var $var.allConfig $alias.name $alias.value
   }
   write_to_config $var $var.allConfig ""
 }
