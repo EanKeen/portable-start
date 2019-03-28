@@ -28,7 +28,7 @@ function write_config_bins($var, $json) {
 }
 
 function write_config_aliases($var, $json) {
-  foreach($alias in $json.alisases) {
+  foreach($alias in $json.aliases) {
     write_alias_to_config $var $var.allConfig $alias.name $alias.value
   }
   write_to_config $var $var.allConfig ""
