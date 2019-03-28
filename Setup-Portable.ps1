@@ -1,11 +1,14 @@
 # Check to be sure all paths user is entering is correct
 function check_paths_in_config_exist($var, $json) {
-  Test-Path $json.config.relativePathToBinary
+    # foreach($relPath in $json.relPathsTo) {
+
+    # }
+  Test-Path $json.relPathsTo.binary
 }
 function create_folder_variables($var, $json) {
-  $absolutePathToBinDir = (Resolve-Path -Path $json.config.relativePathToBinary).Path
-  $absolutePathToCmderConfigDir = (Resolve-Path -Path $json.config.relativePathToCmderConfig).Path
-  $absolutePathToAppDir = (Resolve-Path -Path $json.config.relativePathToApplications).Path
+  $absolutePathToBinDir = (Resolve-Path -Path $json.relPathsTo.binary).Path
+  $absolutePathToCmderConfigDir = (Resolve-Path -Path $json.relPathsTo.cmderConfig).Path
+  $absolutePathToAppDir = (Resolve-Path -Path $json.relPathsTo.applications).Path
   $absolutePathToPortableDir = $(Split-Path $PSCommandPath)
 
   Add-Member -InputObject $var -MemberType NoteProperty -Name binDir -Value $absolutePathToBinDir

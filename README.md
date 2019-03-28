@@ -5,7 +5,16 @@
 - Automatically create shortcuts
 - Download binaries and unpackage them automatically
 - Automatically look for applications and stuff under path - add them automatically
-
+- create cli to launch apps from and do more stuff
+- create hooks for people that want to extend some parts
+- modify scheme such that the following can be used
+```json
+"binary": {
+  "path": "../_bin",
+  "exclude": "glob",
+  "include": ["glob1", "glob2"]
+}
+``` 
 ## Schema for portable.config.json
 
 will have actual good documentation later

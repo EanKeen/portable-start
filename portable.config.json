@@ -1,9 +1,9 @@
 {
-  "config": {
-    "name": "Edwin Kofler",
-    "relativePathToBinary": "../_bin",
-    "relativePathToCmderConfig": "../cmder/config",
-    "relativePathToApplications": "../"
+  "name": "Edwin Kofler",
+  "relPathsTo": {
+    "binary": "../_bin",
+    "cmderConfig": "../cmder/config",
+    "applications": "../"
   },
   "applications": [
     {
