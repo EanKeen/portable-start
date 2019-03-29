@@ -25,6 +25,15 @@ function normalize_path($absPath, $relPath) {
   return
 }
 
+function command_exists($commandName) {
+  if(Get-Command $commandName -errorAction SilentlyContinue) {
+    $true
+  }
+  else {
+    $false
+  }
+}
+
 function exit_program() {
   print_title "Exiting program. Press any key to exit"
   $key = $Host.UI.RawUI.ReadKey()
