@@ -1,9 +1,10 @@
 {
   "name": "Edwin Kofler",
   "relPathsTo": {
+    "applications": "../",
     "binaries": "../_bin",
     "cmderConfig": "../cmder/config",
-    "applications": "../"
+    "sourceToAccessHooks": "./callHooks.ps1"
   },
   "applications": [
     {

@@ -25,12 +25,12 @@ function normalize_path($absPath, $relPath) {
   return
 }
 
-function command_exists($commandName) {
-  if(Get-Command $commandName -errorAction SilentlyContinue) {
-    $true
-  }
-  else {
-    $false
+function attempt_run($expression) {
+  $functionName = $expression.Split(" ")[0]
+
+  if(Get-Command $functionName -errorAction SilentlyContinue) {
+    print_title "Running hook $functionName"
+    Invoke-Expression $expression
   }
 }
 
