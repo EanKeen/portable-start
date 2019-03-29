@@ -25,7 +25,7 @@ function normalize_path($absPath, $relPath) {
   return
 }
 
-function attempt_run($expression) {
+function attempt_to_run_hook($expression) {
   $functionName = $expression.Split(" ")[0]
 
   if(Get-Command $functionName -errorAction SilentlyContinue) {

@@ -4,7 +4,8 @@
     "applications": "../",
     "binaries": "../_bin",
     "cmderConfig": "../cmder/config",
-    "sourceToAccessHooks": "./callHooks.ps1"
+    "shortcuts": "../../_portable-shortcuts",
+    "sourceToAccessHooks": "./use_hooks.ps1"
   },
   "applications": [
     {
