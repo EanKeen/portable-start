@@ -1,9 +1,10 @@
 function write_shortcut($shortcutName, $shortcutLocation, $shortcutReference) {
+  print_info "shortcut" "Writing $shortcutName to $shortcutReference (not really)"
   # $WshShell = New-Object -comObject WScript.Shell
   # $Shortcut = $WshShell.CreateShortcut($shortcutLocation)
   # $Shortcut.TargetPath = $shortcutReference
   # $Shortcut.Save()
-  New-Item -ItemType SymbolicLink -Path $shortcutName -Name $shortcutLocation -Value $shortcutReference
+  # New-Item -ItemType SymbolicLink -Path $shortcutName -Name $shortcutLocation -Value $shortcutReference
 }
 function create_shortcuts ($var, $json) {
   foreach($app in $json.applications) {

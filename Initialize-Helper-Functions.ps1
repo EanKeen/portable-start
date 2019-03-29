@@ -88,7 +88,7 @@ function write_variable_to_config($var, $configFile, $variableName, $variableVal
   elseif($configFile -eq $var.cmdConfig) {
     write_to_config $var $configFile "set $variableName=$variableValue"
   }
-  print_info "variable" "Setting `"$variableName`" to `"$variableValue`" for `"$(Split-path $configFile -Leaf)`""
+  print_info "variable" "Adding `"$variableName`" to `"$variableValue`" for `"$(Split-path $configFile -Leaf)`""
 }
 
 function write_path_to_config($var, $configFile, $binName, $filePath) {
@@ -130,5 +130,5 @@ function write_alias_to_config($var, $configFile, $aliasName, $aliasValue) {
     # Write-Line-To-File "alias $alias=$aliasValue" $configFile
     # Write-Line-To-File "doskey $alias=$aliasValue" $configFile
   }
-  print_info "alias" "Setting `"$aliasName`" to `"$aliasValue`" for `"$(Split-Path -Path $configFile)`""
+  print_info "alias" "Adding `"$aliasName`" as `"$aliasValue`" for `"$(Split-Path -Path $configFile)`""
 }
