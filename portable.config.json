@@ -3,8 +3,7 @@
   "relPathsTo": {
     "binaries": "../_bin",
     "cmderConfig": "../cmder/config",
-    "applications": "../",
-    "foo": "./bar"
+    "applications": "../"
   },
   "applications": [
     {
