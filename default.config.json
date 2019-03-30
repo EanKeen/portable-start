@@ -1,0 +1,8 @@
+{
+  "relPathsTo": {
+    "applications": "../applications",
+    "binaries": "../bins",
+    "cmderConfig": "",
+    "shortcuts": "../shortcuts"
+  }
+}

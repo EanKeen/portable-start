@@ -8,10 +8,12 @@ touch portable.config.json
 
 Then, just setup a configuration schema [here](/schema).
 
-Then, just run `Portable-Start.ps1`. I would recommend setting up a `.bat` file that opens it.
+Then, just run `Portable-Start.ps1`. I would recommend setting up a `.bat` file that executes it.
 ```cmd
-start ..\_bin\powershell\pwsh.exe -ExecutionPolicy Bypass -file .\Portable-Start.ps1
-:: or
-start powershell -ExecutionPolicy Bypass -file .\Portable-Start.ps1
+start powershell -ExecutionPolicy Bypass -file .\Execute-PortableScripts.ps1
+```
 
+I would recommend downloading and using the PowerShell Core binary so you can use this on other computers that don't have the latest PowerShell version.
+```cmd
+start ..\path\to\powershell\pwsh.exe -ExecutionPolicy Bypass -file .\Execute-PortableScripts.ps1
 ```

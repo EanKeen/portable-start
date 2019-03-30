@@ -34,10 +34,27 @@ function attempt_to_run_hook($expression) {
   }
 }
 
+function object_property_exists($object, $property) {
+  # if(Get-Member -InputObject $object -Name $property -MemberType Properties) {
+  #   $true
+  #   return
+  # }
+  # $false
+  if($property -in $object.PsObject.Propeties.Name) {
+    $true
+    return
+  }
+  $false
+}
+
 function exit_program() {
-  print_title "Exiting program. Press any key to exit"
+  print_title "Exiting program. Press `"q`" to exit"
+
   $key = $Host.UI.RawUI.ReadKey()
-  exit
+  if($key.Character -eq "q") {
+    exit
+  }
+  exit_program
 }
 
 ## Writes to a particular Cmder config
