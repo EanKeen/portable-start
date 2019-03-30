@@ -1,26 +1,26 @@
 function global_json() {
-  $configJson = New-Object -TypeName PsObject
   if(Test-Path -Path "./portable.config.json") {
     print_info "config" "portable.config.json found. Using portable.config.json"
-
-    $configJson = Get-Content -Path "./portable.config.json" | ConvertFrom-Json
+    $configFile = "./portable.config.json"
   }
-  # If no portable config found use default.config.json
   else {
     print_info "config" "portable.config.json not found. Using default.config.json"
-
-    $configJson = Get-Content -Path "./default.config.json" | ConvertFrom-Json
+    $configFile = "./default.config.json"
   }
   
-  if($configJson | ConvertTo-Json | Test-Json) {
-    $configJson = $configJson 
+  $configJsonString = Get-Content -Path $configFile -Raw
+  try {
+    $configJson = ConvertFrom-Json $configJsonString -ErrorAction Stop
   }
-  else {
+  catch {
     print_error "config" "Config not valid JSON. Creating blank configuration object"
     $configJson = New-Object -TypeName PsObject
   }
+ 
+  print_info "json" ($configJson | ConvertTo-Json)
 
   $configJson | ConvertTo-Json | Out-File -FilePath "./abstraction.config.json" -Encoding "ASCII"
+  $configJson
 }
 
 function global_vars() {
