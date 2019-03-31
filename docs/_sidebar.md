@@ -1,3 +1,5 @@
 * [Home](/)
 * [Usage](usage.md)
 * [Config Schema](schema.md)
+* [Using Hooks](hooks.md)
+* [In-Built Methods](methods.md)
