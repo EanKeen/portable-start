@@ -1,10 +1,3 @@
-function add_relPathsTo_prop($config, $defaultConfig) {
-  if($config | obj_not_has_prop "relPathsTo") {
-    Add-Member -InputObject $config -Name "relPathsTo" -Value $(New-Object -TypeName PsObject) -MemberType NoteProperty
-    return
-  }
-}
-
 function add_extended_relPathsTo_props($config, $defaultConfig) {
   if($config.relPathsTo | obj_not_has_prop "applications") {
     Add-Member -InputObject $config -Name "applications" -Value $defaultConfig.relPathsTo.applications -MemberType NoteProperty
@@ -25,7 +18,7 @@ function add_extended_relPathsTo_props($config, $defaultConfig) {
 
 function add_aliases_prop($config, $defaultConfig) {
   if($config | obj_not_has_prop "aliases") {
-    Add-Member -InputObject $config -Name "aliases" -Value $(New-Object -TypeName PsObject) -MemberType NoteProperty
+    Add-Member -InputObject $config -Name "aliases" -Value $("[]" | ConvertFrom-Json) -MemberType NoteProperty
     return
   }
 }
@@ -58,7 +51,8 @@ function global_json() {
 
   $defaultConfig = Get-Content -Path "./default.config.json" -Raw | ConvertFrom-Json
 
-  add_relPathsTo_prop $config $defaultConfig
+  
+  add_prop_to_obj $config "relPathsTo" $(New-Object -TypeName PsObject)# $defaultConfig.relPathsTo
   add_extended_relPathsTo_props $config $defaultConfig
 
   add_aliases_pro $config $defaultConfig
