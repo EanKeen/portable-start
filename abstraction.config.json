@@ -1,3 +1,8 @@
 {
-  "relPathsTo": null
+  "relPathsTo": "eh",
+  "applications": "../applications",
+  "binaries": "../bins",
+  "cmderConfig": "",
+  "shortcuts": "../shortcuts",
+  "sourceToAccessHooks": ""
 }

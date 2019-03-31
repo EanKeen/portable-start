@@ -2,7 +2,7 @@
   "relPathsTo": {
     "applications": "../applications",
     "binaries": "../bins",
-    "cmderConfig": "",
+    "cmderConfig": "../applications/cmder/config",
     "shortcuts": "../shortcuts"
   }
 }

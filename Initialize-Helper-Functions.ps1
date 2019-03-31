@@ -46,7 +46,8 @@ function obj_has_prop() {
   )
 
   process {
-    if($prop -in $obj.PsObject.Propeties.Name) {
+    # if($prop -in $obj.PsObject.Propeties.Name) {
+    if([bool]($obj.PSobject.Properties.Name -match $prop)) {
       $true
       return
     }
@@ -66,7 +67,8 @@ function obj_not_has_prop() {
   )
 
   process {
-    if($prop -in $obj.PsObject.Propeties.Name) {
+    # if($prop -in $obj.PsObject.Propeties.Name) {
+    if([bool]($obj.PSobject.Properties.Name -match $prop)) {
       $false
       return
     }
