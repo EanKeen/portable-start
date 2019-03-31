@@ -10,6 +10,7 @@
 - make properties of var better named
 - create function that autofills optional parameters
 - meta bootstrap exec w/ cmd
+- pipe stuff to print_warning etc
 
 ```json
 "binary": {

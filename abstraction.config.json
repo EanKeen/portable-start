@@ -1,10 +1,22 @@
 {
-  "relPathsTo": "eh",
-  "applications": "../applications",
-  "binaries": "../bins",
-  "cmderConfig": "../applications/cmder/config",
-  "shortcuts": "../shortcuts",
-  "sourceToAccessHooks": "",
-  "aliasesObj": {},
-  "aliases": []
+  "relPathsTo": {
+    "applications": "../applications",
+    "binaries": "../bins",
+    "cmderConfig": "../applications/cmder/config",
+    "shortcuts": "../shortcuts"
+  },
+  "aliasesObj": {
+    "bash": [],
+    "ps": [],
+    "cmd": []
+  },
+  "aliases": [
+    {
+      "name": "e.",
+      "value": "override .",
+      "use": "cmd"
+    }
+  ],
+  "binaries": [],
+  "variables": []
 }

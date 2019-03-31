@@ -1,3 +1,16 @@
 {
-  "relPathsTo": "eh"
+  "relPathsTo": {
+
+  },
+  "aliasesObj": {
+    "bash": [
+    ]
+  },
+  "aliases": [
+    {
+      "name": "e.",
+      "value": "override .",
+      "use": ["cmd"]
+    }
+  ]
 }

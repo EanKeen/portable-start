@@ -37,31 +37,6 @@ function attempt_to_run_hook($expression) {
 function add_prop_to_obj($obj, $prop, $propValue) {
   if($obj | obj_not_has_prop $prop) {
     Add-Member -InputObject $obj -Name $prop -Value $propValue -MemberType NoteProperty
-    return
-  }
-}
-
-function obj_has_prop() {
-  param(
-    [Parameter(ValueFromPipeline = $true)]
-    [object]
-    $obj,
-
-    [Parameter(Position = 0, Mandatory = $true)]
-    [string]
-    $prop
-  )
-
-  process {
-    $obj.PsObject.Properties | ForEach-Object {
-      if($_.Name -eq $prop) {
-        $true
-        return
-      }
-      else {
-        $false
-      }
-    }
   }
 }
 
@@ -77,15 +52,17 @@ function obj_not_has_prop() {
   )
 
   process {
+    $propFound = $false
     $obj.PsObject.Properties | ForEach-Object {
-      if($_.Name -eq $prop) {
-        $false
+      if(($_.Name -eq $prop) -and -not $propFound) {
+        $propFound = $true
         return
       }
-      else {
-        $true
-      }
     }
+    if(-not $propFound) {
+    }
+    write-host $(!$propFound)
+    !$propFound
   }
 }
 

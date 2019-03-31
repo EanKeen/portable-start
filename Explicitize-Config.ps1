@@ -1,36 +1,9 @@
-function add_extended_relPathsTo_props($config, $defaultConfig) {
-  if($config.relPathsTo | obj_not_has_prop "applications") {
-    Add-Member -InputObject $config -Name "applications" -Value $defaultConfig.relPathsTo.applications -MemberType NoteProperty
-  }
-  if($config.relPathsTo | obj_not_has_prop "binaries") {
-    Add-Member -InputObject $config -Name "binaries" -Value $defaultConfig.relPathsTo.binaries -MemberType NoteProperty
-  }
-  if($config.relPathsTo | obj_not_has_prop "cmderConfig") {
-    Add-Member -InputObject $config -Name "cmderConfig" -Value $defaultConfig.relPathsTo.cmderConfig -MemberType NoteProperty
-  }
-  if($config.relPathsTo | obj_not_has_prop "shortcuts") {
-    Add-Member -InputObject $config -Name "shortcuts" -Value $defaultConfig.relPathsTo.shortcuts -MemberType NoteProperty
-  }
-  if($config.relPathsTo | obj_not_has_prop "sourceToAccessHooks") {
-    Add-Member -InputObject $config -Name "sourceToAccessHooks" -Value "" -MemberType NoteProperty
-  }
+# Convert alises declared in bash: [], ps: [], cmd: [], into the aliasesObj: {} 
+function convert_config_aliases($config, $nameOfArrayWithAliases) {
+  $arrayWithAliases = $config.aliasesObj."$nameOfArrayWithAliases"
 }
 
-function add_aliases_prop($config, $defaultConfig) {
-  if($config | obj_not_has_prop "aliases") {
-    Add-Member -InputObject $config -Name "aliases" -Value $("[]" | ConvertFrom-Json) -MemberType NoteProperty
-    return
-  }
-}
-
-function add_aliases_pro($config, $defaultConfig) {
-  if($config | obj_not_has_prop "aliasesObj") {
-    Add-Member -InputObject $config -Name "aliasesObj" -Value $(New-Object -TypeName PsObject) -MemberType NoteProperty
-    return
-  }
-}
-
-function global_json() {
+function create_base_config() {
   if(Test-Path -Path "./portable.config.json") {
     print_info "config" "portable.config.json found. Using portable.config.json"
     $configFile = "./portable.config.json"
@@ -40,23 +13,43 @@ function global_json() {
     $configFile = "./default.config.json"
   }
   
+  $config = New-Object -TypeName PsObject
   try {
     $configAsString = Get-Content -Path $configFile -Raw
     $config = ConvertFrom-Json $configAsString -ErrorAction Stop
   }
   catch {
     print_error "config" "Config not valid JSON. Creating blank configuration object"
-    $config = New-Object -TypeName PsObject
+    # by default $config is PsObject
   }
+  $config
+}
 
+function merge_config_from_defaultConfig($config, $defaultConfig) {
+  add_prop_to_obj $config "relPathsTo" $(New-Object -TypeName PsObject)
+  add_prop_to_obj $config.relPathsTo "applications" $defaultConfig.relPathsTo.applications
+  add_prop_to_obj $config.relPathsTo "binaries" $defaultConfig.relPathsTo.binaries
+  add_prop_to_obj $config.relPathsTo "cmderConfig" $defaultConfig.relPathsTo.cmderConfig
+  add_prop_to_obj $config.relPathsTo "shortcuts" $defaultConfig.relPathsTo.shortcuts
+ 
+  add_prop_to_obj $config "aliasesObj" $(New-Object -TypeName PsObject)
+  add_prop_to_obj $config.aliasesObj "bash" $("[]" | ConvertFrom-Json)
+  add_prop_to_obj $config.aliasesObj "ps" $("[]" | ConvertFrom-Json)
+  add_prop_to_obj $config.aliasesObj "cmd" $("[]" | ConvertFrom-Json)
+  add_prop_to_obj $config "aliases" $("[]" | ConvertFrom-Json)
+  add_prop_to_obj $config "binaries" $("[]" | ConvertFrom-Json)
+  add_prop_to_obj $config "variables" $("[]" | ConvertFrom-Json)
+
+  # convert_config_aliases $config "bash"
+  # convert_config_aliases $config"ps"
+  # convert_config_aliases $config "cmd"
+}
+
+function create_config() {
+  $config = create_base_config
   $defaultConfig = Get-Content -Path "./default.config.json" -Raw | ConvertFrom-Json
 
-  
-  add_prop_to_obj $config "relPathsTo" $(New-Object -TypeName PsObject)# $defaultConfig.relPathsTo
-  add_extended_relPathsTo_props $config $defaultConfig
-
-  add_aliases_pro $config $defaultConfig
-  add_aliases_prop $config $defaultConfig
+  merge_config_from_defaultConfig $config $defaultConfig
 
   $config | ConvertTo-Json | Out-File -FilePath "./abstraction.config.json" -Encoding "ASCII"
   $config

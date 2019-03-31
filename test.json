@@ -1,0 +1,13 @@
+{
+  "aaa": "alfa",
+  "bbb": "bravo",
+  "bbbfoo": "bravofoo",
+  "bbbaaa": "bravoalfa",
+  "ccc": "charlie",
+  "ddd": "delta",
+  "eee": "echo",
+  "babel": {
+    "js": "javascript",
+    "py": "python"
+  }
+}
