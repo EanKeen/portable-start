@@ -9,20 +9,20 @@ function check_path_exists($pathName, $pathValue) {
     }
 }
 
-function check_relPathsTo($var, $json) {
-    foreach ($relPath in $json.relPathsTo.PsObject.Properties) {
+function check_relPathsTo($var, $config) {
+    foreach ($relPath in $config.relPathsTo.PsObject.Properties) {
         check_path_exists $relPath.Name $relPath.Value
     }
 }
 
-function check_paths_in_config_exist($var, $json) {
-    check_relPathsTo $var $json
+function check_paths_in_config_exist($var, $config) {
+    check_relPathsTo $var $config
 }
 
-function create_folder_variables($var, $json) {
-    $absolutePathToBinDir = (Resolve-Path -Path $json.relPathsTo.binaries).Path
-    $absolutePathToCmderConfigDir = (Resolve-Path -Path $json.relPathsTo.cmderConfig).Path
-    $absolutePathToAppDir = (Resolve-Path -Path $json.relPathsTo.applications).Path
+function create_folder_variables($var, $config) {
+    $absolutePathToBinDir = (Resolve-Path -Path $config.relPathsTo.binaries).Path
+    $absolutePathToCmderConfigDir = (Resolve-Path -Path $config.relPathsTo.cmderConfig).Path
+    $absolutePathToAppDir = (Resolve-Path -Path $config.relPathsTo.applications).Path
     $absolutePathToPortableDir = $(Split-Path $PSCommandPath)
 
     Add-Member -InputObject $var -MemberType NoteProperty -Name binDir -Value $absolutePathToBinDir
@@ -36,7 +36,7 @@ function create_folder_variables($var, $json) {
     print_info "`$vars.appDir" $var.appDir
 }
 
-function create_config_file_variables($var, $json) {
+function create_config_file_variables($var, $config) {
     $bashConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.sh"
     $psConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.ps1"
     $cmdConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.cmd"

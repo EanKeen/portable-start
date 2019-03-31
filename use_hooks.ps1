@@ -1,3 +1,3 @@
-function after_create_variables($json, $var) {
-  print_info "Hello" $json.name
+function after_create_variables($config, $var) {
+  print_info "Hello" $config.name
 }
