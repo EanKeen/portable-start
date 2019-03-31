@@ -5,18 +5,7 @@
     "cmderConfig": "../applications/cmder/config",
     "shortcuts": "../shortcuts"
   },
-  "aliasesObj": {
-    "bash": [],
-    "ps": [],
-    "cmd": []
-  },
-  "aliases": [
-    {
-      "name": "e.",
-      "value": "override .",
-      "use": "cmd"
-    }
-  ],
+  "aliases": [],
   "binaries": [],
   "variables": []
 }

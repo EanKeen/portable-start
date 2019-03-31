@@ -1,9 +1,4 @@
-# Convert alises declared in bash: [], ps: [], cmd: [], into the aliasesObj: {} 
-function convert_config_aliases($config, $nameOfArrayWithAliases) {
-  $arrayWithAliases = $config.aliasesObj."$nameOfArrayWithAliases"
-}
-
-function create_base_config() {
+function create_config() {
   if(Test-Path -Path "./portable.config.json") {
     print_info "config" "portable.config.json found. Using portable.config.json"
     $configFile = "./portable.config.json"
@@ -25,37 +20,43 @@ function create_base_config() {
   $config
 }
 
-function merge_config_from_defaultConfig($config, $defaultConfig) {
+function merge_config_aliasesObj($config, $defaultConfig) {
+  add_prop_to_obj $config "aliasesObj" $(New-Object -TypeName PsObject)
+  add_prop_to_obj $config.aliasesObj "bash" $("[]" | ConvertFrom-Json)
+  add_prop_to_obj $config.aliasesObj "ps" $("[]" | ConvertFrom-Json)
+  add_prop_to_obj $config.aliasesObj "cmd" $("[]" | ConvertFrom-Json)
+}
+function merge_config_aliases($config, $defaultConfig) {
+  add_prop_to_obj $config "aliases" $("[]" | ConvertFrom-Json)
+
+}
+
+function merge_config_binaries($config, $defaultConfig) {
+  add_prop_to_obj $config "binaries" $("[]" | ConvertFrom-Json)
+}
+
+function merge_config_variables($config, $defaultConfig) {
+  add_prop_to_obj $config "variables" $("[]" | ConvertFrom-Json)
+}
+
+function merge_config_relPathsTo($config, $defaultConfig) {
   add_prop_to_obj $config "relPathsTo" $(New-Object -TypeName PsObject)
   add_prop_to_obj $config.relPathsTo "applications" $defaultConfig.relPathsTo.applications
   add_prop_to_obj $config.relPathsTo "binaries" $defaultConfig.relPathsTo.binaries
   add_prop_to_obj $config.relPathsTo "cmderConfig" $defaultConfig.relPathsTo.cmderConfig
   add_prop_to_obj $config.relPathsTo "shortcuts" $defaultConfig.relPathsTo.shortcuts
- 
-  add_prop_to_obj $config "aliasesObj" $(New-Object -TypeName PsObject)
-  add_prop_to_obj $config.aliasesObj "bash" $("[]" | ConvertFrom-Json)
-  add_prop_to_obj $config.aliasesObj "ps" $("[]" | ConvertFrom-Json)
-  add_prop_to_obj $config.aliasesObj "cmd" $("[]" | ConvertFrom-Json)
-  add_prop_to_obj $config "aliases" $("[]" | ConvertFrom-Json)
-  add_prop_to_obj $config "binaries" $("[]" | ConvertFrom-Json)
-  add_prop_to_obj $config "variables" $("[]" | ConvertFrom-Json)
-
-  # convert_config_aliases $config "bash"
-  # convert_config_aliases $config"ps"
-  # convert_config_aliases $config "cmd"
+  
 }
 
-function create_config() {
-  $config = create_base_config
+function gen_config_obj() {
+  $config = create_config
   $defaultConfig = Get-Content -Path "./default.config.json" -Raw | ConvertFrom-Json
 
-  merge_config_from_defaultConfig $config $defaultConfig
+  merge_config_relPathsTo $config $defaultConfig
+  merge_config_aliases $config $defaultConfig
+  merge_config_binaries $config $defaultConfig
+  merge_config_variables $config $defaultConfig
 
   $config | ConvertTo-Json | Out-File -FilePath "./abstraction.config.json" -Encoding "ASCII"
   $config
-}
-
-function global_vars() {
-  print_info "`$vars" "Creating global object"
-  New-Object -TypeName PsObject
 }

@@ -61,7 +61,6 @@ function obj_not_has_prop() {
     }
     if(-not $propFound) {
     }
-    write-host $(!$propFound)
     !$propFound
   }
 }
