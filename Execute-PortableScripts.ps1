@@ -2,6 +2,7 @@
 Write-Host "Load helper functions" -BackgroundColor White -ForegroundColor Black
 . ./Initialize-Helper-Functions.ps1
 
+print_error "highlighted"
 # FILL IN GAPS IN CONFIG
 print_title "Create basic config"
 . ./Explicitize-Config.ps1

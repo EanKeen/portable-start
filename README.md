@@ -6,11 +6,10 @@
 - Download binaries and unpackage them automatically
 - Automatically look for applications and stuff under path - add them automatically
 - create cli to launch apps from and do more stuff
-- modify scheme such that the following can be used
 - make properties of var better named
-- create function that autofills optional parameters
+- create function that autofills optional and required parameters w/ default value
 - meta bootstrap exec w/ cmd
-- pipe stuff to print_warning etc
+- modify scheme such that the following can be used
 
 ```json
 "binary": {
