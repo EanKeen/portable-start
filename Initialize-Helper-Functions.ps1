@@ -34,17 +34,44 @@ function attempt_to_run_hook($expression) {
   }
 }
 
-function object_property_exists($object, $property) {
-  # if(Get-Member -InputObject $object -Name $property -MemberType Properties) {
-  #   $true
-  #   return
-  # }
-  # $false
-  if($property -in $object.PsObject.Propeties.Name) {
-    $true
-    return
+function obj_has_prop() {
+  param(
+    [Parameter(ValueFromPipeline = $true)]
+    [object]
+    $obj,
+
+    [Parameter(Position = 0, Mandatory = $true)]
+    [string]
+    $prop
+  )
+
+  process {
+    if($prop -in $obj.PsObject.Propeties.Name) {
+      $true
+      return
+    }
+    $false
   }
-  $false
+}
+
+function obj_not_has_prop() {
+  param(
+    [Parameter(ValueFromPipeline = $true)]
+    [object]
+    $obj,
+
+    [Parameter(Position = 0, Mandatory = $true)]
+    [string]
+    $prop
+  )
+
+  process {
+    if($prop -in $obj.PsObject.Propeties.Name) {
+      $false
+      return
+    }
+    $true
+  }
 }
 
 function exit_program() {

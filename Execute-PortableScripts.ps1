@@ -10,7 +10,7 @@ print_title "Create basic config"
 
 # print_error $(global_vars)
 # print_title "sep"
-print_error "json" $(global_json)
+print_error "json" $(global_json | ConvertTo-Json)
 exit_program
 
 # CHECK PATHS EXIST (move to Explicitize-Config.ps1)

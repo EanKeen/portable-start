@@ -9,6 +9,7 @@
 - modify scheme such that the following can be used
 - make properties of var better named
 - create function that autofills optional parameters
+- meta bootstrap exec w/ cmd
 
 ```json
 "binary": {

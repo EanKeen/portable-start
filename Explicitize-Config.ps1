@@ -1,3 +1,14 @@
+function add_relPathsTo_prop($config, $defaultConfig) {
+  # Write-Host $($config | obj_has_prop -prop "relPathsTo")
+  if(-not ($config | obj_has_prop "relPathsTo")) {
+    Add-Member -InputObject $config -Name "relPathsTo" -Value $defaultConfig.relPathsTo -MemberType NoteProperty
+    return
+  }
+  add_relPathsTo_prop $config $defaultConfig
+
+  print_error "my" $($config | ConvertTo-Json)
+}
+
 function global_json() {
   if(Test-Path -Path "./portable.config.json") {
     print_info "config" "portable.config.json found. Using portable.config.json"
@@ -8,19 +19,20 @@ function global_json() {
     $configFile = "./default.config.json"
   }
   
-  $configJsonString = Get-Content -Path $configFile -Raw
   try {
-    $configJson = ConvertFrom-Json $configJsonString -ErrorAction Stop
+    $configAsString = Get-Content -Path $configFile -Raw
+    $config = ConvertFrom-Json $configAsString -ErrorAction Stop
   }
   catch {
     print_error "config" "Config not valid JSON. Creating blank configuration object"
-    $configJson = New-Object -TypeName PsObject
+    $config = New-Object -TypeName PsObject
   }
- 
-  print_info "json" ($configJson | ConvertTo-Json)
+  
+  $defaultConfig = Get-Content -Path "./default.config.json"
+  add_relPathsTo_prop $config $defaultConfig
 
-  $configJson | ConvertTo-Json | Out-File -FilePath "./abstraction.config.json" -Encoding "ASCII"
-  $configJson
+  $config | ConvertTo-Json | Out-File -FilePath "./abstraction.config.json" -Encoding "ASCII"
+  $config
 }
 
 function global_vars() {
