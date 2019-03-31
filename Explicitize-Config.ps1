@@ -26,6 +26,16 @@ function merge_config_aliasesObj($config, $defaultConfig) {
   add_prop_to_obj $config.aliasesObj "ps" $("[]" | ConvertFrom-Json)
   add_prop_to_obj $config.aliasesObj "cmd" $("[]" | ConvertFrom-Json)
 }
+
+function merge_config_relPathsTo($config, $defaultConfig) {
+  add_prop_to_obj $config "relPathsTo" $(New-Object -TypeName PsObject)
+  add_prop_to_obj $config.relPathsTo "applications" $defaultConfig.relPathsTo.applications
+  add_prop_to_obj $config.relPathsTo "binaries" $defaultConfig.relPathsTo.binaries
+  add_prop_to_obj $config.relPathsTo "cmderConfig" $defaultConfig.relPathsTo.cmderConfig
+  add_prop_to_obj $config.relPathsTo "shortcuts" $defaultConfig.relPathsTo.shortcuts
+  add_prop_to_obj $config.relPathsTo "sourceToAccessHooks" ""
+}
+
 function merge_config_aliases($config, $defaultConfig) {
   add_prop_to_obj $config "aliases" $("[]" | ConvertFrom-Json)
 
@@ -37,15 +47,6 @@ function merge_config_binaries($config, $defaultConfig) {
 
 function merge_config_variables($config, $defaultConfig) {
   add_prop_to_obj $config "variables" $("[]" | ConvertFrom-Json)
-}
-
-function merge_config_relPathsTo($config, $defaultConfig) {
-  add_prop_to_obj $config "relPathsTo" $(New-Object -TypeName PsObject)
-  add_prop_to_obj $config.relPathsTo "applications" $defaultConfig.relPathsTo.applications
-  add_prop_to_obj $config.relPathsTo "binaries" $defaultConfig.relPathsTo.binaries
-  add_prop_to_obj $config.relPathsTo "cmderConfig" $defaultConfig.relPathsTo.cmderConfig
-  add_prop_to_obj $config.relPathsTo "shortcuts" $defaultConfig.relPathsTo.shortcuts
-  
 }
 
 function gen_config_obj() {
