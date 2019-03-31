@@ -46,12 +46,15 @@ function obj_has_prop() {
   )
 
   process {
-    # if($prop -in $obj.PsObject.Propeties.Name) {
-    if([bool]($obj.PSobject.Properties.Name -match $prop)) {
-      $true
-      return
+    $obj.PsObject.Properties | ForEach-Object {
+      if($_.Name -eq $prop) {
+        $true
+        return
+      }
+      else {
+        $false
+      }
     }
-    $false
   }
 }
 
@@ -67,12 +70,15 @@ function obj_not_has_prop() {
   )
 
   process {
-    # if($prop -in $obj.PsObject.Propeties.Name) {
-    if([bool]($obj.PSobject.Properties.Name -match $prop)) {
-      $false
-      return
+    $obj.PsObject.Properties | ForEach-Object {
+      if($_.Name -eq $prop) {
+        $false
+        return
+      }
+      else {
+        $true
+      }
     }
-    $true
   }
 }
 
