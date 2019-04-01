@@ -4,10 +4,10 @@ function create_folder_variables($var, $config) {
   $absolutePathToAppDir = (Resolve-Path -Path $config.relPathsTo.applications).Path
   $absolutePathToPortableDir = $(Split-Path $PSCommandPath)
 
-  Add-Member -InputObject $var -MemberType NoteProperty -Name binDir -Value $absolutePathToBinDir
-  Add-Member -InputObject $var -MemberType NoteProperty -Name cmderConfigDir -Value $absolutePathToCmderConfigDir
-  Add-Member -InputObject $var -MemberType NoteProperty -Name appDir -Value $absolutePathToAppDir
-  Add-Member -InputObject $var -MemberType NoteProperty -Name portableDir -Value $absolutePathToPortableDir
+  add_object_prop $var "binDir" $absolutePathToBinDir
+  add_object_prop $var "cmderConfigDir" $absolutePathToCmderConfigDir
+  add_object_prop $var "appDir" $absolutePathToAppDir
+  add_object_prop $var "portableDir" $absolutePathToPortableDir
 
   print_info "`$vars.binDir" $var.binDir
   print_info "`$vars.cmderConfigDir" $var.cmderConfigDir
@@ -21,13 +21,18 @@ function create_config_file_variables($var, $config) {
   $cmdConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.cmd"
   $allConfig = "allConfigFiles"
 
-  Add-Member -InputObject $var -MemberType NoteProperty -Name bashConfig -Value $bashConfig
-  Add-Member -InputObject $var -MemberType NoteProperty -Name psConfig -Value $psConfig
-  Add-Member -InputObject $var -MemberType NoteProperty -Name cmdConfig -Value $cmdConfig
-  Add-Member -InputObject $var -MemberType NoteProperty -Name allConfig -value $allConfig
+  add_object_prop $var "bashConfig" $bashConfig
+  add_object_prop $var "psConfig" $psConfig
+  add_object_prop $var "cmdConfig" $cmdConfig
+  add_object_prop $var "allConfig" $allConfig
 
   print_info "`$vars.bashConfig" $bashConfig
   print_info "`$vars.psConfig" $psConfig
   print_info "`$vars.cmdConfig" $cmdConfig
   print_info "`$vars.allConfig" $allConfig
+}
+
+function generate_vars($vars, $config) {
+  create_folder_variables $vars $config
+  create_config_file_variables $vars $config
 }

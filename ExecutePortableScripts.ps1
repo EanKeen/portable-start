@@ -4,27 +4,29 @@ Write-Host "Load helper functions" -BackgroundColor White -ForegroundColor Black
 . ./util/WriteToConfig.ps1
 . ./util/General.ps1
 
-# GENERATE CONFIG FILE
+# GENERATE CONFIG OBJECT
 print_title "Create basic config"
-
 . ./GenerateConfig.ps1
-# Set-Variable -Name "vars" -Value $(global_vars) -Scope Private
-# Set-Variable -Name "config" -Value $(gen_config_obj) -Scope Private
+Set-Variable -Name "config" -Value $(generate_config) -Scope Private
+# print_error "json" $(generate_config | ConvertTo-Json -Depth 8)
 
-print_error "json" $(generate_config | ConvertTo-Json -Depth 8)
+# GENERATE VARS OBJECT
+print_title "Create basic vars"
+. ./GenerateVars.ps1
+# Set-Variable -Name "vars" -Value $(generate_vars) -Scope Private
+print_error "var" $(generate_vars $vars $config | ConvertTo-Json -Depth 8)
+
 exit_program
 
-# CHECK PATHS EXIST (move to Explicitize-Config.ps1)
+# CHECK PATHS EXIST
 . ./ValidatePaths.ps1
-. ./GenerateVars
 print_title "Check file paths exist"
 check_paths_in_config_exist $vars $config
 . "$($config.relPathsTo.sourceToAccessHooks)"
 
 # ATTACH VARIABLES TO $VAR (RENAME THIS)
 print_title "Create variables"
-create_folder_variables $vars $config
-create_config_file_variables $vars $config
+
 attempt_to_run_hook "after_create_variables `$config `$var"
 
 # DOWNLOAD BINARIES

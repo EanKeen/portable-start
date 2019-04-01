@@ -18,6 +18,9 @@ function add_object_prop($obj, $prop, $propValue) {
   if($obj | obj_not_has_prop $prop) {
     Add-Member -InputObject $obj -Name $prop -Value $propValue -MemberType NoteProperty
   }
+  else {
+    print_error "Error" "Cannot add property on object that has property $prop as $propValue."
+  }
 }
 
 function obj_has_prop() {
