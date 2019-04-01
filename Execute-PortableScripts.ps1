@@ -8,7 +8,7 @@ print_title "Create basic config"
 # Set-Variable -Name "vars" -Value $(global_vars) -Scope Private
 # Set-Variable -Name "config" -Value $(gen_config_obj) -Scope Private
 
-print_error "json" $(gen_config_obj | ConvertTo-Json)
+print_error "json" $(gen_config_obj | ConvertTo-Json -Depth 8)
 exit_program
 
 # CHECK PATHS EXIST (move to Explicitize-Config.ps1)

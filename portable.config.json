@@ -1,4 +1,22 @@
 {
+  "aliasesObj": {
+    "bash": [
+      {
+        "name": "babel",
+        "value": "pollyfill"
+      },
+      {
+        "name": "aaaaaaa",
+        "value": "hhhhhh"
+      },
+      "ps": [
+        {
+          "name": "neh",
+          "value": "ah"
+        }
+      ]
+    ]
+  },
   "aliases": [
     {
       "name": "gs",
@@ -6,11 +24,11 @@
     },
     {
       "name": "gl",
-      "value": "git log --oneline --all --graph --decorate  $*"
+      "value": "git log"
     },
     {
       "name": "ls",
-      "value": "ls --show-control-chars -F --color $*"
+      "value": "ls"
     },
   ]
 }

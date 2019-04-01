@@ -1,5 +1,5 @@
 function create_config() {
-  if(Test-Path -Path "./portable.config.json") {
+  if (Test-Path -Path "./portable.config.json") {
     print_info "config" "portable.config.json found. Using portable.config.json"
     $configFile = "./portable.config.json"
   }
@@ -20,20 +20,20 @@ function create_config() {
   $config
 }
 
-function alias_does_not_exist($aliasArray, $defaultAliasName) {
+function alias_does_not_exist($configAliasArray, $defaultAliasName) {
   $aliasExists = $false
-  foreach($alias in $aliasArray) {
-    if($alias.name -eq $defaultAliasName) {
+  foreach ($alias in $configAliasArray) {
+    if ($alias.name -eq $defaultAliasName) {
       $aliasExists = $true
     }
   }
   !$aliasExists
 }
 
-function add_aliases_to_obj($configAliasArray, $defaultConfigAliasArray) {
-  foreach($alias in $defaultConfigAliasArray) {
-    if(alias_does_not_exist $configAliasArray $alias.name) {
-      $configAliasArray += $alias
+function add_aliases_to_obj($config, $defaultConfigAliasArray) {
+  foreach ($alias in $defaultConfigAliasArray) {
+    if (alias_does_not_exist $config.aliases $alias.name) {
+      $config.aliases = $config.aliases += $alias
       Write-Verbose "add_aliases_to_obj -- Adding $($alias.name)) alias to config"
     }
     else {
@@ -42,12 +42,44 @@ function add_aliases_to_obj($configAliasArray, $defaultConfigAliasArray) {
   }
 }
 
-function merge_config_aliasesObj($config, $defaultConfig) {
-  add_prop_to_obj $config "aliasesObj" $(New-Object -TypeName PsObject)
-  add_prop_to_obj $config.aliasesObj "bash" $("[]" | ConvertFrom-Json)
-  add_prop_to_obj $config.aliasesObj "ps" $("[]" | ConvertFrom-Json)
-  add_prop_to_obj $config.aliasesObj "cmd" $("[]" | ConvertFrom-Json)
+function add_alias_use() {
+  param(
+    [Parameter(Position = 0)]
+    [object]
+    $config,
+
+    [Parameter(Position = 1)]
+    [object]
+    $alias,
+
+    [Parameter(Position = 2)]
+    [string[]]
+    $shells = @("bash", "ps", "cmd")
+  )
+
+  process {
+    if ($alias.use | obj_not_has_prop "use") {
+      add_prop_to_obj $alias "use" $("[]" | ConvertTo-Json | Out-Null)
+      print_warning "bb" $alias
+      foreach ($shell in $shells) {
+        $alias.use += $shell
+      }
+    }
+  }
 }
+
+function add_aliasesObj_to_obj($config) {
+  foreach($alias in $config.aliasesObj.bash) {
+    add_alias_use $config $alias @("bash")
+  }
+  foreach($alias in $config.aliasesObj.ps) {
+    add_alias_use $config $alias @("ps")
+  }
+  foreach($alias in $config.aliasesObj.cmd) {
+    add_alias_use $config $alias @("cmd")
+  }
+}
+
 
 function merge_config_relPathsTo($config, $defaultConfig) {
   add_prop_to_obj $config "relPathsTo" $(New-Object -TypeName PsObject)
@@ -60,7 +92,13 @@ function merge_config_relPathsTo($config, $defaultConfig) {
 
 function merge_config_aliases($config, $defaultConfig) {
   add_prop_to_obj $config "aliases" $("[]" | ConvertFrom-Json)
-  add_aliases_to_obj $config.aliases $defaultConfig.aliases
+
+  add_prop_to_obj $config "aliasesObj" $(New-Object -TypeName PsObject)
+  add_prop_to_obj $config.aliasesObj "bash" $("[]" | ConvertFrom-Json)
+  add_prop_to_obj $config.aliasesObj "ps" $("[]" | ConvertFrom-Json)
+  add_prop_to_obj $config.aliasesObj "cmd" $("[]" | ConvertFrom-Json)
+  add_aliases_to_obj $config $defaultConfig.aliases
+  add_aliasesObj_to_obj $config
 }
 
 function merge_config_binaries($config, $defaultConfig) {

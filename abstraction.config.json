@@ -1,4 +1,12 @@
 {
+  "aliasesObj": {
+    "bash": [
+      "@{name=babel; value=pollyfill; use=bash}",
+      "@{name=aaaaaaa; value=hhhhhh; use=bash}"
+    ],
+    "ps": [],
+    "cmd": []
+  },
   "aliases": [
     {
       "name": "gs",
@@ -6,11 +14,61 @@
     },
     {
       "name": "gl",
-      "value": "git log --oneline --all --graph --decorate  $*"
+      "value": "git log"
     },
     {
       "name": "ls",
-      "value": "ls --show-control-chars -F --color $*"
+      "value": "ls"
+    },
+    {
+      "name": "e.",
+      "value": "explorer .",
+      "use": "cmd"
+    },
+    {
+      "name": "pwd",
+      "value": "cd",
+      "use": "cmd"
+    },
+    {
+      "name": "clear",
+      "value": "cls",
+      "use": "cmd"
+    },
+    {
+      "name": "history",
+      "value": "cat \"%CMDER_ROOT%\\config\\.history\"",
+      "use": "cmd"
+    },
+    {
+      "name": "unalias",
+      "value": "alias /d $1",
+      "use": "cmd"
+    },
+    {
+      "name": "vi",
+      "value": "vim $*"
+    },
+    {
+      "name": "cmderr",
+      "value": "cd /d \"%CMDER_ROOT%\"",
+      "use": "cmd"
+    },
+    {
+      "name": "gr",
+      "value": "gradle run"
+    },
+    {
+      "name": "g",
+      "value": "clear"
+    },
+    {
+      "name": "la",
+      "value": "'ls -al'"
+    },
+    {
+      "name": "ll",
+      "value": "ls -al"
     }
   ],
   "relPathsTo": {
