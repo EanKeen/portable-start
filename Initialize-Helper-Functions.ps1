@@ -113,7 +113,7 @@ function attempt_to_run_hook($expression) {
   }
 }
 
-function add_prop_to_obj($obj, $prop, $propValue) {
+function add_object_prop($obj, $prop, $propValue) {
   if($obj | obj_not_has_prop $prop) {
     Add-Member -InputObject $obj -Name $prop -Value $propValue -MemberType NoteProperty
   }

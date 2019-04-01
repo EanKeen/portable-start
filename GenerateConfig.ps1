@@ -37,7 +37,7 @@ function use_shells_for_alias() {
 
   process {
     if ($alias.use | obj_not_has_prop "use") {
-      add_prop_to_obj $alias "use" $("[]" | ConvertTo-Json | Out-Null)
+      add_object_prop $alias "use" $("[]" | ConvertTo-Json | Out-Null)
       foreach ($shell in $shells) {
         $alias.use += $shell
       }
@@ -90,32 +90,32 @@ function merge_aliases_from_aliasesObj($config) {
 
 # MERGE FUNCTION
 function merge_relPathsTo($config, $defaultConfig) {
-  add_prop_to_obj $config "relPathsTo" $(New-Object -TypeName PsObject)
-  add_prop_to_obj $config.relPathsTo "applications" $defaultConfig.relPathsTo.applications
-  add_prop_to_obj $config.relPathsTo "binaries" $defaultConfig.relPathsTo.binaries
-  add_prop_to_obj $config.relPathsTo "cmderConfig" $defaultConfig.relPathsTo.cmderConfig
-  add_prop_to_obj $config.relPathsTo "shortcuts" $defaultConfig.relPathsTo.shortcuts
-  add_prop_to_obj $config.relPathsTo "sourceToAccessHooks" ""
+  add_object_prop $config "relPathsTo" $(New-Object -TypeName PsObject)
+  add_object_prop $config.relPathsTo "applications" $defaultConfig.relPathsTo.applications
+  add_object_prop $config.relPathsTo "binaries" $defaultConfig.relPathsTo.binaries
+  add_object_prop $config.relPathsTo "cmderConfig" $defaultConfig.relPathsTo.cmderConfig
+  add_object_prop $config.relPathsTo "shortcuts" $defaultConfig.relPathsTo.shortcuts
+  add_object_prop $config.relPathsTo "sourceToAccessHooks" ""
 }
 
 function merge_aliases($config, $defaultConfig) {
-  add_prop_to_obj $config "aliases" $("[]" | ConvertFrom-Json)
+  add_object_prop $config "aliases" $("[]" | ConvertFrom-Json)
 
-  add_prop_to_obj $config "aliasesObj" $(New-Object -TypeName PsObject)
-  add_prop_to_obj $config.aliasesObj "bash" $("[]" | ConvertFrom-Json)
-  add_prop_to_obj $config.aliasesObj "ps" $("[]" | ConvertFrom-Json)
-  add_prop_to_obj $config.aliasesObj "cmd" $("[]" | ConvertFrom-Json)
+  add_object_prop $config "aliasesObj" $(New-Object -TypeName PsObject)
+  add_object_prop $config.aliasesObj "bash" $("[]" | ConvertFrom-Json)
+  add_object_prop $config.aliasesObj "ps" $("[]" | ConvertFrom-Json)
+  add_object_prop $config.aliasesObj "cmd" $("[]" | ConvertFrom-Json)
   merge_aliases_from_default $config $defaultConfig.aliases
   add_shells_property_for_aliasesObj $config
   merge_aliases_from_aliasesObj $config
 }
 
 function merge_binaries($config, $defaultConfig) {
-  add_prop_to_obj $config "binaries" $("[]" | ConvertFrom-Json)
+  add_object_prop $config "binaries" $("[]" | ConvertFrom-Json)
 }
 
 function merge_variables($config, $defaultConfig) {
-  add_prop_to_obj $config "variables" $("[]" | ConvertFrom-Json)
+  add_object_prop $config "variables" $("[]" | ConvertFrom-Json)
 }
 
 function generate_config() {

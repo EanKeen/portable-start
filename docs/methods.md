@@ -28,16 +28,16 @@ You can customize how this application functions by using the in-built hooks. Th
 - `normalize_path "F:\alfa\bravo" "..\charlie"`
 - `normalize_path "G:/delta/echo" "foxtrot/golf"`
 
-## `add_prop_to_obj`
+## `add_object_prop`
 
 If property exists, this method does not overwrite.
 
-- `add_prop_to_obj $obj $prop $propValue`
-- `add_prop_to_obj $(New-Object -TypeName PsObject) "sierra" "s"`
+- `add_object_prop $obj $prop $propValue`
+- `add_object_prop $(New-Object -TypeName PsObject) "sierra" "s"`
 
 ## `obj_not_has_prop`
 
-Returns boolean value. Used by `add_prop_to_obj`
+Returns boolean value. Used by `add_object_prop`
 
 - `$obj | obj_not_has_prop $prop`
 - `$(New-Object -TypeName PsObject | Add-Member -Name "tango" -Value "t" -MemberType NoteProperty) | obj_not_has_prop "tango"`
