@@ -1,4 +1,18 @@
 {
+  "aliases": [
+    {
+      "name": "gs",
+      "value": "git status"
+    },
+    {
+      "name": "gl",
+      "value": "git log --oneline --all --graph --decorate  $*"
+    },
+    {
+      "name": "ls",
+      "value": "ls --show-control-chars -F --color $*"
+    }
+  ],
   "relPathsTo": {
     "applications": "../applications",
     "binaries": "../bins",
@@ -6,7 +20,6 @@
     "shortcuts": "../shortcuts",
     "sourceToAccessHooks": ""
   },
-  "aliases": [],
   "binaries": [],
   "variables": []
 }

@@ -20,6 +20,28 @@ function create_config() {
   $config
 }
 
+function alias_does_not_exist($aliasArray, $defaultAliasName) {
+  $aliasExists = $false
+  foreach($alias in $aliasArray) {
+    if($alias.name -eq $defaultAliasName) {
+      $aliasExists = $true
+    }
+  }
+  !$aliasExists
+}
+
+function add_aliases_to_obj($configAliasArray, $defaultConfigAliasArray) {
+  foreach($alias in $defaultConfigAliasArray) {
+    if(alias_does_not_exist $configAliasArray $alias.name) {
+      $configAliasArray += $alias
+      Write-Verbose "add_aliases_to_obj -- Adding $($alias.name)) alias to config"
+    }
+    else {
+      Write-Verbose "add_aliases_to_obj -- Not adding $($alias.name)) alias to config"
+    }
+  }
+}
+
 function merge_config_aliasesObj($config, $defaultConfig) {
   add_prop_to_obj $config "aliasesObj" $(New-Object -TypeName PsObject)
   add_prop_to_obj $config.aliasesObj "bash" $("[]" | ConvertFrom-Json)
@@ -38,7 +60,7 @@ function merge_config_relPathsTo($config, $defaultConfig) {
 
 function merge_config_aliases($config, $defaultConfig) {
   add_prop_to_obj $config "aliases" $("[]" | ConvertFrom-Json)
-
+  add_aliases_to_obj $config.aliases $defaultConfig.aliases
 }
 
 function merge_config_binaries($config, $defaultConfig) {
