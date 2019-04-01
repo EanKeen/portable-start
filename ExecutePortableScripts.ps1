@@ -1,9 +1,12 @@
 # LOAD HELPER FUNCTIONS
 Write-Host "Load helper functions" -BackgroundColor White -ForegroundColor Black
-. ./InitializeHelperFunctions.ps1
+. ./util/PrintToConsole.ps1
+. ./util/WriteToConfig.ps1
+. ./util/General.ps1
 
-# FILL IN GAPS IN CONFIG
+# GENERATE CONFIG FILE
 print_title "Create basic config"
+
 . ./GenerateConfig.ps1
 # Set-Variable -Name "vars" -Value $(global_vars) -Scope Private
 # Set-Variable -Name "config" -Value $(gen_config_obj) -Scope Private
@@ -12,7 +15,8 @@ print_error "json" $(generate_config | ConvertTo-Json -Depth 8)
 exit_program
 
 # CHECK PATHS EXIST (move to Explicitize-Config.ps1)
-. ./SetupPortable.ps1
+. ./ValidatePaths.ps1
+. ./GenerateVars
 print_title "Check file paths exist"
 check_paths_in_config_exist $vars $config
 . "$($config.relPathsTo.sourceToAccessHooks)"
