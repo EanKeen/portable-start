@@ -2,19 +2,19 @@
   "aliasesObj": {
     "bash": [
       {
-        "name": "babel",
-        "value": "pollyfill"
+        "name": "a",
+        "value": "b"
       },
       {
         "name": "aaaaaaa",
         "value": "hhhhhh"
       },
-      "ps": [
-        {
-          "name": "neh",
-          "value": "ah"
-        }
-      ]
+    ],
+    "ps": [
+      {
+        "name": "neh",
+        "value": "ah"
+      }
     ]
   },
   "aliases": [

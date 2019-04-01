@@ -42,6 +42,15 @@ function add_aliases_to_obj($config, $defaultConfigAliasArray) {
   }
 }
 
+function add_aliasesObjAliases_to_aliases($config) {
+  $aliases = @("bash", "ps", "cmd")
+  foreach($aliasArray in $aliases) {
+    foreach($alias in $config.aliasesObj."$aliasArray") {
+      $config.aliases += $alias
+    }
+  }
+}
+
 function add_alias_use() {
   param(
     [Parameter(Position = 0)]
@@ -60,7 +69,6 @@ function add_alias_use() {
   process {
     if ($alias.use | obj_not_has_prop "use") {
       add_prop_to_obj $alias "use" $("[]" | ConvertTo-Json | Out-Null)
-      print_warning "bb" $alias
       foreach ($shell in $shells) {
         $alias.use += $shell
       }
@@ -98,6 +106,7 @@ function merge_config_aliases($config, $defaultConfig) {
   add_prop_to_obj $config.aliasesObj "ps" $("[]" | ConvertFrom-Json)
   add_prop_to_obj $config.aliasesObj "cmd" $("[]" | ConvertFrom-Json)
   add_aliases_to_obj $config $defaultConfig.aliases
+  add_aliasesObjAliases_to_aliases $config
   add_aliasesObj_to_obj $config
 }
 
@@ -118,6 +127,6 @@ function gen_config_obj() {
   merge_config_binaries $config $defaultConfig
   merge_config_variables $config $defaultConfig
 
-  $config | ConvertTo-Json | Out-File -FilePath "./abstraction.config.json" -Encoding "ASCII"
+  $config | ConvertTo-Json -Depth 8 | Out-File -FilePath "./abstraction.config.json" -Encoding "ASCII"
   $config
 }

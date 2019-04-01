@@ -1,10 +1,24 @@
 {
   "aliasesObj": {
     "bash": [
-      "@{name=babel; value=pollyfill; use=bash}",
-      "@{name=aaaaaaa; value=hhhhhh; use=bash}"
+      {
+        "name": "a",
+        "value": "b",
+        "use": "bash"
+      },
+      {
+        "name": "aaaaaaa",
+        "value": "hhhhhh",
+        "use": "bash"
+      }
     ],
-    "ps": [],
+    "ps": [
+      {
+        "name": "neh",
+        "value": "ah",
+        "use": "ps"
+      }
+    ],
     "cmd": []
   },
   "aliases": [
@@ -23,27 +37,37 @@
     {
       "name": "e.",
       "value": "explorer .",
-      "use": "cmd"
+      "use": [
+        "cmd"
+      ]
     },
     {
       "name": "pwd",
       "value": "cd",
-      "use": "cmd"
+      "use": [
+        "cmd"
+      ]
     },
     {
       "name": "clear",
       "value": "cls",
-      "use": "cmd"
+      "use": [
+        "cmd"
+      ]
     },
     {
       "name": "history",
       "value": "cat \"%CMDER_ROOT%\\config\\.history\"",
-      "use": "cmd"
+      "use": [
+        "cmd"
+      ]
     },
     {
       "name": "unalias",
       "value": "alias /d $1",
-      "use": "cmd"
+      "use": [
+        "cmd"
+      ]
     },
     {
       "name": "vi",
@@ -52,7 +76,9 @@
     {
       "name": "cmderr",
       "value": "cd /d \"%CMDER_ROOT%\"",
-      "use": "cmd"
+      "use": [
+        "cmd"
+      ]
     },
     {
       "name": "gr",
@@ -69,6 +95,21 @@
     {
       "name": "ll",
       "value": "ls -al"
+    },
+    {
+      "name": "a",
+      "value": "b",
+      "use": "bash"
+    },
+    {
+      "name": "aaaaaaa",
+      "value": "hhhhhh",
+      "use": "bash"
+    },
+    {
+      "name": "neh",
+      "value": "ah",
+      "use": "ps"
     }
   ],
   "relPathsTo": {
