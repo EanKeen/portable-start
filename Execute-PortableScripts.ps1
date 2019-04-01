@@ -4,11 +4,11 @@ Write-Host "Load helper functions" -BackgroundColor White -ForegroundColor Black
 
 # FILL IN GAPS IN CONFIG
 print_title "Create basic config"
-. ./Explicitize-Config.ps1
+. ./GenerateConfig.ps1
 # Set-Variable -Name "vars" -Value $(global_vars) -Scope Private
 # Set-Variable -Name "config" -Value $(gen_config_obj) -Scope Private
 
-print_error "json" $(gen_config_obj | ConvertTo-Json -Depth 8)
+print_error "json" $(generate_config | ConvertTo-Json -Depth 8)
 exit_program
 
 # CHECK PATHS EXIST (move to Explicitize-Config.ps1)
