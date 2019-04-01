@@ -1,6 +1,6 @@
 # LOAD HELPER FUNCTIONS
 Write-Host "Load helper functions" -BackgroundColor White -ForegroundColor Black
-. ./Initialize-Helper-Functions.ps1
+. ./InitializeHelperFunctions.ps1
 
 # FILL IN GAPS IN CONFIG
 print_title "Create basic config"
@@ -12,7 +12,7 @@ print_error "json" $(generate_config | ConvertTo-Json -Depth 8)
 exit_program
 
 # CHECK PATHS EXIST (move to Explicitize-Config.ps1)
-. ./Setup-Portable.ps1
+. ./SetupPortable.ps1
 print_title "Check file paths exist"
 check_paths_in_config_exist $vars $config
 . "$($config.relPathsTo.sourceToAccessHooks)"
@@ -25,12 +25,12 @@ attempt_to_run_hook "after_create_variables `$config `$var"
 
 # DOWNLOAD BINARIES
 # print_title "Create binaries"
-# . ./Download-Binaries.ps1
+# . ./DownloadBinaries.ps1
 # attempt_run "after_download_binaries `$config `$var"
 
 # CREATE CMDER CONFIG FILES
 print_title "Create Cmder config files"
-. ./Create-Cmder-Config.ps1
+. ./CreateCmderConfig.ps1
 $willWriteCmderConfig = ask_to_create_cmder_config $vars $config
 if($willWriteCmderConfig) {
   cmder_config_write $vars $config
@@ -39,13 +39,13 @@ attempt_to_run_hook "after_create_cmder_files `$config `$var"
 
 # CREATE SHORTCUTS
 print_title "Create shortcuts"
-. ./Create-Shortcuts.ps1
+. ./CreateShortcuts.ps1
 create_shortcuts $vars $config
 attempt_to_run_hook "after_create_shortcuts `$config `$var"
 
 # LAUNCH APPLICATIONS
 print_title "Launch applications"
-. ./Launch-Applications
+. ./LaunchApplications
 prompt_to_launch_apps $vars $config
 attempt_to_run_hook "after_launch_apps `$config `$var"
 
