@@ -8,7 +8,7 @@ function normalize_path($absPath, $relPath) {
 function attempt_to_run_hook($expression) {
   $functionName = $expression.Split(" ")[0]
 
-  if(Get-Command $functionName -errorAction SilentlyContinue) {
+  if(Get-Command $functionName -ErrorAction SilentlyContinue) {
     print_title "Running hook $functionName"
     Invoke-Expression $expression
   }
@@ -19,7 +19,7 @@ function add_object_prop($obj, $prop, $propValue) {
     Add-Member -InputObject $obj -Name $prop -Value $propValue -MemberType NoteProperty
   }
   else {
-    print_error "Error" "Cannot add property on object that has property $prop as $propValue."
+    print_error "Error" "Cannot add property on object that has property `"$prop`" as `"$propValue`"."
   }
 }
 

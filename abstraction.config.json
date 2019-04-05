@@ -117,7 +117,7 @@
     "binaries": "../bins",
     "cmderConfig": "../applications/cmder/config",
     "shortcuts": "../shortcuts",
-    "sourceToAccessHooks": ""
+    "sourceToAccessHooks": "./use_hooks.ps1"
   },
   "binaries": [],
   "variables": []

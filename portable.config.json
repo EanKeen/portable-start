@@ -8,7 +8,7 @@
       {
         "name": "aaaaaaa",
         "value": "hhhhhh"
-      },
+      }
     ],
     "ps": [
       {
@@ -29,6 +29,6 @@
     {
       "name": "ls",
       "value": "ls"
-    },
+    }
   ]
 }

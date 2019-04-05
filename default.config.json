@@ -3,7 +3,8 @@
     "applications": "../applications",
     "binaries": "../bins",
     "cmderConfig": "../applications/cmder/config",
-    "shortcuts": "../shortcuts"
+    "shortcuts": "../shortcuts",
+    "sourceToAccessHooks": "./use_hooks.ps1"
   },
   "aliases": [
     {

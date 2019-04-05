@@ -10,19 +10,23 @@ print_title "Create basic config"
 Set-Variable -Name "config" -Value $(generate_config) -Scope Private
 # print_error "json" $(generate_config | ConvertTo-Json -Depth 8)
 
+# VALIDATE CONFIG. ATTEMPT TO FIX.
+print_title "Validate config object"
+. ./ValidatePaths.ps1
+validate_config $config
+
+# RUN CUSTOM FILE WITH HOOK ACCESS
+if($config.specified.sourceToAccessHooks) { . "$($config.relPathsTo.sourceToAccessHooks)" }
+
 # GENERATE VARS OBJECT
-print_title "Create basic vars"
-. ./GenerateVars.ps1
-# Set-Variable -Name "vars" -Value $(generate_vars) -Scope Private
-print_error "var" $(generate_vars $vars $config | ConvertTo-Json -Depth 8)
+# print_title "Create basic vars"
+# . ./GenerateVars.ps1
+# # Set-Variable -Name "vars" -Value $(generate_vars) -Scope Private
+# print_error "var" $(generate_vars $vars $config | ConvertTo-Json -Depth 8)
 
 exit_program
 
-# CHECK PATHS EXIST
-. ./ValidatePaths.ps1
-print_title "Check file paths exist"
-check_paths_in_config_exist $vars $config
-. "$($config.relPathsTo.sourceToAccessHooks)"
+
 
 # ATTACH VARIABLES TO $VAR (RENAME THIS)
 print_title "Create variables"
