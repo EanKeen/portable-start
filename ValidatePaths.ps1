@@ -28,7 +28,6 @@ function check_path_exists($pathName, $pathValue) {
 
 function validate_relPathsTo($config) {
     foreach ($relativePath in $config.relPathsTo.PsObject.Properties) {
-      Write-Host "foxtrot" $relativePath.value
       check_path_exists $relativePath.Name $relativePath.Value
     }
 }

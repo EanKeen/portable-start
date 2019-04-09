@@ -9,6 +9,7 @@
 - make properties of var better named
 - create function that autofills optional and required parameters w/ default value
 - meta bootstrap exec w/ cmd
+- make piping actually work with print statements
 - modify scheme such that the following can be used
 
 ```json

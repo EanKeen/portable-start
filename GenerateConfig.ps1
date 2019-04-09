@@ -37,7 +37,7 @@ function use_shells_for_alias() {
 
   process {
     if ($alias.use | obj_not_has_prop "use") {
-      add_object_prop $alias "use" $("[]" | ConvertTo-Json | Out-Null)
+      add_object_prop $alias "use" $("[]" | ConvertTo-Json | Out-Null) 
       foreach ($shell in $shells) {
         $alias.use += $shell
       }
