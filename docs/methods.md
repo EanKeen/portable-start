@@ -91,7 +91,8 @@ write_variable_to_config $var $var.cmdConfig "seven" "8"
 
 ```ps
 write_path_to_config $var $configFile $binName $filePath
-write_path_to_config $var $var.allConfig "Java" "C:/zebra/bin/java"
+write_path_to_config $var $var.allConfig "Java" "C:/zebra/bin"
+write_path_to_config $var $var.allConfig "Go" "C:\xray\bin"
 ```
 
 ## `write_alias_to_config`

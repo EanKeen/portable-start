@@ -24,11 +24,6 @@ Set-Variable -Name "vars" -Value $(generate_vars $config) -Scope Private
 if(Test-Path -Path $vars.sourceToAccessHooks) { . "$($vars.sourceToAccessHooks)" }
 attempt_to_run_hook "portable_hook_after_create_variables `$config `$var"
 
-# DOWNLOAD BINARIES
-print_title "Download and unpackage binaries"
-. ./DownloadBinaries.ps1
-attempt_to_run_hook "portable_hook_after_download_binaries `$config `$var"
-
 # CREATE CMDER CONFIG FILES
 print_title "Create Cmder config files"
 . ./CreateCmderConfig.ps1
