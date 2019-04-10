@@ -1,18 +1,24 @@
 function create_folder_variables($var, $config) {
-  $absolutePathToBinDir = (Resolve-Path -Path $config.relPathsTo.binaries).Path
-  $absolutePathToCmderConfigDir = (Resolve-Path -Path $config.relPathsTo.cmderConfig).Path
   $absolutePathToAppDir = (Resolve-Path -Path $config.relPathsTo.applications).Path
+  $absolutePathToBinDir = (Resolve-Path -Path $config.relPathsTo.binaries).Path
+  $absolutePathToShortcuts = (Resolve-Path -Path $config.relPathsTo.shortcuts).Path
+  $absolutePathToCmderConfigDir = (Resolve-Path -Path $config.relPathsTo.cmderConfig).Path
+  $absolutePathToSourceToAccessHooks = (Resolve-Path -Path $config.relPathsTo.sourceToAccessHooks).Path
   $absolutePathToPortableDir = $(Split-Path $PSCommandPath)
 
-  add_object_prop $var "binDir" $absolutePathToBinDir
-  add_object_prop $var "cmderConfigDir" $absolutePathToCmderConfigDir
   add_object_prop $var "appDir" $absolutePathToAppDir
+  add_object_prop $var "binDir" $absolutePathToBinDir
+  add_object_prop $var "shortcutsDir" $absolutePathToShortcuts
+  add_object_prop $var "cmderConfigDir" $absolutePathToCmderConfigDir
+  add_object_prop $var "sourceToAccessHooks" $absolutePathToSourceToAccessHooks
   add_object_prop $var "portableDir" $absolutePathToPortableDir
 
-  print_info "`$vars.binDir" $var.binDir
-  print_info "`$vars.cmderConfigDir" $var.cmderConfigDir
-  print_info "`$vars.portableDir" $var.portableDir
   print_info "`$vars.appDir" $var.appDir
+  print_info "`$vars.binDir" $var.binDir
+  print_info "`$vars.shortcutsDir" $var.shortcutsDir
+  print_info "`$vars.cmderConfigDir" $var.cmderConfigDir
+  print_info "`"vars.sourceToAccessHooks" $var.sourceToAccessHooks
+  print_info "`$vars.portableDir" $var.portableDir
 }
 
 function create_cmder_profile_variables($var, $config) {
