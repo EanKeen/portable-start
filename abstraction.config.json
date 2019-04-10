@@ -113,11 +113,11 @@
     }
   ],
   "relPathsTo": {
-    "applications": "../applications",
-    "binaries": "../bins",
+    "applications": "../_portable-applications",
+    "binaries": "../_portable-binaries",
     "cmderConfig": "../applications/cmder/config",
-    "shortcuts": "../shortcuts",
-    "sourceToAccessHooks": "./use_hooks.ps1"
+    "shortcuts": "../_portable-shortcuts",
+    "sourceToAccessHooks": "../_portable-extend.ps1"
   },
   "binaries": [],
   "variables": []

@@ -1,10 +1,10 @@
 {
   "relPathsTo": {
-    "applications": "../applications",
-    "binaries": "../bins",
+    "applications": "../_portable-applications",
+    "binaries": "../_portable-binaries",
+    "shortcuts": "../_portable-shortcuts",
     "cmderConfig": "../applications/cmder/config",
-    "shortcuts": "../shortcuts",
-    "sourceToAccessHooks": "./use_hooks.ps1"
+    "sourceToAccessHooks": "../_portable-extend.ps1"
   },
   "aliases": [
     {
