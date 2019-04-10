@@ -3,8 +3,8 @@
     "applications": "../_portable-applications",
     "binaries": "../_portable-binaries",
     "shortcuts": "../_portable-shortcuts",
-    "cmderConfig": "../applications/cmder/config",
-    "sourceToAccessHooks": "../_portable-extend.ps1"
+    "cmderConfig": "../_portable-applications/cmder/config",
+    "sourceToAccessHooks": "../_portable-custom/script.ps1"
   },
   "aliases": [
     {

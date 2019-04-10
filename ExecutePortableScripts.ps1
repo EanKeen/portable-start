@@ -15,18 +15,16 @@ print_title "Validate config object"
 . ./ValidatePaths.ps1
 validate_config $config
 
-# RUN CUSTOM FILE WITH HOOK ACCESS
-if($config.specified.sourceToAccessHooks) { . "$($config.relPathsTo.sourceToAccessHooks)" }
-
 # GENERATE VARS OBJECT
 # print_title "Create basic vars"
 # . ./GenerateVars.ps1
 # # Set-Variable -Name "vars" -Value $(generate_vars) -Scope Private
 # print_error "var" $(generate_vars $vars $config | ConvertTo-Json -Depth 8)
 
+# RUN CUSTOM FILE WITH HOOK ACCESS
+if($vars.specified.sourceToAccessHooks) { . "$($config.relPathsTo.sourceToAccessHooks)" }
+
 exit_program
-
-
 
 # ATTACH VARIABLES TO $VAR (RENAME THIS)
 print_title "Create variables"

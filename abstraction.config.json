@@ -115,9 +115,9 @@
   "relPathsTo": {
     "applications": "../_portable-applications",
     "binaries": "../_portable-binaries",
-    "cmderConfig": "../applications/cmder/config",
+    "cmderConfig": "../_portable-applications/cmder/config",
     "shortcuts": "../_portable-shortcuts",
-    "sourceToAccessHooks": "../_portable-extend.ps1"
+    "sourceToAccessHooks": "../_portable-custom/script.ps1"
   },
   "binaries": [],
   "variables": []
