@@ -1,7 +1,7 @@
 # Check to be sure all paths user is entering is correct
 
 function prompt_to_create_path($pathName, $pathValue) {
-  print_info "prompt_to_create_path" "Would you like to create a folder at `"$pathValue`" for `"$pathname`"?"
+  print_info "prompt_to_create_path" "Would you like to create an item at `"$pathValue`" for `"$pathname`"?"
   $key = $Host.UI.RawUI.ReadKey()
   Write-Host "`r`n"
   if($key.Character -eq "y") {}

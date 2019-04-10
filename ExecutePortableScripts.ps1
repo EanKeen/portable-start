@@ -16,10 +16,9 @@ print_title "Validate config object"
 validate_config $config
 
 # GENERATE VARS OBJECT
-# print_title "Create basic vars"
-# . ./GenerateVars.ps1
-# # Set-Variable -Name "vars" -Value $(generate_vars) -Scope Private
-# print_error "var" $(generate_vars $vars $config | ConvertTo-Json -Depth 8)
+print_title "Create basic vars"
+. ./GenerateVars.ps1
+Set-Variable -Name "vars" -Value $(generate_vars $config) -Scope Private
 
 # RUN CUSTOM FILE WITH HOOK ACCESS
 if($vars.specified.sourceToAccessHooks) { . "$($config.relPathsTo.sourceToAccessHooks)" }

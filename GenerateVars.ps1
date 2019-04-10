@@ -15,7 +15,7 @@ function create_folder_variables($var, $config) {
   print_info "`$vars.appDir" $var.appDir
 }
 
-function create_config_file_variables($var, $config) {
+function create_cmder_profile_variables($var, $config) {
   $bashConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.sh"
   $psConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.ps1"
   $cmdConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.cmd"
@@ -32,7 +32,11 @@ function create_config_file_variables($var, $config) {
   print_info "`$vars.allConfig" $allConfig
 }
 
-function generate_vars($vars, $config) {
+function generate_vars($config) {
+  $vars = New-Object -TypeName PsObject
+
   create_folder_variables $vars $config
-  create_config_file_variables $vars $config
+  create_cmder_profile_variables $vars $config
+  print_error "var" $($vars | ConvertTo-Json -Depth 8)
+  $vars
 }
