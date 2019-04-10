@@ -8,8 +8,8 @@ function prompt_to_create_path($pathName, $pathValue) {
   elseif($key.Character -eq "n") { return }
   else { prompt_to_create_path $pathName $pathValue }
 
-  if(Test-Path $pathValue -IsValid) {
-    if(Test-Path $pathValue -IsValid -PathType Leaf) {
+  if(Test-Path -Path $pathValue -IsValid) {
+    if(Test-Path -Path $pathValue -IsValid -PathType Leaf) {
       New-Item -Path $(Split-Path $pathValue) -ItemType Directory | Out-Null
       New-Item -Path $pathValue -ItemType File | Out-Null
     }

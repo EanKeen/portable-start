@@ -46,20 +46,20 @@ function cmder_config_write($var, $config) {
 # Creates / overwrites config files
 function create_config_files($config, $var) {
   # Remove config files if they already exist
-  if (Test-Path $var.bashConfig -PathType Leaf) {
+  if (Test-Path -Path $var.bashConfig -PathType Leaf) {
     Remove-Item -Path $var.bashConfig
   }
-  if (Test-Path $var.psConfig -PathType Leaf) {
+  if (Test-Path -Path $var.psConfig -PathType Leaf) {
     Remove-Item -Path $var.psConfig
   }
-  if (Test-Path $var.cmdConfig -PathType Leaf) {
+  if (Test-Path -Path $var.cmdConfig -PathType Leaf) {
     Remove-Item -Path $var.cmdConfig
   }
 
   # Create new config items (none should exist in dir now)
-  New-Item $var.bashConfig | Out-Null
-  New-Item $var.psConfig | Out-Null
-  New-Item $var.cmdConfig | Out-Null
+  New-Item -Path $var.bashConfig | Out-Null
+  New-Item -Path $var.psConfig | Out-Null
+  New-Item -Path $var.cmdConfig | Out-Null
 }
 function ask_to_create_cmder_config($var, $config) {
   if ((Test-Path -Path $var.cmdConfig) -or
