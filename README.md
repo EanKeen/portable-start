@@ -1,6 +1,11 @@
 # portable-workstation
 
-## RoadMap
+## Current Todo
+
+- Make sure all objects of aliases array has "use" property
+- Add variable to config conditionally, based on "use" array
+
+## Roadmap
 
 - Automatically create shortcuts
 - Download binaries and unpackage them automatically

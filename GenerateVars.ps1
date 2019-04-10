@@ -39,10 +39,9 @@ function create_cmder_profile_variables($var, $config) {
 }
 
 function generate_vars($config) {
-  $vars = New-Object -TypeName PsObject
+  $var = New-Object -TypeName PsObject
 
-  create_folder_variables $vars $config
-  create_cmder_profile_variables $vars $config
-  print_error "var" $($vars | ConvertTo-Json -Depth 8)
-  $vars
+  create_folder_variables $var $config
+  create_cmder_profile_variables $var $config
+  $var
 }
