@@ -1,10 +1,10 @@
 function create_config() {
   if (Test-Path -Path "./portable.config.json") {
-    print_info "config" "portable.config.json found. Using portable.config.json"
+    print_info "create_config" "portable.config.json found. Using portable.config.json"
     $configFile = "./portable.config.json"
   }
   else {
-    print_info "config" "portable.config.json not found. Using default.config.json"
+    print_info "create_config" "portable.config.json not found. Using default.config.json"
     $configFile = "./default.config.json"
   }
   
@@ -14,7 +14,7 @@ function create_config() {
     $config = ConvertFrom-Json $configAsString -ErrorAction Stop
   }
   catch {
-    print_error "config" "Config not valid JSON. Creating blank configuration object"
+    print_error "create_config" "Config not valid JSON. Creating blank configuration object"
     # by default $config is PsObject
   }
   $config

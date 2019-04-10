@@ -1,5 +1,5 @@
 function launch_app($app, $absolutePathToApp) {
-  print_info "application" "launching $($app.name)"
+  print_info "launch_app" "launching $($app.name)"
   &$absolutePathToApp
   # Start-Process -FilePath $absolutePathToApp
   # Start-Process -FilePath $absolutePathToApp -RedirectStandardOutput "./stdout.txt" -RedirectStandardError "./stderr.txt" -WindowStyle Minimized
@@ -21,7 +21,7 @@ function prompt_to_launch_app($app, $appExeName, $absolutePathToApp) {
     elseif(!$appAlreadyRunning) {
       $warning = "Would you like to open $($app.name)?"
     }
-    print_warning $warning
+    print_warning "prompt_to_launch_app" $warning
 
     $key = $Host.UI.RawUI.ReadKey()
     Write-Host "`r`n"
@@ -30,7 +30,7 @@ function prompt_to_launch_app($app, $appExeName, $absolutePathToApp) {
       return
     }
     elseif($key.Character -eq "n") {
-      print_info "application" "not launching $($app.name)"
+      print_info "prompt_to_launch_app" "not launching $($app.name)"
       return
     }
 

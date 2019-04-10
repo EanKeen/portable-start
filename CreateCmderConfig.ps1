@@ -65,7 +65,7 @@ function ask_to_create_cmder_config($var, $config) {
   if ((Test-Path -Path $var.cmdConfig) -or
   (Test-Path -Path $var.psConfig) -or
   (Test-Path -Path $var.bashConfig)) {
-    print_warning "You alrady have Cmder config files. Overwrite them?"
+    print_warning "ask_to_create_cmder_config" "You alrady have Cmder config files. Overwrite them?"
 
     $key = $Host.UI.RawUI.ReadKey()
     Write-Host "`r`n"

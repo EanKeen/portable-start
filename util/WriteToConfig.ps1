@@ -26,7 +26,7 @@ function write_comment_to_config($var, $configFile, $comment) {
   elseif($configFile -eq $var.cmdConfig) {
     write_to_config $var $var.cmdConfig ":: $comment"
   }
-  print_info "comment" "Adding `"$($comment.Substring(0, 15))...`" to `"$(Split-Path $configFile -Leaf)`""
+  print_info "write_comment_to_config" "Adding `"$($comment.Substring(0, 15))...`" to `"$(Split-Path $configFile -Leaf)`""
 }
 
 function write_variable_to_config($var, $configFile, $variableName, $variableValue) {
@@ -45,7 +45,7 @@ function write_variable_to_config($var, $configFile, $variableName, $variableVal
   elseif($configFile -eq $var.cmdConfig) {
     write_to_config $var $configFile "set $variableName=$variableValue"
   }
-  print_info "variable" "Adding `"$variableName`" to `"$variableValue`" for `"$(Split-path $configFile -Leaf)`""
+  print_info "write_variable_to_config" "Adding `"$variableName`" to `"$variableValue`" for `"$(Split-path $configFile -Leaf)`""
 }
 
 function write_path_to_config($var, $configFile, $binName, $filePath) {
@@ -64,7 +64,7 @@ function write_path_to_config($var, $configFile, $binName, $filePath) {
   elseif($configFile -eq $var.cmdConfig) {
     write_to_config $var $var.cmdConfig "set PATH=${filePath};%PATH%"
   }
-  print_info "path" "Adding `"$binName`" to PATH for `"$(Split-Path $configFile -Leaf)`""
+  print_info "write_path_to_config" "Adding `"$binName`" to PATH for `"$(Split-Path $configFile -Leaf)`""
 }
 
 function write_alias_to_config($var, $configFile, $aliasName, $aliasValue) {
@@ -87,5 +87,5 @@ function write_alias_to_config($var, $configFile, $aliasName, $aliasValue) {
     # Write-Line-To-File "alias $alias=$aliasValue" $configFile
     # Write-Line-To-File "doskey $alias=$aliasValue" $configFile
   }
-  print_info "alias" "Adding `"$aliasName`" as `"$aliasValue`" for `"$(Split-Path -Path $configFile)`""
+  print_info "write_alias_to_config" "Adding `"$aliasName`" as `"$aliasValue`" for `"$(Split-Path -Path $configFile)`""
 }

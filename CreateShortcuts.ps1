@@ -1,5 +1,5 @@
 function write_shortcut($shortcutName, $shortcutLocation, $shortcutReference) {
-  print_info "shortcut" "Writing $shortcutName to $shortcutReference (not really)"
+  print_info "write_shortcut" "Writing $shortcutName to $shortcutReference (not really)"
   # $WshShell = New-Object -comObject WScript.Shell
   # $Shortcut = $WshShell.CreateShortcut($shortcutLocation)
   # $Shortcut.TargetPath = $shortcutReference
