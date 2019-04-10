@@ -2,20 +2,15 @@
   "aliasesObj": {
     "bash": [
       {
-        "name": "a",
-        "value": "b",
-        "use": "bash"
-      },
-      {
-        "name": "aaaaaaa",
-        "value": "hhhhhh",
+        "name": "ll",
+        "value": "ls -al",
         "use": "bash"
       }
     ],
     "ps": [
       {
-        "name": "neh",
-        "value": "ah",
+        "name": "test",
+        "value": "New-Object -TypeName PsObject | ConvertTo-Json | Write-Host",
         "use": "ps"
       }
     ],
@@ -97,18 +92,13 @@
       "value": "ls -al"
     },
     {
-      "name": "a",
-      "value": "b",
+      "name": "ll",
+      "value": "ls -al",
       "use": "bash"
     },
     {
-      "name": "aaaaaaa",
-      "value": "hhhhhh",
-      "use": "bash"
-    },
-    {
-      "name": "neh",
-      "value": "ah",
+      "name": "test",
+      "value": "New-Object -TypeName PsObject | ConvertTo-Json | Write-Host",
       "use": "ps"
     }
   ],
