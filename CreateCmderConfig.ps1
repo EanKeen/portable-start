@@ -24,9 +24,12 @@ function write_config_variables($var, $config) {
   foreach($variable in $config.variables) {
     write_variable_to_config $var $var.allConfig $variable.name $variable.value
   }
-  write_variable_to_config $var $var.allConfig "portableDir" $var.portableDir
+
+  write_variable_to_config $var $var.allConfig "appDir" $var.appDir
   write_variable_to_config $var $var.allConfig "binDir" $var.binDir
+  write_variable_to_config $var $var.allConfig "shortcutsDir" $var.shortcutsDir
   write_variable_to_config $var $var.allConfig "cmderConfigDir" $var.cmderConfigDir
+  write_variable_to_config $var $var.allConfig "portableDir" $var.portableDir
   write_to_config $var $var.allConfig ""
 }
 function write_config_bins($var, $config) {

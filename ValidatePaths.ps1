@@ -4,7 +4,7 @@ function prompt_to_create_path($pathName, $pathValue) {
   print_info "prompt_to_create_path" "Would you like to create an item at `"$pathValue`" for `"$pathname`"?"
   $key = $Host.UI.RawUI.ReadKey()
   Write-Host "`r`n"
-  if($key.Character -eq "y") {}
+  if($key.Character -eq "y") { }
   elseif($key.Character -eq "n") { return }
   else { prompt_to_create_path $pathName $pathValue }
 
@@ -23,6 +23,7 @@ function prompt_to_create_path($pathName, $pathValue) {
     exit_program
   }
 }
+
 function check_path_exists($pathName, $pathValue) {
   if (Test-Path -Path $pathValue) {
     print_info "check_path_exists" "path `"$pathName`" at `"$pathValue`" reference exists"

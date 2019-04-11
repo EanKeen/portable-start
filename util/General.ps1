@@ -2,7 +2,6 @@
 # Combines relative path relative to absolute path
 function normalize_path($absPath, $relPath) {
   [IO.Path]::GetFullPath((Join-Path $absPath $relPath))
-  return
 }
 
 function attempt_to_run_hook($expression) {
