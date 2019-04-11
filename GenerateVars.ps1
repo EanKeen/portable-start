@@ -17,7 +17,7 @@ function create_folder_variables($var, $config) {
   print_info "`$vars.binDir" $var.binDir
   print_info "`$vars.shortcutsDir" $var.shortcutsDir
   print_info "`$vars.cmderConfigDir" $var.cmderConfigDir
-  print_info "`"vars.sourceToAccessHooks" $var.sourceToAccessHooks
+  print_info "`$vars.sourceToAccessHooks" $var.sourceToAccessHooks
   print_info "`$vars.portableDir" $var.portableDir
 }
 
@@ -25,16 +25,19 @@ function create_cmder_profile_variables($var, $config) {
   $bashConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.sh"
   $psConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.ps1"
   $cmdConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.cmd"
+  $cmdUserAliases = Join-Path -Path $var.cmderConfigDir -ChildPath "user_aliases.cmd"
   $allConfig = "allConfigFiles"
 
   add_object_prop $var "bashConfig" $bashConfig
   add_object_prop $var "psConfig" $psConfig
   add_object_prop $var "cmdConfig" $cmdConfig
+  add_object_prop $var "cmdUserAliases" $cmdUserAliases
   add_object_prop $var "allConfig" $allConfig
 
   print_info "`$vars.bashConfig" $bashConfig
   print_info "`$vars.psConfig" $psConfig
   print_info "`$vars.cmdConfig" $cmdConfig
+  print_info "`$vars.cmdUserAliases" $cmdUserAliases
   print_info "`$vars.allConfig" $allConfig
 }
 

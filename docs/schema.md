@@ -7,7 +7,5 @@ mkdir portable.config.json
 # Default Attributes
 If you do not include anything in your 
 
-# Implicit Declaration
-
-
-# Explicit Declaration
+# default.config.json
+Contains all the default values (so you don't *have* to create a custom config). Please do *not* modify. Also, do *not* add an `aliasesObj` property.

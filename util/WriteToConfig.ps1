@@ -5,6 +5,10 @@ function write_to_config($var, $configFile, $content) {
     write_to_config $var $var.cmdConfig $content
     return
   }
+  elseif($configFile -ne $var.bashConfig -and $configFile -ne $var.psConfig -and $configFile -ne $var.cmdConfig) {
+    print_warning "write_to_config" "Cannot use write_to_config function on `"$configFle`" because it is not a Cmder config file"
+    return
+  }
   # Add-Content -Path $configFile -Value $content -Encoding "ASCII"
   "$content" | Out-File -Encoding "ASCII" -Append -FilePath $configFile  
 }
@@ -26,7 +30,10 @@ function write_comment_to_config($var, $configFile, $comment) {
   elseif($configFile -eq $var.cmdConfig) {
     write_to_config $var $var.cmdConfig ":: $comment"
   }
-  print_info "write_comment_to_config" "Adding `"$($comment.Substring(0, 15))...`" to `"$(Split-Path -Path $configFile -Leaf)`""
+  elseif($configFile -eq $var.cmdUserAliases) {
+    ":: $comment" | Out-File -Encoding "ASCII" -Append -FilePath $var.cmdUserAliases
+  }
+  print_info "write_comment_to_config" "Adding `"$($comment.Substring(0, [System.Math]::Min(15, $comment.Length)))`" to `"$(Split-Path -Path $configFile -Leaf)`""
 }
 
 function write_variable_to_config($var, $configFile, $variableName, $variableValue) {
@@ -44,6 +51,10 @@ function write_variable_to_config($var, $configFile, $variableName, $variableVal
   }
   elseif($configFile -eq $var.cmdConfig) {
     write_to_config $var $configFile "set $variableName=$variableValue"
+  }
+  elseif($configFile -eq $var.cmdUserAliases) {
+    print_warning "write_variable_to_config" "Cannot write variable to `"$$var.cmdUserAliases`" because it can only contain aliases and comments"
+    return
   }
   print_info "write_variable_to_config" "Adding `"$variableName`" to `"$variableValue`" for `"$(Split-path -Path $configFile -Leaf)`""
 }
@@ -64,6 +75,10 @@ function write_path_to_config($var, $configFile, $binName, $filePath) {
   elseif($configFile -eq $var.cmdConfig) {
     write_to_config $var $var.cmdConfig "set PATH=${filePath};%PATH%"
   }
+  elseif($configFile -eq $var.cmdUserAliases) {
+    print_warning "write_path_to_config" "Cannot write path to `"$$var.cmdUserAliases`" because it can only contain aliases and comments"
+    return
+  }
   print_info "write_path_to_config" "Adding `"$binName`" to PATH for `"$(Split-Path -Path $configFile -Leaf)`""
 }
 
@@ -82,10 +97,11 @@ function write_alias_to_config($var, $configFile, $aliasName, $aliasValue) {
     write_to_config $var $configFile "Set-Alias -Name `"$aliasName`" -Value `"fn-$aliasName`""
   }
   elseif($configFile -eq $var.cmdConfig) {
-    # For now, aliases are not included for batch
-    # Append to pre-created user_aliases.cmd
-    # Write-Line-To-File "alias $alias=$aliasValue" $configFile
-    # Write-Line-To-File "doskey $alias=$aliasValue" $configFile
+    "${aliasName}=${aliasValue}" | Out-File -Encoding "ASCII" -Append -FilePath $var.cmdUserAliases
+  }
+  elseif($configFile -eq $var.cmdUserAliases) {
+    print_warning "write_alias_to_config" "Cannot write alias to `"$$var.cmdUserAliases`" because it can only contain aliases and comments"
+    return
   }
   print_info "write_alias_to_config" "Adding `"$aliasName`" as `"$aliasValue`" for `"$(Split-Path -Path $configFile -Leaf)`""
 }

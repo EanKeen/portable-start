@@ -83,8 +83,6 @@
       "name": "vi",
       "value": "vim $*",
       "use": [
-        "bash",
-        "ps",
         "cmd"
       ]
     },
@@ -99,8 +97,6 @@
       "name": "gr",
       "value": "gradle run",
       "use": [
-        "bash",
-        "ps",
         "cmd"
       ]
     },
@@ -108,8 +104,6 @@
       "name": "g",
       "value": "clear",
       "use": [
-        "bash",
-        "ps",
         "cmd"
       ]
     },
@@ -117,8 +111,6 @@
       "name": "la",
       "value": "'ls -al'",
       "use": [
-        "bash",
-        "ps",
         "cmd"
       ]
     },
@@ -126,8 +118,6 @@
       "name": "ll",
       "value": "ls -al",
       "use": [
-        "bash",
-        "ps",
         "cmd"
       ]
     },

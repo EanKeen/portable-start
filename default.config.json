@@ -14,11 +14,13 @@
     },
     {
       "name": "gl",
-      "value": "git log --oneline --all --graph --decorate  $*"
+      "value": "git log --oneline --all --graph --decorate  $*",
+      "use": ["cmd"]
     },
     {
       "name": "ls",
-      "value": "ls --show-control-chars -F --color $*"
+      "value": "ls --show-control-chars -F --color $*",
+      "use": ["cmd"]
     },
     {
       "name": "pwd",
@@ -42,7 +44,8 @@
     },
     {
       "name": "vi",
-      "value": "vim $*"
+      "value": "vim $*",
+      "use": ["cmd"]
     },
     {
       "name": "cmderr",
@@ -51,19 +54,23 @@
     },
     {
       "name": "gr",
-      "value": "gradle run"
+      "value": "gradle run",
+      "use": ["cmd"]
     },
     {
       "name": "g",
-      "value": "clear"
+      "value": "clear",
+      "use": ["cmd"]
     },
     {
       "name": "la",
-      "value": "'ls -al'"
+      "value": "'ls -al'",
+      "use": ["cmd"]
     },
     {
       "name": "ll",
-      "value": "ls -al"
+      "value": "ls -al",
+      "use": ["cmd"]
     }
   ]
 }
