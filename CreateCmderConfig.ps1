@@ -27,7 +27,15 @@ function write_config_bins($var, $config) {
 
 function write_config_aliases($var, $config) {
   foreach($alias in $config.aliases) {
-    write_alias_to_config $var $var.allConfig $alias.name $alias.value
+    if("bash" -in $alias.use) {
+      write_alias_to_config $var $var.bashConfig $alias.name $alias.value
+    }
+    if("ps" -in $alias.use) {
+      write_alias_to_config $var $var.psConfig $alias.name $alias.value
+    }
+    if("cmd" -in $alias.use) {
+      write_alias_to_config $var $var.cmdConfig $alias.name $alias.value
+    }
   }
   write_to_config $var $var.allConfig ""
 }
