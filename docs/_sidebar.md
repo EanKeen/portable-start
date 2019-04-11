@@ -1,4 +1,5 @@
 * [Home](/)
+* [Installation](installation.md)
 * [Usage](usage.md)
 * [Config Schema](schema.md)
 * [Using Hooks](hooks.md)

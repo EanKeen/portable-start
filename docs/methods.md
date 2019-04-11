@@ -4,35 +4,35 @@ You can customize how this application functions by using the in-built hooks. Th
 
 ## `print_title`
 
-```ps
+```powershell
 "title" | print_title
 print_title "title"
 ```
 
 ## `print_info`
 
-```ps
+```powershell
 "info description" | print_info "info heading"
 print_info "info heading" "info description"
 ```
 
 ## `print_warning`
 
-```ps
+```powershell
 "warning description" | print_warning "warning heading"
 print_warning "warning heading" "warning description"
 ```
 
 ## `print_error`
 
-```ps
+```powershell
 "error description" | print_error "error heading"
 print_error "error heading" "error description"
 ```
 
 ## `normalize_path`
 
-```ps
+```powershell
 normalize_path $absolutePath $relativePath
 normalize_path "F:\alfa\bravo" "..\charlie"
 normalize_path "G:/delta/echo" "foxtrot/golf"
@@ -42,7 +42,7 @@ normalize_path "G:/delta/echo" "foxtrot/golf"
 
 If property exists, this method does not overwrite.
 
-```ps
+```powershell
 add_object_prop $obj $prop $propValue
 add_object_prop $(New-Object -TypeName PsObject) "sierra" "s"
 ```
@@ -51,7 +51,7 @@ add_object_prop $(New-Object -TypeName PsObject) "sierra" "s"
 
 Returns boolean value. Used by `add_object_prop`
 
-```ps
+```powershell
 $obj | obj_not_has_prop $prop`
 $(New-Object -TypeName PsObject | Add-Member -Name "tango" -Value "t" -MemberType NoteProperty) | obj_not_has_prop "tango"`
 ```
@@ -60,7 +60,7 @@ $(New-Object -TypeName PsObject | Add-Member -Name "tango" -Value "t" -MemberTyp
 
 Program's press 'q' to exit screen
 
-```ps
+```powershell
 exit_program
 ```
 
@@ -68,7 +68,7 @@ exit_program
 
 Writes to a `user_profile.sh` `user_profile.ps1` or `user_profile.cmd` Cmder config file. used by `write_(comment|variable|path|alias)_to_config`
 
-```ps
+```powershell
 write_to_config $var $configFile $content
 write_to_config $var $var.allConfig "Writing content to all config files"
 write_to_config $var $var.psConfig "Writing content to only Cmder ps config file"
@@ -76,20 +76,20 @@ write_to_config $var $var.psConfig "Writing content to only Cmder ps config file
 
 ## `write_comment_to_config`
 
-```ps
+```powershell
 write_comment_to_config $var $configFile $comment
 ```
 
 ## `write_variable_to_config`
 
-```ps
+```powershell
 write_variable_to_config $var $configFile $variableName $variableValue
 write_variable_to_config $var $var.cmdConfig "seven" "8"
 ```
 
 ## `write_path_to_config`
 
-```ps
+```powershell
 write_path_to_config $var $configFile $binName $filePath
 write_path_to_config $var $var.allConfig "Java" "C:/zebra/bin"
 write_path_to_config $var $var.allConfig "Go" "C:\xray\bin"
@@ -97,7 +97,7 @@ write_path_to_config $var $var.allConfig "Go" "C:\xray\bin"
 
 ## `write_alias_to_config`
 
-```ps
+```powershell
 write_alias_to_config $var $configFile $aliasName $aliasValue
 write_alias_to_config $var $var.allConfig "gs" "git status"
 ```
