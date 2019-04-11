@@ -11,6 +11,8 @@ Bootstrap the creation of a portable development environment using a batch or Po
 
 If your current working directory is at `F:\`, executing the Batch or PowerShell script will create files / folders at `F:\_portable-start.bat`, `F:\_portable-applications`, `F:\_portable-binaries`, `F:\_portable-scripts`, etc. for you.
 
+After running the autoconfig scripts, you may delete the downloaded zip folders (`./portable-powershell.zip` and `./cmder1311.zip`)
+
 ### Autoconfig With Batch Script
 
 ```cmd

@@ -136,6 +136,6 @@ function generate_config() {
   merge_binaries $config $defaultConfig
   merge_variables $config $defaultConfig
 
-  $config | ConvertTo-Json -Depth 8 | Out-File -FilePath "./abstraction.config.json" -Encoding "ASCII"
+  $config | ConvertTo-Json -Depth 8 | Out-File -FilePath "./log/abstraction.config.json" -Encoding "ASCII"
   $config
 }

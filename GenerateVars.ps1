@@ -46,5 +46,7 @@ function generate_vars($config) {
 
   create_folder_variables $var $config
   create_cmder_profile_variables $var $config
+
+  $var | ConvertTo-Json -Depth 8 | Out-File -FilePath "./log/abstraction.var.json" -Encoding "ASCII"
   $var
 }
