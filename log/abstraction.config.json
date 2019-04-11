@@ -1,21 +1,4 @@
 {
-  "aliasesObj": {
-    "bash": [
-      {
-        "name": "ll",
-        "value": "ls -al",
-        "use": "bash"
-      }
-    ],
-    "ps": [
-      {
-        "name": "test",
-        "value": "New-Object -TypeName PsObject | ConvertTo-Json | Write-Host",
-        "use": "ps"
-      }
-    ],
-    "cmd": []
-  },
   "aliases": [
     {
       "name": "gs",
@@ -31,7 +14,6 @@
       "value": "git log",
       "use": [
         "bash",
-        "ps",
         "cmd"
       ]
     },
@@ -40,7 +22,6 @@
       "value": "ls",
       "use": [
         "bash",
-        "ps",
         "cmd"
       ]
     },

@@ -136,6 +136,8 @@ function generate_config() {
   merge_binaries $config $defaultConfig
   merge_variables $config $defaultConfig
 
+  # Remove the `aliasesObj` property because those have been copied over to `aliases` array
+  $config.PsObject.Properties.Remove("aliasesObj")
   $config | ConvertTo-Json -Depth 8 | Out-File -FilePath "./log/abstraction.config.json" -Encoding "ASCII"
   $config
 }

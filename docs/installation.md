@@ -9,9 +9,11 @@ Bootstrap the creation of a portable development environment using a batch or Po
 * Downloads & unzips Cmder (with Git for Windows) (~108 MB)
 * Creates `.bat` file to run `ExecutePortableScripts.ps1` (so you just have to double click it the `.bat` file)
 
-If your current working directory is at `F:\`, executing the Batch or PowerShell script will create files / folders at `F:\_portable-start.bat`, `F:\_portable-applications`, `F:\_portable-binaries`, `F:\_portable-scripts`, etc. for you.
+If your current working directory is at `F:\`, executing the Batch or PowerShell script will create files / folders at `F:\_portable-start.bat`, `F:\_portable-applications`, `F:\_portable-binaries`, `F:\_portable-scripts`, etc. *for you*.
 
 After running the autoconfig scripts, you may delete the downloaded zip folders (`./portable-powershell.zip` and `./cmder1311.zip`)
+
+Both scripts will show progress with downloading and unpacking the zip files.
 
 ### Autoconfig With Batch Script
 
@@ -24,10 +26,11 @@ After running the autoconfig scripts, you may delete the downloaded zip folders 
 ```ps
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/EanKeen/portable-workstation/master/install/Install.ps1'))
 ```
+The scrip above should work, if you're still having problems with [ExecutionPolicy](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-6), you may need to manually set it as `unrestricted` temporarily.
 
 ## Manual Setup
 
-If you already have PowerShell Core or Cmder or want to use your own version, you may opt for a manual setup. I would recommend following this manual setup first. Then, if you want to change any folder names or change the config, to do it afterward. *Any relative paths you see from now on are relative to the directory in which you would have used those Autoconfig scripts in*.
+If you already have PowerShell Core or Cmder or want to use your own version, you may opt for a manual setup. I would recommend following this manual setup first. Then, if you want to change any folder names or change the config, to do it afterward. *Any relative paths you see from now on are relative to the directory in which you would have used those autoconfig scripts in*.
 
 ### Clone repo
 

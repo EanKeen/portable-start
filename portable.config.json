@@ -20,11 +20,13 @@
     },
     {
       "name": "gl",
-      "value": "git log"
+      "value": "git log",
+      "use": ["bash", "cmd"]
     },
     {
       "name": "ls",
-      "value": "ls"
+      "value": "ls",
+      "use": ["bash", "cmd"]
     }
   ]
 }
