@@ -9,13 +9,7 @@ function prompt_to_create_path($pathName, $pathValue) {
   else { prompt_to_create_path $pathName $pathValue }
 
   if(Test-Path -Path $pathValue -IsValid) {
-    if(Test-Path -Path $pathValue -IsValid -PathType Leaf) {
-      New-Item -Path $(Split-Path $pathValue) -ItemType Directory | Out-Null
-      New-Item -Path $pathValue -ItemType File | Out-Null
-    }
-    else {
-      New-Item -Path $pathValue -ItemType Directory | Out-Null
-    }
+    New-Item -Path $pathValue -Force
     print_info "prompt_to_create_path" "creating path `"$pathName`" at `"$pathValue`""
   }
   else {
