@@ -3,11 +3,9 @@ function print_title() {
   # Input Method 2: Non-piped string highlightedText
   param(
     [Parameter(ValueFromPipeline = $true, Mandatory = $false)]
-    [string]
     $highlightedTextPiped,
 
     [Parameter(Position = 0, Mandatory = $false)]
-    [string]
     $highlightedTextB
   )
 
@@ -25,15 +23,12 @@ function print_info() {
   # Input Method 2: First non-piped string $highlightedText, second non-piped string plainText
   param(
     [Parameter(ValueFromPipeline = $true, Mandatory = $false)]
-    [string]
     $plainTextPiped,
 
     [Parameter(Position = 0, Mandatory = $false)]
-    [string]
     $highlightedText,
 
     [Parameter(Position = 1, Mandatory = $false)]
-    [string]
     $plainText
   )
 
@@ -50,15 +45,12 @@ function print_warning() {
   # Input Method 2: First non-piped string $highlightedText, second non-piped string plainText
   param(
     [Parameter(ValueFromPipeline = $true, Mandatory = $false)]
-    [string]
     $plainTextPiped,
 
     [Parameter(Position = 0, Mandatory = $false)]
-    [string]
     $highlightedText,
 
     [Parameter(Position = 1, Mandatory = $false)]
-    [string]
     $plainText
   )
   
@@ -75,15 +67,12 @@ function print_error() {
   # Input Method 2: First non-piped string $highlightedText, second non-piped string plainText
   param(
     [Parameter(ValueFromPipeline = $true, Mandatory = $false)]
-    [string]
     $plainTextPiped,
 
     [Parameter(Position = 0, Mandatory = $false)]
-    [string]
     $highlightedText,
 
     [Parameter(Position = 1, Mandatory = $false)]
-    [string]
     $plainText
   )
   
