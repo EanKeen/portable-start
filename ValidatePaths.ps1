@@ -9,7 +9,7 @@ function prompt_to_create_path($pathName, $pathValue) {
   else { prompt_to_create_path $pathName $pathValue }
 
   if(Test-Path -Path $pathValue -IsValid) {
-    New-Item -Path $pathValue -Force
+    New-Item -Path $pathValue -Force | Out-Null
     print_info "prompt_to_create_path" "creating path `"$pathName`" at `"$pathValue`""
   }
   else {

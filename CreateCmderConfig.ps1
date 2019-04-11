@@ -71,7 +71,7 @@ function cmder_config_write($var, $config) {
 }
 
 # Creates / overwrites config files
-function create_config_files($config, $var) {
+function create_config_files($var, $config) {
   # Remove config files if they already exist
   if (Test-Path -Path $var.bashConfig -PathType Leaf) {
     Remove-Item -Path $var.bashConfig
@@ -92,6 +92,7 @@ function create_config_files($config, $var) {
   New-Item -Path $var.cmdConfig | Out-Null
   New-Item -Path $var.cmdUserAliases | Out-Null
 }
+
 function ask_to_create_cmder_config($var, $config) {
   if ((Test-Path -Path $var.cmdConfig) -or
     (Test-Path -Path $var.psConfig) -or
@@ -102,7 +103,7 @@ function ask_to_create_cmder_config($var, $config) {
     Write-Host "`r`n"
     if ($key.Character -eq 'y') {
       # Yes, overwrite existing config files
-      create_config_files $config $var
+      create_config_files $var $var
       $true
     }
     elseif ($key.Character -eq 'n') {
@@ -116,7 +117,7 @@ function ask_to_create_cmder_config($var, $config) {
   }
   else {
     # No config files exist, make and write to them
-    create_config_files $var $config
+    create_config_files $var $var
     $true
   }
 }
