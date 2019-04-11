@@ -110,6 +110,14 @@ function merge_aliases($config, $defaultConfig) {
   merge_aliases_from_aliasesObj $config
 }
 
+function check_aliases_use_prop($config) {
+  foreach($alias in $config.aliases) {
+    if($alias | obj_not_has_prop "use") {
+      Add-Member -InputObject $alias -Name "use" -Value @("bash", "ps", "cmd") -MemberType NoteProperty
+    }
+  }
+}
+
 function merge_binaries($config, $defaultConfig) {
   add_object_prop $config "binaries" $("[]" | ConvertFrom-Json)
 }
@@ -124,6 +132,7 @@ function generate_config() {
 
   merge_relPathsTo $config $defaultConfig
   merge_aliases $config $defaultConfig
+  check_aliases_use_prop $config
   merge_binaries $config $defaultConfig
   merge_variables $config $defaultConfig
 

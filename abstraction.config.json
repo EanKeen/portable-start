@@ -19,15 +19,30 @@
   "aliases": [
     {
       "name": "gs",
-      "value": "git status"
+      "value": "git status",
+      "use": [
+        "bash",
+        "ps",
+        "cmd"
+      ]
     },
     {
       "name": "gl",
-      "value": "git log"
+      "value": "git log",
+      "use": [
+        "bash",
+        "ps",
+        "cmd"
+      ]
     },
     {
       "name": "ls",
-      "value": "ls"
+      "value": "ls",
+      "use": [
+        "bash",
+        "ps",
+        "cmd"
+      ]
     },
     {
       "name": "e.",
@@ -66,7 +81,12 @@
     },
     {
       "name": "vi",
-      "value": "vim $*"
+      "value": "vim $*",
+      "use": [
+        "bash",
+        "ps",
+        "cmd"
+      ]
     },
     {
       "name": "cmderr",
@@ -77,19 +97,39 @@
     },
     {
       "name": "gr",
-      "value": "gradle run"
+      "value": "gradle run",
+      "use": [
+        "bash",
+        "ps",
+        "cmd"
+      ]
     },
     {
       "name": "g",
-      "value": "clear"
+      "value": "clear",
+      "use": [
+        "bash",
+        "ps",
+        "cmd"
+      ]
     },
     {
       "name": "la",
-      "value": "'ls -al'"
+      "value": "'ls -al'",
+      "use": [
+        "bash",
+        "ps",
+        "cmd"
+      ]
     },
     {
       "name": "ll",
-      "value": "ls -al"
+      "value": "ls -al",
+      "use": [
+        "bash",
+        "ps",
+        "cmd"
+      ]
     },
     {
       "name": "ll",
