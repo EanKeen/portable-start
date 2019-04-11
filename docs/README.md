@@ -7,8 +7,12 @@ This repository contains tooling that allows you to use whatever tooling you nee
 ## Simple Installation
 In any directory of your thumbdrive, open a PowerShell window and paste the following to create all required files.
 
-```ps
+```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://github.com/EanKeen/portable-workstation/master/install/Install.ps1'))
+```
+Or, use a Cmd window and paste the following
+```batch
+@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/EanKeen/portable-workstation/master/install/Install.ps1'))"
 ```
 
 See the [installation](installation.md) for more details.
