@@ -1,4 +1,26 @@
 {
+  "applications": [
+    {
+      "path": "cmder/Cmder",
+      "name": "Cmder",
+      "launch": "prompt"
+    },
+    {
+      "name": "VSCode",
+      "path": "vscode/Code",
+      "launch": "prompt"
+    },
+    {
+      "path": "quicklook/QuickLook",
+      "launch": "auto",
+      "name": "Quicklook"
+    },
+    {
+      "path": "ueli/ueli",
+      "launch": "auto",
+      "name": "Ueli"
+    }
+  ],
   "aliases": [
     {
       "name": "gs",

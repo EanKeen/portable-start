@@ -10,21 +10,17 @@
   "applications": [
     {
       "name": "Cmder",
-      "path": "cmder/Cmder",
       "launch": "prompt"
     },
     {
-      "name": "VSCode",
       "path": "vscode/Code",
       "launch": "prompt"
     },
     {
-      "name": "QuickLook",
       "path": "quicklook/QuickLook",
       "launch": "auto"
     },
     {
-      "name": "Ueli",
       "path": "ueli/ueli",
       "launch": "auto"
     }

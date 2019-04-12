@@ -7,6 +7,7 @@ function write_to_config($var, $configFile, $content) {
   }
   elseif($configFile -ne $var.bashConfig -and $configFile -ne $var.psConfig -and $configFile -ne $var.cmdConfig) {
     print_warning "write_to_config" "Cannot use write_to_config function on `"$configFle`" because it is not a Cmder config file"
+    print_error "$content"
     return
   }
   # Add-Content -Path $configFile -Value $content -Encoding "ASCII"

@@ -1,4 +1,21 @@
 {
+  "applications": [
+    {
+      "path": "cmder/Cmder"
+    },
+    {
+      "name": "VSCode",
+      "path": "vscode/Code"
+    },
+    {
+      "path": "quicklook/QuickLook",
+      "launch": "auto"
+    },
+    {
+      "path": "ueli/ueli",
+      "launch": "auto"
+    }
+  ],
   "aliasesObj": {
     "bash": [
       {

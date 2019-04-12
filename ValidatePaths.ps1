@@ -1,4 +1,5 @@
 # Check to be sure all paths user is entering is correct
+# These are not paths added to PATH, but relative paths as properties of `relPathsTo` object
 
 function prompt_to_create_path($pathName, $pathValue) {
   print_info "prompt_to_create_path" "Would you like to create an item at `"$pathValue`" for `"$pathname`"?"

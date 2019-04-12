@@ -118,11 +118,47 @@ function check_aliases_use_prop($config) {
   }
 }
 
-function merge_binaries($config, $defaultConfig) {
-  add_object_prop $config "binaries" $("[]" | ConvertFrom-Json)
+function fill_applications($config) {
+  add_object_prop $config "applications" $("[]" | ConvertFrom-Json)
+
+  foreach($app in $config.applications) {
+    if($app | obj_not_has_prop "path") {
+      print_error "fill_applications" "An application specified does not have the `"path`" property. Add this required property to `"$app`"."
+      exit_program
+    }
+
+    if($app | obj_not_has_prop "name") {
+      $newName = $($app.path).Replace("/", "\").Replace(".", "").Split("\")[0]
+
+      # Convert "strings" => "Strings"
+      $newName = (Get-Culture).TextInfo.ToTitleCase($newName.ToLower())
+      Add-Member -InputObject $app -Name "name" -Value $newName -MemberType NoteProperty
+    }
+
+    if($app | obj_not_has_prop "launch") {
+      Add-Member -InputObject $app -Name "launch" -Value "prompt" -MemberType NoteProperty
+    }
+  }
 }
 
-function merge_variables($config, $defaultConfig) {
+function fill_binaries($config) {
+  add_object_prop $config "binaries" $("[]" | ConvertFrom-Json)
+
+  # foreach($binary in $config.binaries) {
+  #   if($binary | obj_not_has_prop "path") {
+  #     print_error "fill_binaries" "A binary specified does not have the `"path`" property. Add this required property to `"$app`"."
+  #     exit_program
+  #   }
+  #   if($binary | obj_not_has_prop "name") {
+  #     $newName = $binary.path
+  #     # $newName = $($binary.path).Replace("/", "\").Replace(".", "").Split("\")[0]
+
+  #     Add-Member -InputObject $binary -Name "name" -Value $newName -MemberType NoteProperty
+  #   }
+  # }
+}
+
+function fill_variables($config) {
   add_object_prop $config "variables" $("[]" | ConvertFrom-Json)
 }
 
@@ -133,8 +169,9 @@ function generate_config() {
   merge_relPathsTo $config $defaultConfig
   merge_aliases $config $defaultConfig
   check_aliases_use_prop $config
-  merge_binaries $config $defaultConfig
-  merge_variables $config $defaultConfig
+  fill_applications $config
+  fill_binaries $config
+  fill_variables $config
 
   # Remove the `aliasesObj` property because those have been copied over to `aliases` array
   $config.PsObject.Properties.Remove("aliasesObj")
