@@ -16,6 +16,14 @@
       "launch": "auto"
     }
   ],
+  "binaries": [
+    {
+      "path": "7zip-cli"
+    },
+    {
+      "path": "7zip-cli-a"
+    }
+  ],
   "aliasesObj": {
     "bash": [
       {

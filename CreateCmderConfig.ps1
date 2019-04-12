@@ -36,9 +36,6 @@ function write_config_bins($var, $config) {
   foreach($binary in $config.binaries) {
     $absolutePathToBin = normalize_path $var.binDir $binary.path
     
-    if($binary.name -eq $null) {
-      Add-Member -InputObject $binary -MemberType NoteProperty -Name "name" -Value $binary.path
-    }
     write_path_to_config $var $var.allConfig $binary.name $absolutePathToBin
   }
   write_to_config $var $var.allConfig ""
@@ -64,7 +61,7 @@ function cmder_config_write($var, $config) {
   write_config_comments $var $config
   print_title "Add variables"
   write_config_variables $var $config
-  print_title "Add paths"
+  print_title "Add binaries"
   write_config_bins $var $config
   print_title "Add aliases"
   write_config_aliases $var $config

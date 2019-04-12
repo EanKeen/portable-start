@@ -50,10 +50,6 @@ function prompt_to_launch_apps($var, $config) {
     $absolutePathToApp = normalize_path $var.appDir $app.path
     if(Test-Path -Path $app.path) {
       $appExeName = Split-Path -Path $app.path -Leaf
-
-      if($app.launch -eq $null) {
-        Add-Member -InputObject $app -MemberType NoteProperty -Name "launch" -Value "prompt"
-      }
   
       prompt_to_launch_app $app $appExeName $absolutePathToApp
     }

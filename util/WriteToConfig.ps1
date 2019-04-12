@@ -5,11 +5,14 @@ function write_to_config($var, $configFile, $content) {
     write_to_config $var $var.cmdConfig $content
     return
   }
-  elseif($configFile -ne $var.bashConfig -and $configFile -ne $var.psConfig -and $configFile -ne $var.cmdConfig) {
-    print_warning "write_to_config" "Cannot use write_to_config function on `"$configFle`" because it is not a Cmder config file"
-    print_error "$content"
+  elseif(($configFile -ne $var.bashConfig) -and ($configFile -ne $var.psConfig) -and ($configFile -ne $var.cmdConfig)) {
+    print_error "err"
+    # print_warning "write_to_config" "Cannot use write_to_config function on `"$configFile`" because it is not a Cmder config file"
+    # print_error "thing" $($configFile | ConvertTo-Json)
+    # print_error "$content"
     return
   }
+
   # Add-Content -Path $configFile -Value $content -Encoding "ASCII"
   "$content" | Out-File -Encoding "ASCII" -Append -FilePath $configFile  
 }
@@ -57,6 +60,9 @@ function write_variable_to_config($var, $configFile, $variableName, $variableVal
     print_warning "write_variable_to_config" "Cannot write variable to `"$$var.cmdUserAliases`" because it can only contain aliases and comments"
     return
   }
+  else {
+    return
+  }
   print_info "write_variable_to_config" "Adding `"$variableName`" to `"$variableValue`" for `"$(Split-path -Path $configFile -Leaf)`""
 }
 
@@ -68,16 +74,19 @@ function write_path_to_config($var, $configFile, $binName, $filePath) {
     return
   }
   elseif($configFile -eq $var.bashConfig) {
-    write_to_config $vars $var.bashConfig "export PATH=\$((Convert-Path $filePath)):`$PATH".Replace(":\", "\").Replace("\", "/")
+    write_to_config $var $var.bashConfig "export PATH=\$((Convert-Path $filePath)):`$PATH".Replace(":\", "\").Replace("\", "/")
   }
   elseif($configFile -eq $var.psConfig) {
-    write_to_config $vars $var.psConfig "`$env:Path = `"${filePath};`" + `$env:Path"
+    write_to_config $var $var.psConfig "`$env:Path = `"${filePath};`" + `$env:Path"
   }
   elseif($configFile -eq $var.cmdConfig) {
     write_to_config $var $var.cmdConfig "set PATH=${filePath};%PATH%"
   }
   elseif($configFile -eq $var.cmdUserAliases) {
     print_warning "write_path_to_config" "Cannot write path to `"$$var.cmdUserAliases`" because it can only contain aliases and comments"
+    return
+  }
+  else {
     return
   }
   print_info "write_path_to_config" "Adding `"$binName`" to PATH for `"$(Split-Path -Path $configFile -Leaf)`""

@@ -144,18 +144,18 @@ function fill_applications($config) {
 function fill_binaries($config) {
   add_object_prop $config "binaries" $("[]" | ConvertFrom-Json)
 
-  # foreach($binary in $config.binaries) {
-  #   if($binary | obj_not_has_prop "path") {
-  #     print_error "fill_binaries" "A binary specified does not have the `"path`" property. Add this required property to `"$app`"."
-  #     exit_program
-  #   }
-  #   if($binary | obj_not_has_prop "name") {
-  #     $newName = $binary.path
-  #     # $newName = $($binary.path).Replace("/", "\").Replace(".", "").Split("\")[0]
+  foreach($binary in $config.binaries) {
+    if($binary | obj_not_has_prop "path") {
+      print_error "fill_binaries" "A binary specified does not have the `"path`" property. Add this required property to `"$app`"."
+      exit_program
+    }
+    if($binary | obj_not_has_prop "name") {
+      $newName = $binary.path
+      # $newName = $($binary.path).Replace("/", "\").Replace(".", "").Split("\")[0]
 
-  #     Add-Member -InputObject $binary -Name "name" -Value $newName -MemberType NoteProperty
-  #   }
-  # }
+      Add-Member -InputObject $binary -Name "name" -Value $newName -MemberType NoteProperty
+    }
+  }
 }
 
 function fill_variables($config) {

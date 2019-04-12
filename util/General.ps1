@@ -13,18 +13,6 @@ function attempt_to_run_hook($expression) {
   }
 }
 
-function convert_short_cmder_config_ref_to_long($shorthandReference) {
-  if($shorthandReference -eq "bash") {
-    "user_profile.sh"
-  }
-  elseif($shorthandReference -eq "ps") {
-    "user_profile.ps1"
-  }
-  elseif($shorthandReference -eq "cmd") {
-    "user_profile.cmd"
-  }
-}
-
 function add_object_prop($obj, $prop, $propValue) {
   if($obj | obj_not_has_prop $prop) {
     Add-Member -InputObject $obj -Name $prop -Value $propValue -MemberType NoteProperty
