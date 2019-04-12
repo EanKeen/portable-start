@@ -151,7 +151,7 @@ function fill_binaries($config) {
     }
     if($binary | obj_not_has_prop "name") {
       $newName = $binary.path
-      # $newName = $($binary.path).Replace("/", "\").Replace(".", "").Split("\")[0]
+      $newName = $($binary.path).Replace("/", "\").Replace(".", "").Split("\")[0]
 
       Add-Member -InputObject $binary -Name "name" -Value $newName -MemberType NoteProperty
     }

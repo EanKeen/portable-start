@@ -6,10 +6,7 @@ function write_to_config($var, $configFile, $content) {
     return
   }
   elseif(($configFile -ne $var.bashConfig) -and ($configFile -ne $var.psConfig) -and ($configFile -ne $var.cmdConfig)) {
-    print_error "err"
-    # print_warning "write_to_config" "Cannot use write_to_config function on `"$configFile`" because it is not a Cmder config file"
-    # print_error "thing" $($configFile | ConvertTo-Json)
-    # print_error "$content"
+    print_warning "write_to_config" "Cannot use write_to_config function on `"$configFile`" because it is not a Cmder config file"
     return
   }
 

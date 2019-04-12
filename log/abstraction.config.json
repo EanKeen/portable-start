@@ -23,56 +23,60 @@
   ],
   "binaries": [
     {
-      "path": "7zip-cli"
+      "path": "7zip-cli",
+      "name": "7zip-cli"
     },
     {
-      "path": "7zip-cli-a"
+      "path": "7zip-cli-a",
+      "name": "7zip-cli-a"
     },
     {
-      "name": "vscode",
+      "name": "VScode",
       "path": "../vscode"
     },
     {
-      "name": "cmake",
-      "path": "cmake/bin"
+      "path": "cmake/bin",
+      "name": "cmake"
     },
     {
-      "name": "gcc-c++",
-      "path": "gcc-c++/bin"
+      "path": "gcc-c++/bin",
+      "name": "gcc-c++"
     },
     {
-      "name": "gcc-core",
-      "path": "gcc-core/bin"
+      "path": "gcc-core/bin",
+      "name": "gcc-core"
     },
     {
-      "name": "gdb",
-      "path": "gdb/bin"
+      "path": "gdb/bin",
+      "name": "gdb"
     },
     {
-      "name": "go",
-      "path": "go/bin"
+      "path": "go/bin",
+      "name": "go"
     },
     {
-      "name": "gradle",
-      "path": "gradle/bin"
+      "path": "gradle/bin",
+      "name": "gradle"
     },
     {
-      "name": "java",
-      "path": "java/bin"
+      "path": "java/bin",
+      "name": "java"
     },
     {
-      "name": "make",
-      "path": "make/bin"
+      "path": "make/bin",
+      "name": "make"
     },
     {
-      "name": "miktex",
-      "path": "miktex/texmfs/install/miktex/bin"
+      "path": "miktex/texmfs/install/miktex/bin",
+      "name": "miktex"
     },
     {
-      "path": "node"
+      "path": "node",
+      "name": "node"
     },
     {
-      "path": "python"
+      "path": "python",
+      "name": "python"
     }
   ],
   "aliases": [

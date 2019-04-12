@@ -12,7 +12,7 @@ Set-Variable -Name "config" -Value $(generate_config) -Scope Private
 
 # VALIDATE CONFIG. ATTEMPT TO FIX.
 print_title "Validate config object"
-. ./ValidatePaths.ps1
+. ./ValidateConfig.ps1
 validate_config $config
 
 # GENERATE VARS OBJECT

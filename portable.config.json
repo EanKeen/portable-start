@@ -22,6 +22,43 @@
     },
     {
       "path": "7zip-cli-a"
+    },
+    {
+      "name": "VScode",
+      "path": "../vscode"
+    },
+    {
+      "path": "cmake/bin"
+    },
+    {
+      "path": "gcc-c++/bin"
+    },
+    {
+      "path": "gcc-core/bin"
+    },
+    {
+      "path": "gdb/bin"
+    },
+    {
+      "path": "go/bin"
+    },
+    {
+      "path": "gradle/bin"
+    },
+    {
+      "path": "java/bin"
+    },
+    {
+      "path": "make/bin"
+    },
+    {
+      "path": "miktex/texmfs/install/miktex/bin"
+    },
+    {
+      "path": "node"
+    },
+    {
+      "path": "python"
     }
   ],
   "aliasesObj": {
