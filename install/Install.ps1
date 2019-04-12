@@ -20,6 +20,12 @@ $_cmderFile = "cmder1311.zip"
 Invoke-WebRequest -Uri "https://github.com/cmderdev/cmder/releases/download/v1.3.11/cmder.zip" -Method "GET" -TimeoutSec 0 -OutFile "$_cmderFile"
 Expand-Archive -Path $_cmderFile -DestinationPath "./_portable-applications/cmder"
 
+# Download Scoop
+$_scoopFolder = "$(Split-Path $PSCommandPath)\_portable-binaries\scoop"
+[environment]::setEnvironmentVariable("SCOOP", $_scoopFolder, "User")
+$env:SCOOP = $_scoopFolder
+Invoke-Expression (New-Object System.Net.webclient).DownloadString("https://get.scoop.sh")
+
 # Create .bat style to execute portable-workstation scripts
 Write-Host "Creating `"_portable-start.bat`""
 $_portableStartFile = "_portable-start.bat"

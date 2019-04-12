@@ -25,7 +25,7 @@
     },
     {
       "name": "VScode",
-      "path": "../vscode"
+      "path": "../_portable-applications/vscode"
     },
     {
       "path": "cmake/bin"

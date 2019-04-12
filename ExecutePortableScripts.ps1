@@ -33,6 +33,12 @@ if($willWriteCmderConfig) {
 }
 attempt_to_run_hook "portable_hook_after_create_cmder_files `$config `$var"
 
+# CREATE STUFF FOR SCOOP
+print_title "Create Scoop variales"
+. ./CreateScoop.ps1
+create_scoop $vars $config
+attempt_to_run_hook "portable_hook_after_create_scoop_files `$config `$var"
+
 # CREATE SHORTCUTS
 print_title "Create shortcuts"
 . ./CreateShortcuts.ps1

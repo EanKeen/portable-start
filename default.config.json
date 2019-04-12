@@ -3,6 +3,7 @@
     "applications": "../_portable-applications",
     "binaries": "../_portable-binaries",
     "shortcuts": "../_portable-shortcuts",
+    "scoopApps": "../_portable-scoops",
     "cmderConfig": "../_portable-applications/cmder/config",
     "sourceToAccessHooks": "../_portable-custom/script.ps1"
   },

@@ -93,8 +93,9 @@ function merge_relPathsTo($config, $defaultConfig) {
   add_object_prop $config "relPathsTo" $(New-Object -TypeName PsObject)
   add_object_prop $config.relPathsTo "applications" $defaultConfig.relPathsTo.applications
   add_object_prop $config.relPathsTo "binaries" $defaultConfig.relPathsTo.binaries
-  add_object_prop $config.relPathsTo "cmderConfig" $defaultConfig.relPathsTo.cmderConfig
   add_object_prop $config.relPathsTo "shortcuts" $defaultConfig.relPathsTo.shortcuts
+  add_object_prop $config.relPathsTo "scoopApps" $defaultConfig.relPathsTo.scoopApps
+  add_object_prop $config.relPathsTo "cmderConfig" $defaultConfig.relPathsTo.cmderConfig
   add_object_prop $config.relPathsTo "sourceToAccessHooks" $defaultConfig.relPathsTo.sourceToAccessHooks
 }
 

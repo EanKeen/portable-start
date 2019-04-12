@@ -4,7 +4,7 @@
 
 - Automatically create shortcuts
 - integrate with scoop
-- add command to launch apps from and do more stuff
+- autohotkey?
 
 # Home
 

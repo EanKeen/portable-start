@@ -32,7 +32,7 @@
     },
     {
       "name": "VScode",
-      "path": "../vscode"
+      "path": "../_portable-applications/vscode"
     },
     {
       "path": "cmake/bin",
@@ -196,8 +196,9 @@
   "relPathsTo": {
     "applications": "../_portable-applications",
     "binaries": "../_portable-binaries",
-    "cmderConfig": "../_portable-applications/cmder/config",
     "shortcuts": "../_portable-shortcuts",
+    "scoopApps": "../_portable-scoops",
+    "cmderConfig": "../_portable-applications/cmder/config",
     "sourceToAccessHooks": "../_portable-custom/script.ps1"
   },
   "variables": []

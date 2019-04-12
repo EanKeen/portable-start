@@ -2,6 +2,7 @@
   "appDir": "F:\\_portable-applications",
   "binDir": "F:\\_portable-binaries",
   "shortcutsDir": "F:\\_portable-shortcuts",
+  "scoopAppsDir": "F:\\_portable-scoops",
   "cmderConfigDir": "F:\\_portable-applications\\cmder\\config",
   "sourceToAccessHooks": "F:\\_portable-custom\\script.ps1",
   "portableDir": "F:\\_portable-scripts",
