@@ -34,7 +34,12 @@ function write_comment_to_config($var, $configFile, $comment) {
   elseif($configFile -eq $var.cmdUserAliases) {
     ":: $comment" | Out-File -Encoding "ASCII" -Append -FilePath $var.cmdUserAliases
   }
-  print_info "write_comment_to_config" "Adding `"$($comment.Substring(0, [System.Math]::Min(15, $comment.Length)))`" to `"$(Split-Path -Path $configFile -Leaf)`""
+
+  $commentSnippet = $comment
+  if($comment.length -gt 30) {
+    $commentSnippet = "$($comment.Substring(0, [System.Math]::Min(30, $comment.Length)))..."
+  }
+  print_info "write_comment_to_config" "Adding `"$commentSnippet`" to `"$(Split-Path -Path $configFile -Leaf)`""
 }
 
 function write_variable_to_config($var, $configFile, $variableName, $variableValue) {

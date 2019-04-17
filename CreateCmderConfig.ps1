@@ -16,7 +16,7 @@ function write_config_comments($var, $config) {
   )
   foreach($line in $lines) {
     "$line" | Out-File -Encoding "ASCII" -Append -FilePath $var.cmdUserAliases
-    print_info "write_config_comments" "Adding `"$($line.Substring(0, [System.Math]::Min(15, $line.Length)))`" to `"user_aliases.cmd`""
+    print_info "write_config_comments" "Adding `"$line`" to `"user_aliases.cmd`""
 
   }
 }

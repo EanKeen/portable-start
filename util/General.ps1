@@ -4,6 +4,26 @@ function normalize_path($absPath, $relPath) {
   [IO.Path]::GetFullPath((Join-Path $absPath $relPath))
 }
 
+function is_directory() {
+  param(
+    [Parameter(ValueFromPipeline = $true)]
+    [string]
+    $pathFromPipeLine,
+
+    [Parameter(ValueFromPipeline = $false, Position = 0)]
+    [string]
+    $path
+  )
+
+  process {
+    if($pathFromPipeLine) {
+      $path = $pathFromPipeLine
+    }
+  
+    return (Test-Path $path) -and (Get-Item $path) -is [System.IO.DirectoryInfo]
+  }
+}
+
 function attempt_to_run_hook($expression) {
   $functionName = $expression.Split(" ")[0]
 
