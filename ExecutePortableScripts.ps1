@@ -8,9 +8,8 @@ Write-Host "Load helper functions" -BackgroundColor White -ForegroundColor Black
 print_title "Create basic config"
 . ./GenerateConfig.ps1
 Set-Variable -Name "config" -Value $(generate_config) -Scope Private
-# print_error "json" $(generate_config | ConvertTo-Json -Depth 8)
 
-# VALIDATE CONFIG. ATTEMPT TO FIX.
+# VALIDATE CONFIG
 print_title "Validate config object"
 . ./ValidateConfig.ps1
 validate_config $config

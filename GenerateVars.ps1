@@ -1,54 +1,51 @@
-function create_folder_variables($var, $config) {
-  $absolutePathToAppDir = (Resolve-Path -Path $config.relPathsTo.applications).Path
-  $absolutePathToBinDir = (Resolve-Path -Path $config.relPathsTo.binaries).Path
-  $absolutePathToShortcuts = (Resolve-Path -Path $config.relPathsTo.shortcuts).Path
-  $absolutePathToScoopAppsDir = (Resolve-Path -Path $config.relPathsTo.scoopApps).Path
-  $absolutePathToCmderConfigDir = (Resolve-Path -Path $config.relPathsTo.cmderConfig).Path
-  $absolutePathToSourceToAccessHooks = (Resolve-Path -Path $config.relPathsTo.sourceToAccessHooks).Path
+function create_fromRelPathsTo($var, $config) {
+  $variables = @(
+    @{ configVar="applications"; internalVar="appDir" },
+    @{ configVar="binaries"; internalVar="binDir" },
+    @{ configVar="shortcuts"; internalVar="shortcutsDir" },
+    @{ configVar="scoopApps"; internalVar="scoopAppsDir" },
+    @{ configVar="cmderConfig"; internalVar="cmderConfigDir" },
+    @{ configVar="sourceToAccessHooks"; internalVar="sourceToAccessHooks"}
+  )
+
+  foreach($obj in $variables) {
+    $absolutePath = (Resolve-Path -Path $config.relPathsTo.$($obj.configVar)).Path
+      add_object_prop $var $obj.internalVar $absolutePath
+  }
+  
   $absolutePathToPortableDir = $(Split-Path $PSCommandPath)
-
-  add_object_prop $var "appDir" $absolutePathToAppDir
-  add_object_prop $var "binDir" $absolutePathToBinDir
-  add_object_prop $var "shortcutsDir" $absolutePathToShortcuts
-  add_object_prop $var "scoopAppsDir" $absolutePathToScoopAppsDir
-  add_object_prop $var "cmderConfigDir" $absolutePathToCmderConfigDir
-  add_object_prop $var "sourceToAccessHooks" $absolutePathToSourceToAccessHooks
   add_object_prop $var "portableDir" $absolutePathToPortableDir
-
-  print_info "`$vars.appDir" $var.appDir
-  print_info "`$vars.binDir" $var.binDir
-  print_info "`$vars.shortcutsDir" $var.shortcutsDir
-  print_info "`$vars.scoopAppsDir" $var.scoopAppsDir
-  print_info "`$vars.cmderConfigDir" $var.cmderConfigDir
-  print_info "`$vars.sourceToAccessHooks" $var.sourceToAccessHooks
-  print_info "`$vars.portableDir" $var.portableDir
 }
 
-function create_cmder_profile_variables($var, $config) {
-  $bashConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.sh"
-  $psConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.ps1"
-  $cmdConfig = Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.cmd"
-  $cmdUserAliases = Join-Path -Path $var.cmderConfigDir -ChildPath "user_aliases.cmd"
+function create_from_cmderConfigDir($var, $config) {
+  $variables = @(
+    @{ cmderFileName="user_profile.sh"; internalVar="bashConfig" },
+    @{ cmderFileName="user_profile.ps1"; internalVar="psConfig" },
+    @{ cmderFileName="user_profile.cmd"; internalVar="cmdConfig" },
+    @{ cmderFileName="user_aliases.cmd"; internalVar="cmdUserAliases" }
+  )
+
+  foreach($obj in $variables) {
+    $absolutePath = Join-Path -Path $var.cmderConfigDir -ChildPath $obj.cmderFileName
+    add_object_prop $var $obj.internalVar $absolutePath
+  }
+
   $allConfig = "allConfigFiles"
-
-  add_object_prop $var "bashConfig" $bashConfig
-  add_object_prop $var "psConfig" $psConfig
-  add_object_prop $var "cmdConfig" $cmdConfig
-  add_object_prop $var "cmdUserAliases" $cmdUserAliases
   add_object_prop $var "allConfig" $allConfig
+}
 
-  print_info "`$vars.bashConfig" $bashConfig
-  print_info "`$vars.psConfig" $psConfig
-  print_info "`$vars.cmdConfig" $cmdConfig
-  print_info "`$vars.cmdUserAliases" $cmdUserAliases
-  print_info "`$vars.allConfig" $allConfig
+function print_variables($var) {
+  foreach($individualVar in $var.PsObject.Properties) {
+    print_info "`$vars.$($individualVar.Name)" $individualVar.Value
+  }
 }
 
 function generate_vars($config) {
   $var = New-Object -TypeName PsObject
 
-  create_folder_variables $var $config
-  create_cmder_profile_variables $var $config
+  create_fromRelPathsTo $var $config
+  create_from_cmderConfigDir $var $config
+  print_variables $var
 
   $var | ConvertTo-Json -Depth 8 | Out-File -FilePath "./log/abstraction.var.json" -Encoding "ASCII"
   $var
