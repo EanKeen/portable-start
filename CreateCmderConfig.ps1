@@ -14,6 +14,7 @@ function write_config_comments($var, $config) {
     ";= goto:eof",
     ";= Add aliases below here"
   )
+  
   foreach($line in $lines) {
     "$line" | Out-File -Encoding "ASCII" -Append -FilePath $var.cmdUserAliases
     print_info "write_config_comments" "Adding `"$line`" to `"user_aliases.cmd`""
@@ -56,19 +57,8 @@ function write_config_aliases($var, $config) {
   write_to_config $var $var.allConfig ""
 }
 
-function cmder_config_write($var, $config) {
-  print_title "Add comments"
-  write_config_comments $var $config
-  print_title "Add variables"
-  write_config_variables $var $config
-  print_title "Add binaries"
-  write_config_bins $var $config
-  print_title "Add aliases"
-  write_config_aliases $var $config
-}
-
-# Creates / overwrites config files
 function create_config_files($var, $config) {
+  
   # Remove config files if they already exist
   if (Test-Path -Path $var.bashConfig -PathType Leaf) {
     Remove-Item -Path $var.bashConfig
@@ -90,31 +80,20 @@ function create_config_files($var, $config) {
   New-Item -Path $var.cmdUserAliases | Out-Null
 }
 
-function ask_to_create_cmder_config($var, $config) {
+function cmder_config_write($var, $config) {
   if ((Test-Path -Path $var.cmdConfig) -or
     (Test-Path -Path $var.psConfig) -or
     (Test-Path -Path $var.bashConfig)) {
-    print_warning "ask_to_create_cmder_config" "You alrady have Cmder config files. Overwrite them?"
-
-    $key = $Host.UI.RawUI.ReadKey()
-    Write-Host "`r`n"
-    if ($key.Character -eq 'y') {
-      # Yes, overwrite existing config files
       create_config_files $var $var
-      $true
-    }
-    elseif ($key.Character -eq 'n') {
-      # No, don't want to overwrite existing config files, do nothing
-      $false
-    }
-    else {
-      # Any other character, repeat input
-      ask_to_create_cmder_config $var $config
-    }
+      print_warning "cmder_config_write" "Old config files found. Overwriting them."
   }
-  else {
-    # No config files exist, make and write to them
-    create_config_files $var $var
-    $true
-  }
+
+  print_title "Add comments"
+  write_config_comments $var $config
+  print_title "Add variables"
+  write_config_variables $var $config
+  print_title "Add binaries"
+  write_config_bins $var $config
+  print_title "Add aliases"
+  write_config_aliases $var $config
 }

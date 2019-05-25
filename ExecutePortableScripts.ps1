@@ -26,10 +26,7 @@ attempt_to_run_hook "portable_hook_after_create_variables `$config `$var"
 # CREATE CMDER CONFIG FILES
 print_title "Create Cmder config files"
 . ./CreateCmderConfig.ps1
-$willWriteCmderConfig = ask_to_create_cmder_config $vars $config
-if($willWriteCmderConfig) {
-  cmder_config_write $vars $config
-}
+cmder_config_write $vars $config
 attempt_to_run_hook "portable_hook_after_create_cmder_files `$config `$var"
 
 # CREATE STUFF FOR SCOOP
