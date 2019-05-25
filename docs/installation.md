@@ -26,6 +26,7 @@ Both scripts will show progress with downloading and unpacking the zip files.
 ```ps
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/EanKeen/portable-workstation/master/install/Install.ps1'))
 ```
+
 The scrip above should work, if you're still having problems with [ExecutionPolicy](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-6), you may need to manually set it as `unrestricted` temporarily.
 
 ## Manual Setup
