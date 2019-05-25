@@ -25,6 +25,10 @@ Invoke-WebRequest -Uri "https://github.com/cmderdev/cmder/releases/download/v1.3
 Expand-Archive -Path $_cmderFile -DestinationPath "./_portable-applications/cmder"
 
 # Download Scoop
+# Check if current drive is has NTFS fs
+# If yes install normally
+
+# If no, search other partitions of same drive for NTFS. If any are found, prompt user to choose one. Install do that directory. Make sure to add some sort of "manifest" file so we can find the install drive later
 if($keyScoop.Character -eq "y") {
   $_scoopInstallationFolder = "./_portable-scoop"
   $_scoopInstallationFolder = Resolve-Path -Path $_scoopInstallationFolder

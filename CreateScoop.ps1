@@ -1,4 +1,4 @@
-// TODO: Add this stuff to the commands of the Cmder
+# TODO: Add this stuff to the commands of the Cmder
 function create_scoop($var, $config) {
   $_scoopFolder = "$($config.binDir)\scoop"
   [environment]::setEnvironmentVariable("SCOOP", $_scoopFolder, "User")

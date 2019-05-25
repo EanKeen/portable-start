@@ -7,7 +7,7 @@
 - autohotkey?
 - use is_directory to fix issue with only creating directories when prompted
 
-# Home
+## Home
 
 This Portable Workstation project includes scripts for geting a development workstation started on a Windows PC from a thumbdrive. However, a thumbdrive is not a requirement.
 
@@ -20,7 +20,9 @@ This repository contains tooling that allows you to use whatever tooling you nee
 In any directory of your thumbdrive, open a Cmd window and paste the following
 
 ```batch
-@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/EanKeen/portable-workstation/master/install/Install.ps1'))"
+@"%SystemRoot%\System32\WinsdowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/EanKeen/portable-workstation/master/install/Install.ps1'))"
 ```
+
+If you want to use Scoop, the drive must have an NTFS partition. If the current partition is not NTFS, it will check for other partitions on the same drive for NTFS. It uses the first one it finds.
 
 See the [docs](https://eankeen.github.io/portable-workstation) for more details.

@@ -6,9 +6,10 @@ function write_shortcut($shortcutName, $shortcutLocation, $shortcutReference) {
   # $Shortcut.Save()
   # New-Item -ItemType SymbolicLink -Path $shortcutName -Name $shortcutLocation -Value $shortcutReference
 }
+
 function create_shortcuts ($var, $config) {
   foreach($app in $config.applications) {
-    if($app.name -eq $null) {
+    if($null -eq $app.name) {
       $exeName = Split-Path $app.path -Leaf
       Add-Member -InputObject $app -MemberType NoteProperty -Name "name" -Value $exeName
     }
