@@ -1,4 +1,5 @@
 # Hooks
+
 From the `sourceToAccessHooks` property in your config, you can reference a PowerShell file. In there, you can access the following hooks:
 
 ```powershell
@@ -19,7 +20,7 @@ function portable_hook_after_create_variables($config, $var) {
 }
 ```
 
-## Varaible `$config`
+## `$config`
 
 * A PowerShell Object representation of `./default.config.json`, with some extra transformations
 * Any implicit / optional properties in `./default.config.json` are made explicit
@@ -28,7 +29,7 @@ function portable_hook_after_create_variables($config, $var) {
   * *Do not* access properties of `$config.relPathsTo`, because they are relative paths. Look for absolute paths in `$vars`
 * See the [schema](/schema) page for how `$config` is structured
 
-## Variabe `$var`
+## `$var`
 
 * `$vars` variable ouputed to `./log/abstraction.vars.json`
 * It's an object that contains the following properties
@@ -45,10 +46,9 @@ Absolute path of `$config.relPathsTo.binaries`
 
 Absolute path of `$config.relPathsTo.shortcuts`
 
-
 ### `$var.scoopDir`
-Absolute path of `$config.relPathsTo.scoopFiles`
 
+Absolute path of `$config.relPathsTo.scoopFiles`
 
 ### `$var.cmderConfigDir`
 
@@ -83,6 +83,7 @@ Use this in any place you would use `$var.bashConfig`, `$var.psConfig`, or `$var
 ### `$var.cmdUserAliases`
 
 Path of file to specify aliases for Cmd (used by Cmder)
+
 ```powershell
 Join-Path -Path $var.cmderConfigDir -ChildPath "user_aliases.cmd"
 ```

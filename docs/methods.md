@@ -41,6 +41,7 @@ print_error "error heading" "error description"
 ```
 
 ## Writing to the Cmder Configs
+
 ### `write_to_config`
 
 Writes to a `user_profile.sh` `user_profile.ps1` or `user_profile.cmd` Cmder config file. used by `write_(comment|variable|path|alias)_to_config`

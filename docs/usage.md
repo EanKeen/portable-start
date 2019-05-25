@@ -1,4 +1,5 @@
 # Usage
+
 View purpose of each generated folder. Customize any of the default folder names inside of `portable.config.json`; details at [schema](schema.md) page.
 
 ## Generated Folders
