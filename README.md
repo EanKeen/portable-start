@@ -26,6 +26,7 @@ In any directory of your thumbdrive, open a Cmd window and paste the following
 If you want to use Scoop, the drive must have an NTFS partition. If the current partition is not NTFS, it will check for other partitions on the same drive for NTFS. It uses the first one it finds. If none are found, Scoop will not be installed.
 
 If you want to auto nuke your USB to partition make custom-sized NTFS and FAT32 partitions.
+**DO NOT USE THIS YET**
 
 ```batch
 @"%SystemRoot%\System32\WinsdowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/EanKeen/portable-workstation/master/install/Format.ps1'))"

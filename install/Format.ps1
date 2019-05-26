@@ -18,93 +18,95 @@ function exit_program() {
   exit_program
 }
 
-function getDriveNumber($driveLetter) {
-  $driveNumberToNuke = 1;
-  foreach($partition in Get-Partition) {
-    if($partition.DriveLetter -eq $driveLetterToNuke) {
-      $driveNumberToNuke = $partition.DiskNumber;
-    }
-  }
-  $driveNumberToNuke
-}
-
-function validate_drive_to_delete($driveNumberToNuke) {
+function prompt_for_to_be_nuked_disk_drive_number($predictedDiskToNuke) {
   Write-Host
-  print_warning "This will NUKE ALL data on drive number `"$driveNumberToNuke`". Do you wish to proceed?"
-  print_warning "Type `"nuke $driveNumberToNuke`" to proceed. If want to nuke another disk, write only disk number below (you will be reprompted)"
   $newDriveNumber = Read-Host
  
-  # If user input cannot be converted to number, reprompt
-  try {
-    $newDriveNumberAsInt = [int]$newDriveNumber
-  }
-  catch {
-    Write-Host "Not a valid input. Try again."
-    return validate_drive_to_delete $driveNumberToNuke
-  }
-
-  # If user input empty, reprompt
+  # If user input is blank, retry
   if("" -eq $newDriveNumber) {
-    Write-Host "Not a valid input. Try again."
-    return validate_drive_to_delete $driveNumberToNuke
+    Write-Host "Not a valid input. Do not input nothing"
+    return prompt_for_to_be_nuked_disk_drive_number $driveNumberToNuke
+    break
   }
   # If user input matches exact case, continue
-  elseif($newDriveNumber -eq "nuke $driveNumberToNuke") {
-    return $newDriveNumber
+  elseif($newDriveNumber -eq "nuke $predictedDiskToNuke") {
+    return $newDriveNumber.Substring(5)
+    break
   }
+  elseif($newDriveNumber -eq $predictedDiskToNuke) {
+    Write-Host "Please type `"nuke $predictedDiskToNuke`" (without quotations) to continue"
+    prompt_for_to_be_nuked_disk_drive_number $predictedDiskToNuke
+  }
+
   # If user input matches valid drive letter, continue
-  elseif($newDriveNumberAsInt -lt (Get-Disk).Count -and $newDriveNumberAsInt -ge 0) {
-    return $newDriveNumber
+  try {
+    $newDriveNumberAsInt = [int]$newDriveNumber
+
+    if($newDriveNumberAsInt -lt (Get-Disk).Count -and $newDriveNumberAsInt -ge 0) {
+      return $newDriveNumberAsInt
+    }
+    else {
+      Write-Host "Not a valid input. Your number did not correspond to a valid drive number"
+      return prompt_for_to_be_nuked_disk_drive_number $predictedDiskToNuke
+    }
   }
-  else {
-    Write-Host "Not a valid input. Try again."
-    return validate_drive_to_delete $driveNumberToNuke
+  # If user input does not match number, reprompt
+  catch {
+    Write-Host "Not a valid input. You must enter a number or `"nuke $predictedDiskToNuke`" to proceed"
+    return prompt_for_to_be_nuked_disk_drive_number $predictedDiskToNuke
   }
 }
 
-function get_drive_to_delete($driveNumberToNuke) {
+function get_drive_number_to_nuke() {
+  param(
+    [Parameter(Mandatory = $false)]
+    $diskNumberToNuke
+  )
+
   print_info "Scanning Drives"
   $disks = Get-Disk
+  
+  # Defalut to nuking last disk drive (will reprompt, of course)
+  $predictedDiskNumberToNuke = $disks.Count - 1
+  if($diskNumberToNuke) {
+    $predictedDiskNumberToNuke = $diskNumberToNuke
+  }
 
+  $driveToNuke | Out-Null # without Out-Null crap is piped out
   $newDisks = @()
 
-  # Filter out all disks except $driveNumberToNuke
-  $driveToNuke
+  # Filter out all disks except disk drive corresponding to $predictedDiskNumberToNuke
   foreach($disk in $disks) {
-    if($disk.Number -ne $driveNumberToNuke) {
+    if($disk.Number -ne $predictedDiskNumberToNuke) {
       $newDisks += $disk
     }
     else {
       $driveToNuke = $disk
     }
   }
-
+  
   print_info "These drives will be untouched"  
-  Write-Host ($newDisks | Format-Table | Out-String).Trim()
+  Write-Host ($newDisks | Out-String).Trim()
 
   Write-Host
   print_warning "This drive will be nuked"
-  Write-Host (Get-Disk -Number $driveNumberToNuke | Out-String).Trim()
+  Write-Host (Get-Disk -Number $predictedDiskNumberToNuke | Out-String).Trim()
   
-  $finalDiskToNuke = validate_drive_to_delete $driveNumberToNuke
-  if($finalDiskToNuke -eq $driveNumberToNuke) {
-    Write-Host "about to wipe disk $finalDiskToNuke"
-    return $finalDiskToNuke
+  Write-Host
+  print_warning "This will NUKE ALL data on drive number `"$predictedDiskNumberToNuke`". Do you wish to proceed?"
+  print_warning "Type `"nuke $predictedDiskNumberToNuke`" to proceed. If want to nuke another disk, write only disk drive number below (you will be reprompted)"
+  $diskDriveToNuke = prompt_for_to_be_nuked_disk_drive_number $predictedDiskNumberToNuke
+
+  if($diskDriveToNuke -eq $predictedDiskNumberToNuke) {
+    $diskDriveToNuke
   }
   else {
-    Write-Host "thing"
-    return get_drive_to_delete $finalDiskToNuke
+    $diskDriveToNuke = get_drive_number_to_nuke $diskDriveToNuke
+    $diskDriveToNuke
   }
 }
 
-$driveLetterToNuke = (Get-Location).Drive.Name
-$driveNumberToNuke = getDriveNumber $driveLetterToNuke
-
-$finalNumber = get_drive_to_delete $driveNumberToNuke
+$finalNumber = get_drive_number_to_nuke
 Write-Host "$finalNumber will be erased"
-
-
-
-
 
 exit_program
