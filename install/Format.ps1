@@ -9,13 +9,35 @@ function print_warning($text) {
 }
 
 function exit_program() {
-  Write-Host "Job cancelled. Press `"q`" to exit"
+  Write-Host "Program terminated. Press `"q`" to exit"
 
   $key = $Host.UI.RawUI.ReadKey()
   if($key.Character -eq "q") {
     exit
   }
   exit_program
+}
+
+function get_scoop_size() {
+  $scoopSize = Read-Host
+
+  try {
+    $scoopSizeInt = [int]$scoopSize
+
+    if($scoopSizeInt -le 4 -and $scoopSizeInt -ge 0) {
+      $scoopSizeBytes = ([Math]::Pow(1024, 3) * $scoopSizeInt) - 1
+      return $scoopSizeBytes
+    }
+    else {
+      Write-Host "Not a valid input. n | 0 < n < 4"
+      return get_scoop_sizeq
+    }
+  }
+  # If user input does not enter number, reprompt
+  catch {
+    Write-Host "Not a valid input. You must enter a number to proceed"
+    return get_scoop_size
+  }
 }
 
 function prompt_for_to_be_nuked_disk_drive_number($predictedDiskToNuke) {
@@ -107,6 +129,23 @@ function get_drive_number_to_nuke() {
 }
 
 $finalNumber = get_drive_number_to_nuke
-Write-Host "$finalNumber will be erased"
+$finalNumber = [int]$finalNumber
+Write-Host
+
+Clear-Disk -Number $finalNumber -Confirm -RemoveData
+
+print_info "How many Gibibytes do you want to leave for Scoop? (Recommended: 2; Maximum: 4)"
+$scoopSizeBytes = get_scoop_size
+
+$scoopDrive = New-Partition -DiskNumber $finalNumber -Size $scoopSizeBytes -AssignDriveLetter | Format-Volume -FileSystem "NTFS" -NewFileSystemLabel "SCOOP"
+$workstationDrive = New-Partition -DiskNumber $finalNumber -UseMaximumSize -AssignDriveLetter | Format-Volume -FileSystem "exFAT" -NewFileSystemLabel "WORKSTATION"
+
+$scoopDrive | Format-List | Out-String | Write-Host
+$workstationDrive | Format-List | Out-String | Write-Host
+
+$scoopDriveLetter = $scoopDrive.DriveLetter
+$workstationDriveLetter = $workstationDrive.DriverLetter
+
+Set-Location "${workstationDriveLetter}:\"
 
 exit_program
