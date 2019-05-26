@@ -17,20 +17,32 @@ This repository contains tooling that allows you to use whatever tooling you nee
 
 ## Simple Installation
 
-In any directory of your thumbdrive, open a Cmd window and paste the following
+### Method Full (Recommended)
+
+Nukes and partitions a selected disk. It downloads the following programs (including the Scoop package manager). See the [docs](https://eankeen.github.io/portable-workstation) for more information.
+
+- Powershell
+- Scoop
+- Cmder (via Scoop)
+- Git (via Scoop)
+
+Paste the following in any elevated Cmd or PowerShell shell to install (and nuke) a thumbdrive.
 
 ```batch
-@"%SystemRoot%\System32\WinsdowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/EanKeen/portable-workstation/master/install/Install.ps1'))"
+@"%SystemRoot%\System32\WinsdowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/EanKeen/portable-workstation/master/install/InstallFull.ps1'))"
 ```
 
-If you want to use Scoop, the drive must have an NTFS partition. If the current partition is not NTFS, it will check for other partitions on the same drive for NTFS. It uses the first one it finds. If none are found, Scoop will not be installed.
+### Install Bare
 
-If you want to auto nuke your USB to partition make custom-sized NTFS and FAT32 partitions.
+It downloads the following programs. There is no package manager. See the [docs](https://eankeen.github.io/portable-workstation) for more information.
 
-If you see something like `Access to a CIM resource was not available to the client`, etc., it means you need to run an elevated Powershell console.
+- Cmder (with Git for Windows)
+- Powershell
+
+Paste the following in any directory of your thumbdrive to install it in that directory.
 
 ```batch
-@"%SystemRoot%\System32\WinsdowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/EanKeen/portable-workstation/master/install/Format.ps1'))"
+@"%SystemRoot%\System32\WinsdowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/EanKeen/portable-workstation/master/install/InstallBare.ps1'))"
 ```
 
 See the [docs](https://eankeen.github.io/portable-workstation) for more details.

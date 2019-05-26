@@ -148,4 +148,38 @@ $workstationDriveLetter = $workstationDrive.DriverLetter
 
 Set-Location "${workstationDriveLetter}:\"
 
-exit_program
+# Download portable-workstation scripts
+Write-Host "Downloading and unzipping portable-workstation repository"
+$_portableworkstationFile = "./portable-workstation.zip"
+Invoke-WebRequest -Uri "https://github.com/EanKeen/portable-workstation/archive/master.zip" -Method "GET" -TimeoutSec 0 -OutFile $_portableworkstationFile
+Expand-Archive -Path $_portableworkstationFile -DestinationPath "./" -Force
+Rename-Item -Path "./portable-workstation-master" -NewName "./_portable-scripts"
+Remove-Item -Path $_portableworkstationFile
+
+# Download powershell
+Write-Host "Downloading and unzipping PowerShell Core 6.2 32bit"
+New-Item -Path "./_portable-binaries" -ItemType Directory | Out-Null
+$_powershellFile = "./_portable-powershell.zip"
+Invoke-WebRequest -Uri "https://github.com/PowerShell/PowerShell/releases/download/v6.2.0/PowerShell-6.2.0-win-x86.zip" -Method "GET" -TimeoutSec 0 -OutFile "$_powershellFile"
+Expand-Archive -Path $_powershellFile -DestinationPath "./_portable-binaries/powershell" -Force
+
+# Create .bat style to execute portable-workstation scripts
+Write-Host "Creating `"_portable-start.bat`""
+$_portableStartFile = "_portable-start.bat"
+New-Item -Path $_portableStartFile -ItemType File -Force | Out-Null
+Add-Content -Path $_portableStartFile -Value "cd .\_portable-scripts"
+Add-Content -Path $_portableStartFile -Value  "start ..\_portable-binaries\powershell\pwsh.exe -ExecutionPolicy Bypass -file .\ExecutePortableScripts.ps1"
+
+
+$_scoopInstallationFolder = "${scoopPartition}:/_portable-scoop"
+New-Item -Path $_scoopInstallationFolder -Type Directory
+[environment]::setEnvironmentVariable("SCOOP", $_scoopInstallationFolder, "User")
+$env:SCOOP = $_scoopInstallationFolder
+
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString("https://get.scoop.sh")
+
+$_scoopInstalledProgramsFolder = "${scoopPartition}/portable-scoop-programs"
+New-Item -Path $_scoopInstalledProgramsFolder -Type Directory 
+[environment]::setEnvironmentVariable("SCOOP_GLOBAL", $_scoopInstalledProgramsFolder, "User")
+$env:SCOOP_GLOBAL = $_scoopInstalledProgramsFolder
