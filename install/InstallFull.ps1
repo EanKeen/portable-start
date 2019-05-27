@@ -155,6 +155,8 @@ New-Item -Path "./_scoop-programs" -ItemType Directory | Out-Null
 $scoopItself = "${scoopItself}/scoop"
 $env:SCOOP = $scoopItself
 [environment]::setEnvironmentVariable("SCOOP", $scoopItself, "User")
+Invoke-Expression (New-Object Net.WebClient).DownloadString('https://get.scoop.sh')
+
 
 $scoopPrograms = "${scoopDriveLetter}/scoop-programs"
 $env:SCOOP_GLOBAL = $scoopPrograms
@@ -175,9 +177,9 @@ Remove-Item -Path $portableWorkstationFolder
 Write-Host "Downloading and unzipping PowerShell Core 6.2 32bit"
 $powershellCoreFolder = "./_portable-powershell.zip"
 New-Item -Path "./_portable-binaries" -ItemType Directory | Out-Null
-# Invoke-WebRequest -Uri "https://github.com/PowerShell/PowerShell/releases/download/v6.2.0/PowerShell-6.2.0-win-x86.zip" -Method "GET" -TimeoutSec 0 -OutFile "$powershellCoreFolder"
-# Expand-Archive -Path $powershellCoreFolder -DestinationPath "./_portable-binaries/powershell" -Force
-# Remove-Item -Path $powershellCoreFolder
+Invoke-WebRequest -Uri "https://github.com/PowerShell/PowerShell/releases/download/v6.2.0/PowerShell-6.2.0-win-x86.zip" -Method "GET" -TimeoutSec 0 -OutFile "$powershellCoreFolder"
+Expand-Archive -Path $powershellCoreFolder -DestinationPath "./_portable-binaries/powershell" -Force
+Remove-Item -Path $powershellCoreFolder
 
 # Create .bat style to execute portable-workstation scripts
 Write-Host "Creating `"_portable-start.bat`""
@@ -191,8 +193,13 @@ New-Item -Path "./_portable-shortcuts" -ItemType Directory | Out-Null
 
 # Create portable.config.json
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/portable.config.json" -Method GET -OutFile "portable.config.json"
-$portableConfig = Get-Content -Path "./portable.config.json" -Raw ConvertFrom-Json
-$portableConfig.scoopDrive = "$scoopDriveLetter"
+$portableConfig = Get-Content -Path "./portable.config.json" -Raw | ConvertFrom-Json
+$portableConfig.refs.appDir = "OMMIT"
+$portableConfig.refs.cmderConfig = "Find this later"
+$portableConfig.refs.scoopDrive = "$scoopDriveLetter"
+$portableConfig.refs.scoopProgramsDir = "_scoop-programs"
+$portableConfig.refs.scoopDir = "_scoop"
+
 $portableConfig | Set-Content -Path "./portable.config.json" -Encoding ASCII -Force
 
 $portableConfigJson | Out-File -FilePath "./portable.config.json" -Encoding ASCII -Force

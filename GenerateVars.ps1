@@ -34,6 +34,23 @@ function create_from_cmderConfigDir($var, $config) {
   add_object_prop $var "allConfig" $allConfig
 }
 
+function create_from_use($var, $config) {
+  $use = @(
+    @{ configVar="scoop"; internalVar="usingScoop" },
+    @{ configVar="appDir"; internalVar="usingAppDir" },
+    @{ configVar="shortcutsDir"; internalVar="usingShortcutsDir" }
+  )
+
+  foreach($u in $use) {
+    $willHave = $false
+    if($u -eq "true" -or $u -eq $true -or $u -eq "TRUE") {
+      $willHave = $true
+    }
+
+    add_object_prop $var $u.internalVar $willHave
+  }
+}
+
 function print_variables($var) {
   foreach($individualVar in $var.PsObject.Properties) {
     print_info "`$vars.$($individualVar.Name)" $individualVar.Value
@@ -45,6 +62,7 @@ function generate_vars($config) {
 
   create_fromRelPathsTo $var $config
   create_from_cmderConfigDir $var $config
+  create_from_use $var $config
   print_variables $var
 
   $var | ConvertTo-Json -Depth 8 | Out-File -FilePath "./log/abstraction.var.json" -Encoding "ASCII"

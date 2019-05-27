@@ -1,4 +1,7 @@
 {
+  "use": {
+    "scoop": "false"
+  },
   "relPathsTo": {
     "applications": "../_portable-applications",
     "binaries": "../_portable-binaries",

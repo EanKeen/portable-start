@@ -5,6 +5,9 @@ function check_path_exists($pathName, $pathValue) {
     print_info "check_path_exists" "path `"$pathName`" at `"$pathValue`" reference exists"
     return
   }
+  elseif($pathValue -eq "OMMIT") {
+    
+  }
   else {
     print_error "check_path_exists" "path `"$pathName`" at `"$pathValue`" reference does NOT exist. Create the path or edit your config object"
     exit_program
