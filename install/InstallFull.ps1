@@ -130,7 +130,6 @@ function get_drive_number_to_nuke() {
 
 $finalNumber = get_drive_number_to_nuke
 $finalNumber = [int]$finalNumber
-Write-Host
 
 Clear-Disk -Number $finalNumber -Confirm -RemoveData
 
@@ -138,48 +137,66 @@ print_info "How many Gibibytes do you want to leave for Scoop? (Recommended: 2; 
 $scoopSizeBytes = get_scoop_size
 
 $scoopDrive = New-Partition -DiskNumber $finalNumber -Size $scoopSizeBytes -AssignDriveLetter | Format-Volume -FileSystem "NTFS" -NewFileSystemLabel "SCOOP"
-$workstationDrive = New-Partition -DiskNumber $finalNumber -UseMaximumSize -AssignDriveLetter | Format-Volume -FileSystem "exFAT" -NewFileSystemLabel "WORKSTATION"
+$workstationDrive = New-Partition -DiskNumber $finalNumber -UseMaximumSize -AssignDriveLetter | Format-Volume -FileSystem "exFAT" -NewFileSystemLabel "STATION" -AllocationUnitSize 4096
 
 $scoopDrive | Format-List | Out-String | Write-Host
 $workstationDrive | Format-List | Out-String | Write-Host
 
 $scoopDriveLetter = $scoopDrive.DriveLetter
-$workstationDriveLetter = $workstationDrive.DriverLetter
+$workstationDriveLetter = $workstationDrive.DriveLetter
 
+
+## FOR SCOOP ##
+Write-Host "F$scoopDriveLetter"
+Set-Location "${scoopDriveLetter}:\"
+
+New-Item -Path "./_scoop" -ItemType Directory | Out-Null
+New-Item -Path "./_scoop-programs" -ItemType Directory | Out-Null
+
+$scoopItself = "${scoopItself}/scoop"
+$env:SCOOP = $scoopItself
+[environment]::setEnvironmentVariable("SCOOP", $scoopItself, "User")
+
+$scoopPrograms = "${scoopDriveLetter}/scoop-programs"
+$env:SCOOP_GLOBAL = $scoopPrograms
+[environment]::setEnvironmentVariable("SCOOP_GLOBAL", $scoopPrograms, "User")
+
+## FOR WORKSTATION ##
+Write-Host "F$workstationDriveLetter"
 Set-Location "${workstationDriveLetter}:\"
 
 # Download portable-workstation scripts
 Write-Host "Downloading and unzipping portable-workstation repository"
-$_portableworkstationFile = "./portable-workstation.zip"
-Invoke-WebRequest -Uri "https://github.com/eankeen/portable-workstation/archive/master.zip" -Method "GET" -TimeoutSec 0 -OutFile $_portableworkstationFile
-Expand-Archive -Path $_portableworkstationFile -DestinationPath "./" -Force
+$portableWorkstationFolder = "./portable-workstation.zip"
+Invoke-WebRequest -Uri "https://github.com/eankeen/portable-workstation/archive/master.zip" -Method "GET" -TimeoutSec 0 -OutFile $portableWorkstationFolder
+Expand-Archive -Path $portableWorkstationFolder -DestinationPath "./" -Force
 Rename-Item -Path "./portable-workstation-master" -NewName "./_portable-scripts"
-Remove-Item -Path $_portableworkstationFile
+Remove-Item -Path $portableWorkstationFolder
 
-# Download powershell
+# Download powershell core
 Write-Host "Downloading and unzipping PowerShell Core 6.2 32bit"
+$powershellCoreFolder = "./_portable-powershell.zip"
 New-Item -Path "./_portable-binaries" -ItemType Directory | Out-Null
-$_powershellFile = "./_portable-powershell.zip"
-Invoke-WebRequest -Uri "https://github.com/PowerShell/PowerShell/releases/download/v6.2.0/PowerShell-6.2.0-win-x86.zip" -Method "GET" -TimeoutSec 0 -OutFile "$_powershellFile"
-Expand-Archive -Path $_powershellFile -DestinationPath "./_portable-binaries/powershell" -Force
+Invoke-WebRequest -Uri "https://github.com/PowerShell/PowerShell/releases/download/v6.2.0/PowerShell-6.2.0-win-x86.zip" -Method "GET" -TimeoutSec 0 -OutFile "$powershellCoreFolder"
+Expand-Archive -Path $powershellCoreFolder -DestinationPath "./_portable-binaries/powershell" -Force
+Remove-Item -Path $powershellCoreFolder
 
 # Create .bat style to execute portable-workstation scripts
 Write-Host "Creating `"_portable-start.bat`""
-$_portableStartFile = "_portable-start.bat"
-New-Item -Path $_portableStartFile -ItemType File -Force | Out-Null
-Add-Content -Path $_portableStartFile -Value "cd .\_portable-scripts"
-Add-Content -Path $_portableStartFile -Value  "start ..\_portable-binaries\powershell\pwsh.exe -ExecutionPolicy Bypass -file .\ExecutePortableScripts.ps1"
+$portableStartBatchScript = "_portable-start.bat"
+New-Item -Path $portableStartBatchScript -ItemType File -Force | Out-Null
+Add-Content -Path $portableStartBatchScript -Value "cd .\_portable-scripts"
+Add-Content -Path $portableStartBatchScript -Value  "start ..\_portable-binaries\powershell\pwsh.exe -ExecutionPolicy Bypass -file .\ExecutePortableScripts.ps1"
 
+# Create required folders
+New-Item -Path "./_portable-shortcuts" -ItemType Directory | Out-Null
 
-$_scoopInstallationFolder = "${scoopPartition}:/_portable-scoop"
-New-Item -Path $_scoopInstallationFolder -Type Directory
-[environment]::setEnvironmentVariable("SCOOP", $_scoopInstallationFolder, "User")
-$env:SCOOP = $_scoopInstallationFolder
-
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
-Invoke-Expression (New-Object System.Net.WebClient).DownloadString("https://get.scoop.sh")
-
-$_scoopInstalledProgramsFolder = "${scoopPartition}/portable-scoop-programs"
-New-Item -Path $_scoopInstalledProgramsFolder -Type Directory 
-[environment]::setEnvironmentVariable("SCOOP_GLOBAL", $_scoopInstalledProgramsFolder, "User")
-$env:SCOOP_GLOBAL = $_scoopInstalledProgramsFolder
+# Create portable.config.json
+$portableConfigJson = @{
+  paths = @{
+    scoopDrive = $scoopDriveLetter;
+    scoopItself = "_scoop";
+    scoopPrograms = "_scoop-programs"
+  }
+}
+$portableConfigJson | ConvertFrom-Json | Out-File -FilePath "./portable.config.json" -Encoding ASCII -Force
