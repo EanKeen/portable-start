@@ -137,7 +137,7 @@ print_info "How many Gibibytes do you want to leave for Scoop? (Recommended: 2; 
 $scoopSizeBytes = get_scoop_size
 
 $scoopDrive = New-Partition -DiskNumber $finalNumber -Size $scoopSizeBytes -AssignDriveLetter | Format-Volume -FileSystem "NTFS" -NewFileSystemLabel "SCOOP"
-$workstationDrive = New-Partition -DiskNumber $finalNumber -UseMaximumSize -AssignDriveLetter | Format-Volume -FileSystem "exFAT" -NewFileSystemLabel "STATION" -AllocationUnitSize 4096
+$workstationDrive = New-Partition -DiskNumber $finalNumber -UseMaximumSize -AssignDriveLetter | Format-Volume -FileSystem "exFAT" -NewFileSystemLabel "WORKSTATION" -AllocationUnitSize 4096
 
 $scoopDrive | Format-List | Out-String | Write-Host
 $workstationDrive | Format-List | Out-String | Write-Host
@@ -147,7 +147,6 @@ $workstationDriveLetter = $workstationDrive.DriveLetter
 
 
 ## FOR SCOOP ##
-Write-Host "F$scoopDriveLetter"
 Set-Location "${scoopDriveLetter}:\"
 
 New-Item -Path "./_scoop" -ItemType Directory | Out-Null
@@ -162,7 +161,6 @@ $env:SCOOP_GLOBAL = $scoopPrograms
 [environment]::setEnvironmentVariable("SCOOP_GLOBAL", $scoopPrograms, "User")
 
 ## FOR WORKSTATION ##
-Write-Host "F$workstationDriveLetter"
 Set-Location "${workstationDriveLetter}:\"
 
 # Download portable-workstation scripts
@@ -177,9 +175,9 @@ Remove-Item -Path $portableWorkstationFolder
 Write-Host "Downloading and unzipping PowerShell Core 6.2 32bit"
 $powershellCoreFolder = "./_portable-powershell.zip"
 New-Item -Path "./_portable-binaries" -ItemType Directory | Out-Null
-Invoke-WebRequest -Uri "https://github.com/PowerShell/PowerShell/releases/download/v6.2.0/PowerShell-6.2.0-win-x86.zip" -Method "GET" -TimeoutSec 0 -OutFile "$powershellCoreFolder"
-Expand-Archive -Path $powershellCoreFolder -DestinationPath "./_portable-binaries/powershell" -Force
-Remove-Item -Path $powershellCoreFolder
+# Invoke-WebRequest -Uri "https://github.com/PowerShell/PowerShell/releases/download/v6.2.0/PowerShell-6.2.0-win-x86.zip" -Method "GET" -TimeoutSec 0 -OutFile "$powershellCoreFolder"
+# Expand-Archive -Path $powershellCoreFolder -DestinationPath "./_portable-binaries/powershell" -Force
+# Remove-Item -Path $powershellCoreFolder
 
 # Create .bat style to execute portable-workstation scripts
 Write-Host "Creating `"_portable-start.bat`""
@@ -192,11 +190,9 @@ Add-Content -Path $portableStartBatchScript -Value  "start ..\_portable-binaries
 New-Item -Path "./_portable-shortcuts" -ItemType Directory | Out-Null
 
 # Create portable.config.json
-$portableConfigJson = @{
-  paths = @{
-    scoopDrive = $scoopDriveLetter;
-    scoopItself = "_scoop";
-    scoopPrograms = "_scoop-programs"
-  }
-}
-$portableConfigJson | ConvertFrom-Json | Out-File -FilePath "./portable.config.json" -Encoding ASCII -Force
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/portable.config.json" -Method GET -OutFile "portable.config.json"
+$portableConfig = Get-Content -Path "./portable.config.json" -Raw ConvertFrom-Json
+$portableConfig.scoopDrive = "$scoopDriveLetter"
+$portableConfig | Set-Content -Path "./portable.config.json" -Encoding ASCII -Force
+
+$portableConfigJson | Out-File -FilePath "./portable.config.json" -Encoding ASCII -Force
