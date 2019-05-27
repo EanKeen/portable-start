@@ -1,4 +1,7 @@
 .vscode/
 .idea/
-log/
+custom/*
+!custom/.gitkeep
+log/*
+!log/.gitkeep
 portable.config.json

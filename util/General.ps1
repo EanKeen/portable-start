@@ -38,7 +38,7 @@ function add_object_prop($obj, $prop, $propValue) {
     Add-Member -InputObject $obj -Name $prop -Value $propValue -MemberType NoteProperty
   }
   else {
-    print_info "add_object_prop" "Property `"$prop`" already exists on object as `"$(ConvertTo-Json $propValue)`""
+    # print_info "add_object_prop" "Property `"$prop`" already exists on object as `"$(ConvertTo-Json $propValue)`""
   }
 }
 
