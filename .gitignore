@@ -5,3 +5,4 @@ custom/*
 log/*
 !log/.gitkeep
 portable.config.json
+!install/portable.config.json
