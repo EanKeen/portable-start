@@ -1,10 +1,9 @@
 # Download portable-workstation scripts
 Write-Host "Downloading and unzipping portable-workstation repository"
 $portableWorkstationFolder = "./portable-workstation.zip"
-Invoke-WebRequest -Uri "https://github.com/EanKeen/portable-workstation/archive/master.zip" -Method "GET" -TimeoutSec 0 -OutFile $portableWorkstationFolder
+Invoke-WebRequest -Uri "https://github.com/eankeen/portable-workstation/archive/master.zip" -Method "GET" -TimeoutSec 0 -OutFile $portableWorkstationFolder
 Expand-Archive -Path $portableWorkstationFolder -DestinationPath "./" -Force
 Rename-Item -Path "./portable-workstation-master" -NewName "./_portable-scripts"
-Remove-Item -Path $portableWorkstationFolder
 
 # Download powershell core
 Write-Host "Downloading and unzipping PowerShell Core 6.2 32bit"
@@ -27,7 +26,7 @@ New-Item -Path $portableStartBatchScript -ItemType File -Force | Out-Null
 Add-Content -Path $portableStartBatchScript -Value "cd .\_portable-scripts"
 Add-Content -Path $portableStartBatchScript -Value  "start ..\_portable-binaries\powershell\pwsh.exe -ExecutionPolicy Bypass -file .\ExecutePortableScripts.ps1"
 
-# Remove old
+# Remove zip files
 Remove-Item -Path $portableWorkstationFolder
 Remove-Item -Path $powershellCoreFolder
 Remove-Item -Path $cmderFolder

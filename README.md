@@ -27,7 +27,7 @@ Nukes and partitions a selected disk. It downloads the following programs (inclu
 Paste the following in any elevated Cmd or PowerShell shell to install (and nuke) a thumbdrive.
 
 ```batch
-@"%SystemRoot%\System32\WinsdowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/EanKeen/portable-workstation/master/install/InstallFull.ps1'))"
+@"%SystemRoot%\System32\WinsdowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/InstallFull.ps1'))"
 ```
 
 ### Install Bare
@@ -40,7 +40,7 @@ It downloads the following programs. There is no package manager. See the [docs]
 Paste the following in any directory of your thumbdrive to install it in that directory.
 
 ```batch
-@"%SystemRoot%\System32\WinsdowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/EanKeen/portable-workstation/master/install/InstallBare.ps1'))"
+@"%SystemRoot%\System32\WinsdowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/InstallBare.ps1'))"
 ```
 
 See the [docs](https://eankeen.github.io/portable-workstation) for more details.
