@@ -22,7 +22,7 @@ Paste the following in any directory of your thumbdrive to install it in that di
 ```
 
 ```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://github.com/EanKeen/portable-workstation/master/install/InstallBare.ps1'))
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/EanKeen/portable-workstation/master/install/InstallBare.ps1'))
 ```
 
 ### Method Full (Recommended)
@@ -41,7 +41,7 @@ If you see something like `Access to a CIM resource was not available to the cli
 ```
 
 ```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://github.com/EanKeen/portable-workstation/master/install/InstallFull.ps1'))
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/EanKeen/portable-workstation/master/install/InstallFull.ps1'))
 ```
 
 See the [installation](installation.md) for more details.

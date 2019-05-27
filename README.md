@@ -4,8 +4,6 @@
 
 - Automatically create shortcuts
 - integrate with scoop
-- autohotkey?
-- use is_directory to fix issue with only creating directories when prompted
 
 ## Home
 
