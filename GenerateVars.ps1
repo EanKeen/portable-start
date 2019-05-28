@@ -1,7 +1,7 @@
 function create_from_refs($var, $config) {
   foreach($ref in $config.refs.PsObject.Properties) {
     if($ref.Value -eq "OMMIT") {
-      add_object_prop $var $ref.Name "OMMIT"
+      # add_object_prop $var $ref.Name "OMMIT"
     }
     else {
       $absolutePath = (Resolve-Path -Path $ref.Value).Path

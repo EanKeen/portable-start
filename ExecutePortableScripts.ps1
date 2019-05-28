@@ -25,7 +25,7 @@ print_title "Create basic vars"
 Set-Variable -Name "vars" -Value $(generate_vars $config) -Scope Private
 
 # RUN CUSTOM FILE WITH HOOK ACCESS
-if(Test-Path -Path $vars.sourceToAccessHooks) { . "$($vars.sourceToAccessHooks)" }
+if(Test-Path -Path $vars.hookFile) { . "$($vars.hookFile)" }
 attempt_to_run_hook "portable_hook_after_create_variables `$config `$var"
 
 # CREATE CMDER CONFIG FILES
