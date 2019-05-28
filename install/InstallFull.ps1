@@ -195,7 +195,7 @@ New-Item -Path "./_portable-shortcuts" -ItemType Directory | Out-Null
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/portable.config.json" -Method GET -OutFile "portable.config.json"
 $portableConfig = Get-Content -Path "./portable.config.json" -Raw | ConvertFrom-Json
 $portableConfig.refs.appDir = "OMMIT"
-$portableConfig.refs.cmderConfig = "Find this later"
+$portableConfig.refs.cmderConfigDir = "Find this later"
 $portableConfig.refs.scoopDrive = "$scoopDriveLetter"
 $portableConfig.refs.scoopProgramsDir = "_scoop-programs"
 $portableConfig.refs.scoopDir = "_scoop"

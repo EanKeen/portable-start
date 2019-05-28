@@ -2,8 +2,8 @@
 
 You can customize how this application functions by using the in-built hooks. There in-build methods you can use. Most are in `initialize-helper-functions.ps1`.
 
-
 ## Printing Stuff to Console
+
 ### `print_title`
 
 *Warning* piping may not completely work 100%, so don't use it when debugging

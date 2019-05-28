@@ -4,6 +4,7 @@
 
 - Automatically create shortcuts
 - integrate with scoop
+- test if config object is actually valid (maybe)
 
 ## Home
 

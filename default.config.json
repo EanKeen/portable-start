@@ -1,12 +1,11 @@
 {
-  "use": {
-    "scoop": "false"
-  },
-  "relPathsTo": {
-    "applications": "../_portable-applications",
-    "binaries": "../_portable-binaries",
-    "shortcuts": "../_portable-shortcuts",
-    "cmderConfig": "../_portable-applications/cmder/config",
+  "refs": {
+    "appDir": "../_portable-applications",
+    "binDir": "../_portable-binaries",
+    "shortcutsDir": "../_portable-shortcuts",
+    "scoopAppsDir": "OMMIT",
+    "scoopDir": "OMMIT",
+    "cmderConfigDir": "../_portable-applications/cmder/config",
     "sourceToAccessHooks": "../_portable-scripts/custom/script.ps1"
   },
   "aliases": [

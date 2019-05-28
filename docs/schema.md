@@ -8,7 +8,7 @@ To use portable-workstation, you must setup a config file. Inside `_portable-scr
 
 ```json
 {
-  "relPathsTo": {
+  "refs": {
     "applications": "../_portable-applications",
     "binaries": "../_portable-binaries",
     "shortcuts": "../_portable-shortcuts",
@@ -124,7 +124,7 @@ An array of objects that look like the following. Path is required. Name is opti
 }
 ```
 
-## `relPathsTo`
+## `refs`
 
 An object that contains the following properties.
 

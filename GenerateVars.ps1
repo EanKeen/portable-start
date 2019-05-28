@@ -1,16 +1,19 @@
-function create_fromRelPathsTo($var, $config) {
+function create_from_refs($var, $config) {
   $variables = @(
-    @{ configVar="applications"; internalVar="appDir" },
-    @{ configVar="binaries"; internalVar="binDir" },
-    @{ configVar="shortcuts"; internalVar="shortcutsDir" },
-    @{ configVar="scoopApps"; internalVar="scoopAppsDir" },
-    @{ configVar="cmderConfig"; internalVar="cmderConfigDir" },
-    @{ configVar="sourceToAccessHooks"; internalVar="sourceToAccessHooks"}
+    @{ configVar="appDir"; internalVar="appDir" },
+    @{ configVar="binDir"; internalVar="binDir" },
+    @{ configVar="shortcutsDir"; internalVar="shortcutsDir" },
+    @{ configVar="scoopAppsDir"; internalVar="scoopAppsDir" },
+    @{ configVar="scoopDir"; internalVar="scoopDir" },
+    @{ configVar="cmderConfigDir"; internalVar="cmderConfigDir" },
+    @{ configVar="hookFile"; internalVar="hookFile"}
   )
 
   foreach($obj in $variables) {
-    $absolutePath = (Resolve-Path -Path $config.relPathsTo.$($obj.configVar)).Path
+    if($config.refs.$($obj.configVar) -ne "OMMIT") {
+      $absolutePath = (Resolve-Path -Path $config.refs.$($obj.configVar)).Path
       add_object_prop $var $obj.internalVar $absolutePath
+    }
   }
   
   $absolutePathToPortableDir = $(Split-Path $PSCommandPath)
@@ -60,7 +63,7 @@ function print_variables($var) {
 function generate_vars($config) {
   $var = New-Object -TypeName PsObject
 
-  create_fromRelPathsTo $var $config
+  create_from_refs $var $config
   create_from_cmderConfigDir $var $config
   create_from_use $var $config
   print_variables $var

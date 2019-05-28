@@ -89,14 +89,15 @@ function merge_aliases_from_aliasesObj($config) {
 }
 
 # MERGE FUNCTIONS
-function merge_relPathsTo($config, $defaultConfig) {
-  add_object_prop $config "relPathsTo" $(New-Object -TypeName PsObject)
-  add_object_prop $config.relPathsTo "applications" $defaultConfig.relPathsTo.applications
-  add_object_prop $config.relPathsTo "binaries" $defaultConfig.relPathsTo.binaries
-  add_object_prop $config.relPathsTo "shortcuts" $defaultConfig.relPathsTo.shortcuts
-  add_object_prop $config.relPathsTo "scoopApps" $defaultConfig.relPathsTo.scoopApps
-  add_object_prop $config.relPathsTo "cmderConfig" $defaultConfig.relPathsTo.cmderConfig
-  add_object_prop $config.relPathsTo "sourceToAccessHooks" $defaultConfig.relPathsTo.sourceToAccessHooks
+function merge_refs($config, $defaultConfig) {
+  add_object_prop $config "refs" $(New-Object -TypeName PsObject)
+  add_object_prop $config.refs "appDir" $defaultConfig.refs.appDir
+  add_object_prop $config.refs "binDir" $defaultConfig.refs.binDir
+  add_object_prop $config.refs "shortcutsDir" $defaultConfig.refs.shortcutsDir
+  add_object_prop $config.refs "scoopAppsDir" $defaultConfig.refs.scoopAppsDir,
+  add_object_prop $config.refs "scoopDir" $defaultConfig.refs.scoopDir
+  add_object_prop $config.refs "cmderConfigDir" $defaultConfig.refs.cmderConfigDir
+  add_object_prop $config.refs "hookFile" $defaultConfig.refs.hookFile
 }
 
 function merge_aliases($config, $defaultConfig) {
@@ -167,7 +168,7 @@ function generate_config() {
   $config = create_config
   $defaultConfig = Get-Content -Path "./default.config.json" -Raw | ConvertFrom-Json
 
-  merge_relPathsTo $config $defaultConfig
+  merge_refs $config $defaultConfig
   merge_aliases $config $defaultConfig
   check_aliases_use_prop $config
   fill_applications $config

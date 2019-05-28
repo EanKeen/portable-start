@@ -26,7 +26,7 @@ function portable_hook_after_create_variables($config, $var) {
 * Any implicit / optional properties in `./default.config.json` are made explicit
 * `$config` is a superset of `./log/abstraction.config.json`
   * You're safe to use any properties of `$config` found in `./log/abstraction.config.json`
-  * *Do not* access properties of `$config.relPathsTo`, because they are relative paths. Look for absolute paths in `$vars`
+  * *Do not* access properties of `$config.refs`, because they are relative paths. Look for absolute paths in `$vars`
 * See the [schema](/schema) page for how `$config` is structured
 
 ## `$var`
@@ -36,27 +36,27 @@ function portable_hook_after_create_variables($config, $var) {
 
 ### `$var.appDir`
 
-Absolute path of `$config.relPathsTo.applications`
+Absolute path of `$config.refs.appDir`
 
 ### `$var.binDir`
 
-Absolute path of `$config.relPathsTo.binaries`
+Absolute path of `$config.refs.binDir`
 
 ### `$var.shortcutsDir`
 
-Absolute path of `$config.relPathsTo.shortcuts`
+Absolute path of `$config.refs.shortcutsDir`
 
 ### `$var.scoopDir`
 
-Absolute path of `$config.relPathsTo.scoopFiles`
+Absolute path of `$config.refs.scoopDir`
 
 ### `$var.cmderConfigDir`
 
-Absolute path of `$config.relPathsTo.cmderConfig`
+Absolute path of `$config.refs.cmderConfigDir`
 
-### `$var.sourceToAccessHooks`
+### `$var.hookDir`
 
-Absolute path of `$config.relPathsTo.sourceToAccessHooks`
+Absolute path of `$config.refs.hookDir`
 
 ### `$var.portableDir`
 
