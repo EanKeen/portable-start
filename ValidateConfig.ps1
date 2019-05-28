@@ -1,7 +1,6 @@
 # Check to be sure all paths user is entering is correct
 
 function check_path_exists($pathName, $pathValue) {
-  Write-Host "DD$pathValue"
   if($pathValue -eq "OMMIT") {
     return
   }

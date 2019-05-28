@@ -10,10 +10,8 @@ function create_from_refs($var, $config) {
   )
 
   foreach($obj in $variables) {
-    if($config.refs.$($obj.configVar) -ne "OMMIT") {
-      $absolutePath = (Resolve-Path -Path $config.refs.$($obj.configVar)).Path
-      add_object_prop $var $obj.internalVar $absolutePath
-    }
+    $absolutePath = (Resolve-Path -Path $config.refs.$($obj.configVar)).Path
+    add_object_prop $var $obj.internalVar $absolutePath
   }
   
   $absolutePathToPortableDir = $(Split-Path $PSCommandPath)
@@ -37,20 +35,16 @@ function create_from_cmderConfigDir($var, $config) {
   add_object_prop $var "allConfig" $allConfig
 }
 
-function create_from_use($var, $config) {
-  $use = @(
-    @{ configVar="scoop"; internalVar="usingScoop" },
-    @{ configVar="appDir"; internalVar="usingAppDir" },
-    @{ configVar="shortcutsDir"; internalVar="usingShortcutsDir" }
-  )
+function create_isUsing($var, $config) {
+  add_object_prop $var "isUsing" $(New-Object -TypeName PsObject)
 
-  foreach($u in $use) {
-    $willHave = $false
-    if($u -eq "true" -or $u -eq $true -or $u -eq "TRUE") {
-      $willHave = $true
+  foreach($ref in $config.refs.PsObject.Properties) {
+    if($ref.Value -eq "OMMIT") {
+      add_object_prop $var.isUsing $ref.Name $false
     }
-
-    add_object_prop $var $u.internalVar $willHave
+    else {
+      add_object_prop $var.isusing $ref.Name $true
+    }
   }
 }
 
@@ -66,6 +60,7 @@ function generate_vars($config) {
   create_from_refs $var $config
   create_from_cmderConfigDir $var $config
   create_from_use $var $config
+  create_isUsing $var $config
   print_variables $var
 
   $var | ConvertTo-Json -Depth 8 | Out-File -FilePath "./log/abstraction.var.json" -Encoding "ASCII"

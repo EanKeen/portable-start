@@ -6,7 +6,7 @@
     "scoopAppsDir": "OMMIT",
     "scoopDir": "OMMIT",
     "cmderConfigDir": "../_portable-applications/cmder/config",
-    "sourceToAccessHooks": "../_portable-scripts/custom/script.ps1"
+    "hookFile": "../_portable-scripts/custom/script.ps1"
   },
   "aliases": [
     {
