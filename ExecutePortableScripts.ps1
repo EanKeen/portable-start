@@ -35,7 +35,7 @@ cmder_config_write $vars $config
 attempt_to_run_hook "portable_hook_after_create_cmder_files `$config `$var"
 
 # CREATE STUFF FOR SCOOP
-if($vars.usingScoop) {
+if($vars.isUsing.scoop) {
   print_title "Create Scoop variables"
   . ./CreateScoop.ps1
   create_scoop $vars $config
