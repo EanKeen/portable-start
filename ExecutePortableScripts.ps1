@@ -26,27 +26,31 @@ Set-Variable -Name "vars" -Value $(generate_vars $config) -Scope Private
 
 # RUN CUSTOM FILE WITH HOOK ACCESS
 if(Test-Path -Path $vars.hookFile) { . "$($vars.hookFile)" }
-attempt_to_run_hook "portable_hook_after_create_variables `$config `$var"
+attempt_to_run_hook $vars "portable_hook_after_create_variables `$config `$var"
 
 # CREATE CMDER CONFIG FILES
-print_title "Create Cmder config files"
-. ./CreateCmderConfig.ps1
-cmder_config_write $vars $config
-attempt_to_run_hook "portable_hook_after_create_cmder_files `$config `$var"
+if($vars.isUsing.cmderConfigDir) {
+  print_title "Create Cmder config files"
+  . ./CreateCmderConfig.ps1
+  cmder_config_write $vars $config
+  attempt_to_run_hook $vars "portable_hook_after_create_cmder_files `$config `$var"
+}
+
 
 # CREATE STUFF FOR SCOOP
 if($vars.isUsing.scoop) {
   print_title "Create Scoop variables"
   . ./CreateScoop.ps1
   create_scoop $vars $config
-  attempt_to_run_hook "portable_hook_after_create_scoop_files `$config `$var"
+  attempt_to_run_hook $vars "portable_hook_after_create_scoop_files `$config `$var"
 }
 
 
 # LAUNCH APPLICATIONS
 print_title "Launch applications"
-. ./LaunchApplications
-prompt_to_launch_apps $vars $config
-attempt_to_run_hook "portable_hook_after_launch_apps `$config `$var"
-
+if($vars.isUsing.appDir) {
+  . ./LaunchApplications
+  prompt_to_launch_apps $vars $config
+  attempt_to_run_hook $vars "portable_hook_after_launch_apps `$config `$var"
+}
 exit_program

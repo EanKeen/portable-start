@@ -8,7 +8,11 @@ function log($prirority, $function, $message) {
 
 }
 
-function attempt_to_run_hook($expression) {
+function attempt_to_run_hook ($var, $expression) {
+  if(-not $var.isUsing.hookFile) {
+    return
+  }
+
   $functionName = $expression.Split(" ")[0]
 
   if(Get-Command $functionName -ErrorAction SilentlyContinue) {
