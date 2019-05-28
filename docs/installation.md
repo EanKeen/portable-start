@@ -58,7 +58,7 @@ The scrip above should work, if you're still having problems with [ExecutionPoli
 
 If you already have PowerShell Core or Cmder or want to use your own version, you may opt for a manual setup. I would recommend following this manual setup first. Then, if you want to change any folder names or change the config, to do it afterward. *Any relative paths you see from now on are relative to the directory in which you would have used those autoconfig scripts in*.
 
-#### Clone repo
+#### Clone repository
 
 ```sh
 git clone https://github.com/eankeen/portable-workstation.git _portable-scripts

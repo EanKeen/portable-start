@@ -1,6 +1,6 @@
 # Built-In Methods
 
-You can customize how this application functions by using the in-built hooks. There in-build methods you can use. Most are in `initialize-helper-functions.ps1`.
+You can customize how this application functions by using the in-built hooks. There in-build methods you can use. Most are in `/util\/.*\.ps1/`.
 
 ## Printing Stuff to Console
 
@@ -81,6 +81,7 @@ write_alias_to_config $var $var.allConfig "gs" "git status"
 ```
 
 ## Miscenaleious
+
 ### `normalize_path`
 
 ```powershell
@@ -114,4 +115,3 @@ Program's press 'q' to exit screen
 ```powershell
 exit_program
 ```
-

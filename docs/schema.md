@@ -2,42 +2,13 @@
 
 ## Overview
 
-To use portable-workstation, you must setup a config file. Inside `_portable-scripts`, create a `portable.config.json`. Anything in this config file overwrites what's in `default.config.json`. Do *not* modify `default.config.json`.
-
-## default.config.json
-
-```json
-{
-  "refs": {
-    "applications": "../_portable-applications",
-    "binaries": "../_portable-binaries",
-    "shortcuts": "../_portable-shortcuts",
-    "scoopApps": "../_portable-scoops",
-    "cmderConfig": "../_portable-applications/cmder/config",
-    "sourceToAccessHooks": "../_portable-custom/script.ps1"
-  },
-  "aliases": [
-    {
-      "name": "e.",
-      "value": "explorer .",
-      "use": ["cmd"]
-    },
-    {
-      "name": "gl",
-      "value": "git log --oneline --all --graph --decorate  $*",
-      "use": ["cmd"]
-    }
-  ]
-}
-```
-
-## Schema
+To use portable-workstation, you must setup a config file. Inside `_portable-scripts`, create a `portable.config.json`. Anything in this config file overwrites what's in `default.config.json`. Do *not* modify `default.config.json`. Find `default.config.json` [here](https://github.com/eankeen/portable-workstation/blob/master/default.config.json).
 
 Inside of `portable.config.json`, you can add the following properties
 
 ## `aliases`
 
-An array of objects that looks like the following. Both `name` and `value` are required.
+An array of objects that looks like the following.
 
 ```json
 {
@@ -46,13 +17,18 @@ An array of objects that looks like the following. Both `name` and `value` are r
 }
 ```
 
+```md
+name: required
+value: required
+```
+
 ## `aliasesObj`
 
 An object that contains the following properties
 
-### `bash`
+### `bash`, `ps`, and / or `cmd`
 
-An array of objects that looks like the following. Both `name` and `value` are required.
+An array of objects that looks like the following.
 
 ```json
 {
@@ -61,31 +37,14 @@ An array of objects that looks like the following. Both `name` and `value` are r
 }
 ```
 
-### `ps`
-
-An array of objects that looks like the following. Both `name` and `value` are required.
-
-```json
-{
-  "name": "test",
-  "value": "New-Object -TypeName PsObject | ConvertTo-Json | Write-Host"
-}
-```
-
-### `cmd`
-
-An array of objects that looks like the following. Both `name` and `value` are required.
-
-```json
-{
-  "name": "e .",
-  "value": "explorer .",
-}
+```md
+name: required
+value: required
 ```
 
 ## `applications`
 
-An array of objects that look like the following. Path is required. Name is optional. If name is not included, it will default to whatever is before the forward / backwards slash.
+An array of objects that look like If name is not included, it will default to whatever is before the forward / backwards slash.
 
 ```json
 {
@@ -95,21 +54,21 @@ An array of objects that look like the following. Path is required. Name is opti
 
 ```json
 {
-  "name": "VSCode",
-  "path": "vscode/Code"
-},
-```
-
-```json
-{
+  "name": "QuickLook",
   "path": "quicklook/QuickLook",
   "launch": "auto"
 }
 ```
 
+```md
+name: optional
+path: required
+launch: optional
+```
+
 ## `binaries`
 
-An array of objects that look like the following. Path is required. Name is optional. If name is not included, it will default to whatever is before the forward / backwards slash.
+An array of objects that look like the following. If name is not included, it will default to whatever is before the forward / backwards slash.
 
 ```json
 {
@@ -124,19 +83,25 @@ An array of objects that look like the following. Path is required. Name is opti
 }
 ```
 
+```md
+name: optional
+path: required
+```
+
 ## `refs`
 
 An object that contains the following properties.
 
 ```json
 {
-  "applications": "../_portable-applications",
-  "binaries": "../_portable-binaries",
-  "shortcuts": "../_portable-shortcuts",
-  "scoopApps": "../_portable-scoops",
-  "cmderConfig": "../_portable-applications/cmder/config",
-  "sourceToAccessHooks": "../_portable-custom/script.ps1"
+  "appDir": "../_portable-applications",
+  "binDir": "../_portable-binaries",
+  "shortcutsDir": "../_portable-shortcuts",
+  "scoopAppsDir": "OMMIT",
+  "scoopDir": "OMMIT",
+  "cmderConfigDir": "../_portable-applications/cmder/config",
+  "hookFile": "../_portable-scripts/custom/script.ps1"
 }
 ```
 
-All properties are relative to a file inside `_portable-scripts` (ex. `ExecutePortableScripts.ps1` or `portable.config.json`)
+All `refs` paths are relative to `portable.config.json`.
