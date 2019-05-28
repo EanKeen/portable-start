@@ -91,13 +91,10 @@ function merge_aliases_from_aliasesObj($config) {
 # MERGE FUNCTIONS
 function merge_refs($config, $defaultConfig) {
   add_object_prop $config "refs" $(New-Object -TypeName PsObject)
-  add_object_prop $config.refs "appDir" $defaultConfig.refs.appDir
-  add_object_prop $config.refs "binDir" $defaultConfig.refs.binDir
-  add_object_prop $config.refs "shortcutsDir" $defaultConfig.refs.shortcutsDir
-  add_object_prop $config.refs "scoopAppsDir" $defaultConfig.refs.scoopAppsDir,
-  add_object_prop $config.refs "scoopDir" $defaultConfig.refs.scoopDir
-  add_object_prop $config.refs "cmderConfigDir" $defaultConfig.refs.cmderConfigDir
-  add_object_prop $config.refs "hookFile" $defaultConfig.refs.hookFile
+  
+  foreach($ref in $defaultConfig.refs.PsObject.Properties) {
+    add_object_prop $config.refs $ref.Name $defaultConfig.refs."$($ref.Name)"
+  }
 }
 
 function merge_aliases($config, $defaultConfig) {

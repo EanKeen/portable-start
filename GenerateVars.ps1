@@ -1,17 +1,12 @@
 function create_from_refs($var, $config) {
-  $variables = @(
-    @{ configVar="appDir"; internalVar="appDir" },
-    @{ configVar="binDir"; internalVar="binDir" },
-    @{ configVar="shortcutsDir"; internalVar="shortcutsDir" },
-    @{ configVar="scoopAppsDir"; internalVar="scoopAppsDir" },
-    @{ configVar="scoopDir"; internalVar="scoopDir" },
-    @{ configVar="cmderConfigDir"; internalVar="cmderConfigDir" },
-    @{ configVar="hookFile"; internalVar="hookFile"}
-  )
-
-  foreach($obj in $variables) {
-    $absolutePath = (Resolve-Path -Path $config.refs.$($obj.configVar)).Path
-    add_object_prop $var $obj.internalVar $absolutePath
+  foreach($ref in $config.refs.PsObject.Properties) {
+    if($ref.Value -eq "OMMIT") {
+      add_object_prop $var $ref.Name "OMMIT"
+    }
+    else {
+      $absolutePath = (Resolve-Path -Path $ref.Value).Path
+      add_object_prop $var $ref.Name $absolutePath
+    }
   }
   
   $absolutePathToPortableDir = $(Split-Path $PSCommandPath)
@@ -59,7 +54,7 @@ function generate_vars($config) {
 
   create_from_refs $var $config
   create_from_cmderConfigDir $var $config
-  create_from_use $var $config
+  create_isUsing $var $config
   create_isUsing $var $config
   print_variables $var
 
