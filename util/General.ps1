@@ -4,24 +4,8 @@ function normalize_path($absPath, $relPath) {
   [IO.Path]::GetFullPath((Join-Path $absPath $relPath))
 }
 
-function is_directory() {
-  param(
-    [Parameter(ValueFromPipeline = $true)]
-    [string]
-    $pathFromPipeLine,
+function log($prirority, $function, $message) {
 
-    [Parameter(ValueFromPipeline = $false, Position = 0)]
-    [string]
-    $path
-  )
-
-  process {
-    if($pathFromPipeLine) {
-      $path = $pathFromPipeLine
-    }
-  
-    return (Test-Path $path) -and (Get-Item $path) -is [System.IO.DirectoryInfo]
-  }
 }
 
 function attempt_to_run_hook($expression) {
@@ -39,31 +23,6 @@ function add_object_prop($obj, $prop, $propValue) {
   }
   else {
     # print_info "add_object_prop" "Property `"$prop`" already exists on object as `"$(ConvertTo-Json $propValue)`""
-  }
-}
-
-function obj_has_prop() {
-  param(
-    [Parameter(ValueFromPipeline = $true)]
-    [object]
-    $obj,
-
-    [Parameter(Position = 0, Mandatory = $true)]
-    [string]
-    $prop
-  )
-
-  process {
-    $propFound = $false
-    $obj.PsObject.Properties | ForEach-Object {
-      if(($_.Name -eq $prop) -and -not $propFound) {
-        $propFound = $true
-        return
-      }
-    }
-    if(-not $propFound) {
-    }
-    $propFound
   }
 }
 
@@ -90,6 +49,23 @@ function obj_not_has_prop() {
     }
     !$propFound
   }
+}
+
+function obj_has_prop() {
+  param(
+    [Parameter(ValueFromPipeline = $true)]
+    [object]
+    $obj,
+
+    [Parameter(Position = 0, Mandatory = $true)]
+    [string]
+    $prop
+  )
+
+  process {
+    !($obj | obj_not_has_prop $prop)
+  }
+ 
 }
 
 function exit_program() {

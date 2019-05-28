@@ -36,11 +36,10 @@ function use_shells_for_alias() {
   )
 
   process {
-    if ($alias.use | obj_not_has_prop "use") {
-      add_object_prop $alias "use" $("[]" | ConvertTo-Json | Out-Null) 
-      foreach ($shell in $shells) {
-        $alias.use += $shell
-      }
+    add_object_prop $alias "use" $("[]" | ConvertTo-Json | Out-Null)
+  
+    foreach ($shell in $shells) {
+      $alias.use += $shell
     }
   }
 }
@@ -59,10 +58,6 @@ function merge_aliases_from_default($config, $defaultConfigAliasArray) {
   foreach ($alias in $defaultConfigAliasArray) {
     if (alias_does_not_exist $config.aliases $alias.name) {
       $config.aliases = $config.aliases += $alias
-      Write-Verbose "add_aliases_to_obj -- Adding $($alias.name)) alias to config"
-    }
-    else {
-      Write-Verbose "add_aliases_to_obj -- Not adding $($alias.name)) alias to config"
     }
   }
 }
@@ -91,7 +86,7 @@ function merge_aliases_from_aliasesObj($config) {
 # MERGE FUNCTIONS
 function merge_refs($config, $defaultConfig) {
   add_object_prop $config "refs" $(New-Object -TypeName PsObject)
-  
+
   foreach($ref in $defaultConfig.refs.PsObject.Properties) {
     add_object_prop $config.refs $ref.Name $defaultConfig.refs."$($ref.Name)"
   }
@@ -109,7 +104,7 @@ function merge_aliases($config, $defaultConfig) {
   merge_aliases_from_aliasesObj $config
 }
 
-function check_aliases_use_prop($config) {
+function write_default_alias_use_array($config) {
   foreach($alias in $config.aliases) {
     if($alias | obj_not_has_prop "use") {
       Add-Member -InputObject $alias -Name "use" -Value @("bash", "ps", "cmd") -MemberType NoteProperty
@@ -121,11 +116,6 @@ function fill_applications($config) {
   add_object_prop $config "applications" $("[]" | ConvertFrom-Json)
 
   foreach($app in $config.applications) {
-    if($app | obj_not_has_prop "path") {
-      print_error "fill_applications" "An application specified does not have the `"path`" property. Add this required property to `"$app`"."
-      exit_program
-    }
-
     if($app | obj_not_has_prop "name") {
       $newName = $($app.path).Replace("/", "\").Replace(".", "").Split("\")[0]
 
@@ -144,10 +134,6 @@ function fill_binaries($config) {
   add_object_prop $config "binaries" $("[]" | ConvertFrom-Json)
 
   foreach($binary in $config.binaries) {
-    if($binary | obj_not_has_prop "path") {
-      print_error "fill_binaries" "A binary specified does not have the `"path`" property. Add this required property to `"$app`"."
-      exit_program
-    }
     if($binary | obj_not_has_prop "name") {
       $newName = $binary.path
       $newName = $($binary.path).Replace("/", "\").Replace(".", "").Split("\")[0]
@@ -167,7 +153,7 @@ function generate_config() {
 
   merge_refs $config $defaultConfig
   merge_aliases $config $defaultConfig
-  check_aliases_use_prop $config
+  write_default_alias_use_array $config
   fill_applications $config
   fill_binaries $config
   fill_variables $config

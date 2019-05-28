@@ -4,6 +4,11 @@ Write-Host "Load helper functions" -BackgroundColor White -ForegroundColor Black
 . ./util/WriteToConfig.ps1
 . ./util/General.ps1
 
+# PRE-GEN VALIDATE CONFIG
+print_title "Prevalidate config object"
+. ./PrevalidateConfig.ps1
+prevalidate_config
+
 # GENERATE CONFIG OBJECT
 print_title "Create basic config"
 . ./GenerateConfig.ps1
