@@ -105,3 +105,16 @@ An object that contains the following properties.
 ```
 
 All `refs` paths are relative to `portable.config.json`.
+
+## `scoopRefs`
+
+An object that contains the following properties
+
+```json
+{
+  "programsDir": "./_scoop-programs",
+  "mainDir": "./_scoop"
+}
+```
+
+All `refs` paths are relative to the drive letter that stores Scoop files / programs

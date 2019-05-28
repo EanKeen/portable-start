@@ -18,10 +18,6 @@ function validate_refs($config) {
   foreach ($relativePath in $config.refs.PsObject.Properties) {
     check_path_exists $relativePath.Name $relativePath.Value
   }
-
-  if(($config.refs.scoopAppsDir -eq "OMMIT" -and $config.refs.scoopDir -ne "OMMIT") -or ($config.refs.scoopAppsDir -ne "OMMIT" -and $config.refs.scoopDir -eq "OMMIT")) {
-    print_error "validate_refs" "If you choose to ommit either `"scoopAppsDir`" or `"scoopDir`", you must ommit either both or none"
-  }
 }
 
 function validate_binaries($config) {

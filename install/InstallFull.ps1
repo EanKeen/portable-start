@@ -4,8 +4,14 @@ function print_info($plainText) {
 }
 
 function print_warning($text) {
-  Write-Host "WARNING" -NoNewLine -BackgroundColor DarkMagenta -ForegroundColor White
+  Write-Host "WARNING" -NoNewLine -BackgroundColor Red -ForegroundColor White
   Write-Host " $text"
+}
+
+function add_object_prop($obj, $prop, $propValue) {
+  if($obj | obj_not_has_prop $prop) {
+    Add-Member -InputObject $obj -Name $prop -Value $propValue -MemberType NoteProperty
+  }
 }
 
 function exit_program() {
@@ -193,10 +199,13 @@ New-Item -Path "./_portable-shortcuts" -ItemType Directory | Out-Null
 # Create portable.config.json
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/portable.config.json" -Method GET -OutFile "portable.config.json"
 $portableConfig = Get-Content -Path "./portable.config.json" -Raw | ConvertFrom-Json
-$portableConfig.refs.appDir = "OMMIT"
-$portableConfig.refs.cmderConfigDir = "OMMIT"
-$portableConfig.scoopRefs.scoopProgramsDir = "./_scoop-programs"
-$portableConfig.scoopRefs.scoopDir = "./_scoop"
+add_object_prop $portableConfig "refs" $(New-Object -TypeName PsObject)
+add_object_prop $portableCofig.refs "appDir" "OMMIT"
+add_object_prop $portableConfig.refs "cmderConfigDir" "OMMIT"
+
+add_object_prop $portableConfig "scoopRefs" $(New-Object -TypeName PsObject)
+add_object_prop $portableConfig.scoopRefs "programsDir" "./_scoop-programs"
+add_object_prop $portableConfig.scoopRefs "mainDir" "./_scoop"
 
 $portableConfig | Set-Content -Path "./_portable-scripts/portable.config.json" -Encoding ASCII -Force
 

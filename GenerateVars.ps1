@@ -8,11 +8,6 @@ function create_from_refs($var, $config) {
       add_object_prop $var $ref.Name $absolutePath
     }
   }
-
-  add_object_prop $var "isUsing" $(New-Object -TypeName PsObject)
-  if($config.refs.scoopAppsDir -eq "OMMIT" -or $config.refs.scoopDir -eq "OMMIT") {
-    add_object_prop $var.isUsing "scoop" $false
-  }
   
   $absolutePathToPortableDir = $(Split-Path $PSCommandPath)
   add_object_prop $var "portableDir" $absolutePathToPortableDir
