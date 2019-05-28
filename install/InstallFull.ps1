@@ -152,13 +152,12 @@ Set-Location "${scoopDriveLetter}:\"
 New-Item -Path "./_scoop" -ItemType Directory | Out-Null
 New-Item -Path "./_scoop-programs" -ItemType Directory | Out-Null
 
-$scoopItself = "${scoopItself}/scoop"
+$scoopItself = "${scoopItself}\scoop"
 $env:SCOOP = $scoopItself
 [environment]::setEnvironmentVariable("SCOOP", $scoopItself, "User")
-Invoke-Expression (New-Object Net.WebClient).DownloadString('https://get.scoop.sh')
 
 
-$scoopPrograms = "${scoopDriveLetter}/scoop-programs"
+$scoopPrograms = "${scoopDriveLetter}:\scoop-programs"
 $env:SCOOP_GLOBAL = $scoopPrograms
 [environment]::setEnvironmentVariable("SCOOP_GLOBAL", $scoopPrograms, "User")
 
@@ -195,11 +194,15 @@ New-Item -Path "./_portable-shortcuts" -ItemType Directory | Out-Null
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/portable.config.json" -Method GET -OutFile "portable.config.json"
 $portableConfig = Get-Content -Path "./portable.config.json" -Raw | ConvertFrom-Json
 $portableConfig.refs.appDir = "OMMIT"
-$portableConfig.refs.cmderConfigDir = "Find this later"
-$portableConfig.refs.scoopDrive = "$scoopDriveLetter"
-$portableConfig.refs.scoopProgramsDir = "_scoop-programs"
-$portableConfig.refs.scoopDir = "_scoop"
+$portableConfig.refs.cmderConfigDir = "OMMIT"
+$portableConfig.scoopRefs.scoopProgramsDir = "./_scoop-programs"
+$portableConfig.scoopRefs.scoopDir = "./_scoop"
 
-$portableConfig | Set-Content -Path "./portable.config.json" -Encoding ASCII -Force
+$portableConfig | Set-Content -Path "./_portable-scripts/portable.config.json" -Encoding ASCII -Force
 
-$portableConfigJson | Out-File -FilePath "./portable.config.json" -Encoding ASCII -Force
+## Revisit scoop
+print_info "Almost done. Now will install scoop. If you're receiving errors of using proper execution policy, simply change the execution policy and invoke the following command"
+print_info "Invoke-Expression (New-Object Net.WebClient).DownloadString('https://get.scoop.sh')"
+
+Set-Location "${scoopDriveLetter}:\"
+Invoke-Expression (New-Object Net.WebClient).DownloadString('https://get.scoop.sh')
