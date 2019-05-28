@@ -20,7 +20,7 @@ function validate_refs($config) {
   }
 }
 
-function validate_bins($config) {
+function validate_binaries($config) {
   foreach($binary in $config.binaries) {
     $normalizedBin = normalize_path $config.refs.binDir $binary.path
     check_path_exists $binary.name $normalizedBin
@@ -28,7 +28,10 @@ function validate_bins($config) {
 }
 
 function validate_config($config) {
+  # validate_aliases
+  # validate_aliasesobj
+  # validate_applications
+  validate_binaries $config
   validate_refs $config
-  validate_bins $config
 }
 
