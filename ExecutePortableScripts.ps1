@@ -38,7 +38,7 @@ if($vars.isUsing.opts.scoopDriveName) {
 }
 
 # CREATE CMDER CONFIG FILES
-if($vars.isUsing.cmderConfigDir) {
+if($vars.isUsing.refs.cmderConfigDir) {
   print_title "Create Cmder config files"
   . ./CreateCmderConfig.ps1
   cmder_config_write $vars $config
@@ -47,7 +47,7 @@ if($vars.isUsing.cmderConfigDir) {
 
 # LAUNCH APPLICATIONS
 print_title "Launch applications"
-if($vars.isUsing.appDir) {
+if($vars.isUsing.refs.appDir) {
   . ./LaunchApplications
   prompt_to_launch_apps $vars $config
   attempt_to_run_hook $vars "portable_hook_after_launch_apps `$config `$var"

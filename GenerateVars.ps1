@@ -67,32 +67,33 @@ function create_from_opts($var, $config) {
 function create_isUsing($var, $config) {
   add_object_prop $var "isUsing" $(New-Object -TypeName PsObject)
 
+  add_object_prop $var.isUsing "refs" $(New-Object -TypeName PsObject)
   foreach($ref in $config.refs.PsObject.Properties) {
     if($ref.Value -eq "OMIT") {
-      add_object_prop $var.isUsing $ref.Name $false
+      add_object_prop $var.isUsing.refs $ref.Name $false
     }
     else {
-      add_object_prop $var.isusing $ref.Name $true
+      add_object_prop $var.isusing.refs $ref.Name $true
     }
   }
 
-  add_object_prop $var.isUsing "scoop" (New-Object -TypeName PsObject)
-  foreach($ref in $config.scoopRefs.PsObject.Properties) {
-    if($ref.Value -eq "OMIT") {
-      add_object_prop $var.isUsing.scoop $ref.Name $false
+  add_object_prop $var.isUsing "scoopRefs" (New-Object -TypeName PsObject)
+  foreach($scoopRef in $config.scoopRefs.PsObject.Properties) {
+    if($scoopRef.Value -eq "OMIT") {
+      add_object_prop $var.isUsing.scoopRefs $scoopRef.Name $false
     }
     else {
-      add_object_prop $var.isUsing.scoop $ref.Name $true
+      add_object_prop $var.isUsing.scoopRefs $scoopRef.Name $true
     }
   }
 
   add_object_prop $var.isUsing "opts" (New-Object -TypeName PsObject)
-  foreach($ref in $config.opts.PsObject.Properties) {
-    if($ref.Value -eq "OMIT") {
-      add_object_prop $var.isUsing.opts $ref.Name $false
+  foreach($opt in $config.opts.PsObject.Properties) {
+    if($opt.Value -eq "OMIT") {
+      add_object_prop $var.isUsing.opts $opt.Name $false
     }
     else {
-      add_object_prop $var.isUsing.opts $ref.Name $true
+      add_object_prop $var.isUsing.opts $opt.Name $true
     }
   }
 }

@@ -39,7 +39,7 @@ function log($prirority, $function, $message) {
 }
 
 function attempt_to_run_hook ($var, $expression) {
-  if(-not $var.isUsing.hookFile) {
+  if(-not $var.isUsing.refs.hookFile) {
     return
   }
 
