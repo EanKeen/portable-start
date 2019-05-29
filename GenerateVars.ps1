@@ -20,7 +20,7 @@ function create_from_refs($var, $config) {
 }
 
 function create_from_scoopRefs($var, $config) {
-  add_object_prop $var "scoop" (New-Object -TypeName PsObject)
+  add_object_prop $var "scoopRefs" (New-Object -TypeName PsObject)
 
   foreach($scoopRef in $config.scoopRefs.PsObject.Properties) {
     if($scoopRef.Value -eq "OMIT") {
@@ -28,7 +28,7 @@ function create_from_scoopRefs($var, $config) {
     }
     else {
       $absolutePath = normalize_path (get_scoop_drive) $scoopRef.Value
-      add_object_prop $var.scoop $scoopRef.Name $absolutePath
+      add_object_prop $var.scoopRefs $scoopRef.Name $absolutePath
     }
   }
 }
