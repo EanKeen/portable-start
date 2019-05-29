@@ -30,7 +30,7 @@ if(Test-Path -Path $vars.hookFile) { . "$($vars.hookFile)" }
 attempt_to_run_hook $vars "portable_hook_after_create_variables `$config `$var"
 
 # CREATE STUFF FOR SCOOP
-if($vars.isUsing.scoop.mainDir) {
+if($vars.isUsing.opts.scoopDriveName) {
   print_title "Create Scoop variables"
   . ./ConfigureScoop.ps1
   configure_scoop $vars $config

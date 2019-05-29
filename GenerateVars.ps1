@@ -85,6 +85,16 @@ function create_isUsing($var, $config) {
       add_object_prop $var.isUsing.scoop $ref.Name $true
     }
   }
+
+  add_object_prop $var.isUsing "opts" (New-Object -TypeName PsObject)
+  foreach($ref in $config.opts.PsObject.Properties) {
+    if($ref.Value -eq "OMIT") {
+      add_object_prop $var.isUsing.opts $ref.Name $false
+    }
+    else {
+      add_object_prop $var.isUsing.opts $ref.Name $true
+    }
+  }
 }
 
 function print_variables($var) {
