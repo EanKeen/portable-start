@@ -199,14 +199,17 @@ New-Item -Path "./_portable-shortcuts" -ItemType Directory | Out-Null
 # Create portable.config.json
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/portable.config.json" -Method GET -OutFile "portable.config.json"
 $portableConfig = Get-Content -Path "./portable.config.json" -Raw | ConvertFrom-Json
-add_object_prop $portableConfig "refs" $(New-Object -TypeName PsObject)
+$obj = New-Object -TypeName PsObject
+add_object_prop $portableConfig "refs" $obj
 add_object_prop $portableCofig.refs "appDir" "OMIT"
 add_object_prop $portableConfig.refs "cmderConfigDir" "OMIT"
 
-add_object_prop $portableConfig "scoopRefs" $(New-Object -TypeName PsObject)
-add_object_prop $portableConfg.scoopRefs "scoopDrive" "SCOOP"
+add_object_prop $portableConfig "scoopRefs" $obj
 add_object_prop $portableConfig.scoopRefs "programsDir" "./_scoop-programs"
 add_object_prop $portableConfig.scoopRefs "mainDir" "./_scoop"
+
+add_object_prop $portableConfig "opts" $obj
+add_object_prop $portableConfg.opts "scoopDriveName" "SCOOP"
 
 $portableConfig | Set-Content -Path "./_portable-scripts/portable.config.json" -Encoding ASCII -Force
 

@@ -29,20 +29,20 @@ Set-Variable -Name "vars" -Value $(generate_vars $config) -Scope Private
 if(Test-Path -Path $vars.hookFile) { . "$($vars.hookFile)" }
 attempt_to_run_hook $vars "portable_hook_after_create_variables `$config `$var"
 
+# CREATE STUFF FOR SCOOP
+if($vars.isUsing.scoop.mainDir) {
+  print_title "Create Scoop variables"
+  . ./ConfigureScoop.ps1
+  configure_scoop $vars $config
+  attempt_to_run_hook $vars "portable_hook_after_set_scoop_env_vars `$config `$var"
+}
+
 # CREATE CMDER CONFIG FILES
 if($vars.isUsing.cmderConfigDir) {
   print_title "Create Cmder config files"
   . ./CreateCmderConfig.ps1
   cmder_config_write $vars $config
   attempt_to_run_hook $vars "portable_hook_after_create_cmder_files `$config `$var"
-}
-
-# CREATE STUFF FOR SCOOP
-if($vars.isUsing.scoop.mainDir) {
-  print_title "Create Scoop variables"
-  . ./CreateScoop.ps1
-  set_scoop_env_vars $vars $config
-  attempt_to_run_hook $vars "portable_hook_after_set_scoop_env_vars `$config `$var"
 }
 
 # LAUNCH APPLICATIONS
@@ -52,4 +52,5 @@ if($vars.isUsing.appDir) {
   prompt_to_launch_apps $vars $config
   attempt_to_run_hook $vars "portable_hook_after_launch_apps `$config `$var"
 }
+
 exit_program

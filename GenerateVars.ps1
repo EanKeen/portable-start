@@ -55,7 +55,6 @@ function create_from_opts($var, $config) {
   add_object_prop $var "opts" $obj
 
   foreach($opt in $config.opts.PsObject.Properties) {
-    $opt | out-string | write-host
     if($opt.Value -eq "OMIT") {
       # add_object_prop $var $op.Name "OMIT"
     }
