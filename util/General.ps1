@@ -6,31 +6,16 @@ function normalize_path($absPath, $relPath) {
 }
 
 function get_scoop_drive($config, $var) {
-  # $portableDisk = Get-Partition -DriveLetter (Get-Location).Drive.Name | Select-Object -ExpandProperty "DiskNumber"
-  # $scoopDrive = "$(Get-Partition -DiskNumber $portableDisk | ForEach-Object {
-  #   if($_.DriveLetter -ne ((Get-Location).Drive.Name)) {
-  #     Get-Volume -DriveLetter $_.DriveLetter | ForEach-Object {
-  #       if($_.FileSystemType -eq "NTFS") {
-  #         $_ | Select-Object -ExpandProperty "DriveLetter"
-  #       }
-  #     }
-  #   }
-  # }):\"
+  $portableDisk = Get-Partition -DriveLetter (Get-Location).Drive.Name | Select-Object -ExpandProperty "DiskNumber"
+  $scoopDrive = "$(Get-Partition -DiskNumber $portableDisk | Get-Volume | ForEach-Object {
+    if($_.FileSystemLabel -eq $config.opt.driveName) {
+      $_.DriveLetter
+      return
+    }
+  }):\"
+  
+  write-host "E$scoopDrive"
 
-  # if($var.scoop.driveName) {
-  #   $scoopDrive = "$(Get-Partition -DiskNumber $portableDisk | Get-Volume | ForEach-Object {
-  #     if($_.FileSystemLabel -eq $config.opt.driveName) {
-  #       $_.DriveLetter
-  #       return
-  #     }
-  #   }):\"
-  # }
-
-  # if($null -eq $scoopDrive -or "" -eq $scoopDrive) {
-  #   $scoopDrive = "E:\"
-  # }
-
-  # $scoopDrive
   "E:\"
 }
 
