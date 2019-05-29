@@ -1,9 +1,8 @@
 # TODO: Add this stuff to the commands of the Cmder
-function create_scoop($var, $config) {
-  $_scoopFolder = "$($config.binDir)\scoop"
-  [environment]::setEnvironmentVariable("SCOOP", $_scoopFolder, "User")
-  $env:SCOOP = $_scoopFolder
+function set_scoop_env_vars($var, $config) {
+  [environment]::setEnvironmentVariable("SCOOP", $var.scoop.mainDir, "User")
+  $env:SCOOP = $var.scoop.mainDir
 
-  [environment]::setEnvironmentVariable("SCOOP_GLOBAL", $vars.scoopAppsDir, "User")
-  $env:SCOOP_GLOBAL= $vars.scoopAppsDir
+  [environment]::setEnvironmentVariable("SCOOP_GLOBAL", $var.scoop.programsDir, "User")
+  $env:SCOOP_GLOBAL= $var.scoop.programsDir
 }

@@ -3,6 +3,7 @@ Write-Host "Load helper functions" -BackgroundColor White -ForegroundColor Black
 . ./util/PrintToConsole.ps1
 . ./util/WriteToConfig.ps1
 . ./util/General.ps1
+. ./util/GenerateConfigUtil.ps1
 
 # PRE-GEN VALIDATE CONFIG
 print_title "Prevalidate config object"
@@ -36,15 +37,13 @@ if($vars.isUsing.cmderConfigDir) {
   attempt_to_run_hook $vars "portable_hook_after_create_cmder_files `$config `$var"
 }
 
-
 # CREATE STUFF FOR SCOOP
-if($vars.isUsing.scoop) {
+if($vars.isUsing.scoop.mainDir) {
   print_title "Create Scoop variables"
   . ./CreateScoop.ps1
-  create_scoop $vars $config
-  attempt_to_run_hook $vars "portable_hook_after_create_scoop_files `$config `$var"
+  set_scoop_env_vars $vars $config
+  attempt_to_run_hook $vars "portable_hook_after_set_scoop_env_vars `$config `$var"
 }
-
 
 # LAUNCH APPLICATIONS
 print_title "Launch applications"

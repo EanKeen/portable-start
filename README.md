@@ -4,6 +4,7 @@
 
 - Automatically create shortcuts
 - integrate with scoop
+- | v freq of get_scoop_drive calls
 
 ## Home
 

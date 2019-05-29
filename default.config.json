@@ -3,10 +3,15 @@
     "appDir": "../_portable-applications",
     "binDir": "../_portable-binaries",
     "shortcutsDir": "../_portable-shortcuts",
-    "scoopAppsDir": "OMMIT",
-    "scoopDir": "OMMIT",
     "cmderConfigDir": "../_portable-applications/cmder/config",
     "hookFile": "../_portable-scripts/custom/script.ps1"
+  },
+  "scoopRefs": {
+    "programsDir": "./_scoop-programs",
+    "mainDir": "./_scoop"
+  },
+  "opts": {
+    "scoopDriveName": "OMIT"
   },
   "aliases": [
     {

@@ -66,6 +66,8 @@ path: required
 launch: optional
 ```
 
+If you have a path like `../alfa/.bravo/charlie`, you may want to put a name since the program will make the name something like `.bravo/` instead of `charlie`. However, if you have a path like `../alfa/.bravo/charlie.exe`, then the name will properly generate as `charlie` or something. `../alfa/bravo/charlie.exe` should work to `charlie`, though.
+
 ## `binaries`
 
 An array of objects that look like the following. If name is not included, it will default to whatever is before the forward / backwards slash.
@@ -97,8 +99,8 @@ An object that contains the following properties.
   "appDir": "../_portable-applications",
   "binDir": "../_portable-binaries",
   "shortcutsDir": "../_portable-shortcuts",
-  "scoopAppsDir": "OMMIT",
-  "scoopDir": "OMMIT",
+  "scoopAppsDir": "OMIT",
+  "scoopDir": "OMIT",
   "cmderConfigDir": "../_portable-applications/cmder/config",
   "hookFile": "../_portable-scripts/custom/script.ps1"
 }
