@@ -14,6 +14,9 @@
     "scoopDriveName": "OMIT",
     "automaticallyClose": false
   },
+  "custom": {
+
+  },
   "aliases": [
     {
       "name": "e.",

@@ -3,7 +3,7 @@ function write_config_comments($var, $config) {
   write_comment_to_config $var $var.refs.bashConfig "#!/bin/bash/env bash"
   write_comment_to_config $var $var.refs.allConfig $msg
   write_to_config $var $var.refs.allConfig ""
-
+  
   # Writes comments to user_aliases
   write_comment_to_config $var $var.refs.cmdUserAliases $msg
   $lines = @(

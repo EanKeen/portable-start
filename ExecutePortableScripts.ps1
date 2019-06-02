@@ -30,20 +30,20 @@ validate_config $config $vars
 if(Test-Path -Path $vars.refs.hookFile) { . "$($vars.refs.hookFile)" }
 attempt_to_run_hook $vars "portable_hook_after_create_variables `$config `$var"
 
-# CREATE STUFF FOR SCOOP
-if($vars.isUsing.opts.scoopDriveName) {
-  print_title "Configure Scoop"
-  . ./ConfigureScoop.ps1
-  configure_scoop $vars $config
-  attempt_to_run_hook $vars "portable_hook_after_set_scoop_env_vars `$config `$var"
-}
-
 # CREATE CMDER CONFIG FILES
 if($vars.isUsing.refs.cmderConfigDir) {
   print_title "Create Cmder Config"
   . ./CreateCmderConfig.ps1
   cmder_config_write $vars $config
   attempt_to_run_hook $vars "portable_hook_after_create_cmder_files `$config `$var"
+}
+
+# CREATE STUFF FOR SCOOP
+if($vars.isUsing.opts.scoopDriveName) {
+  print_title "Configure Scoop"
+  . ./ConfigureScoop.ps1
+  configure_scoop $vars
+  attempt_to_run_hook $vars "portable_hook_after_set_scoop_env_vars `$config `$var"
 }
 
 # LAUNCH APPLICATIONS

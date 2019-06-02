@@ -28,24 +28,6 @@ function create_isUsing_prop($var, $config, $propName) {
   }
 }
 
-function create_isUsing($var, $config) {
-  add_object_prop $var "isUsing" $(New-Object -TypeName PsObject)
-
-  add_object_prop $var.isUsing "refs" $(New-Object -TypeName PsObject)
-  foreach($ref in $config.refs.PsObject.Properties) {
-    if($ref.Value -eq "OMIT") {
-      add_object_prop $var.isUsing.refs $ref.Name $false
-    }
-    else {
-      add_object_prop $var.isusing.refs $ref.Name $true
-    }
-  }
-
-  create_isUsing_prop $var $config "scoopRefs"
-  create_isUsing_prop $var $config "opts"
-}
-
-
 function create_from_refs($var, $config) {
   add_object_prop $var "refs" $(New-Object -TypeName PsObject)
 
@@ -103,7 +85,13 @@ function generate_vars($config) {
   $var = New-Object -TypeName PsObject
 
   create_from_opts $var $config
-  create_isUsing $var $config
+
+  # CREATE PROPS FOR "isUsing" prop
+  add_object_prop $var "isUsing" $(New-Object -TypeName PsObject)
+  create_isUsing_prop $var $config "refs"
+  create_isUsing_prop $var $config "scoopRefs"
+  create_isUsing_prop $var $config "opts"
+  create_isUsing_prop $var $cofig "custom"
   
   # Depends on some parts of $var
   create_global_variables $var
