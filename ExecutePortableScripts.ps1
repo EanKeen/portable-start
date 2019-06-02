@@ -5,8 +5,6 @@ Write-Host "Load Helpers" -BackgroundColor White -ForegroundColor Black
 . ./util/General.ps1
 . ./util/GenerateConfigUtil.ps1
 
-
-
 # CREATE VARIABLES
 function create_constant_scoop_drive($var, $config) {
   if($var.isUsing.opts.scoopDriveName) {
@@ -20,7 +18,7 @@ function create_constant_scoop_drive($var, $config) {
   else {
     $portableDisk = Get-Partition -DriveLetter (Get-Location).Drive.Name | Select-Object -ExpandProperty "DiskNumber"
     $scoopDrive = "$(Get-Partition -DiskNumber $portableDisk | Get-Volume | ForEach-Object {
-      if($_.FileSystemLabel -eq $config.opt.driveName) {
+      if($_.FileSystemLabel -eq $var.opt.driveName) {
         $_.DriveLetter | Out-Host
         return
       }

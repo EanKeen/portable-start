@@ -67,6 +67,7 @@ function prevalidate_refs($config) {
   foreach($ref in $config.refs.PsObject.Properties) {
     if($ref -eq "OMITT" -or $ref -eq "OMITT" -or $ref -eq "OMMITT") {
       print_error "prevalidate_refs" "Did you mean to type `"OMIT`"?"
+      exit_program
     }
   }
 }
@@ -75,6 +76,7 @@ function prevalidate_scoopRefs($config) {
   foreach($scoopRef in $config.scoopRefs.PsObject.Properties) {
     if($scoopRef -eq "OMITT" -or $scoopRef -eq "OMITT" -or $scoopRef -eq "OMMITT") {
       print_error "prevalidate_scoopRefs" "Did you mean to type `"OMIT`"?"
+      exit_program
     }
   }
 }

@@ -106,10 +106,8 @@ function generate_vars($config) {
   create_isUsing $var $config
   
   Set-Variable -Name "SCOOP_DRIVE" -Value (create_constant_scoop_drive $var $config) -Scope Global
-  Write-Host "444$SCOOP_DRIVE"
   Set-Variable -Name "PORTABLE_DRIVE" -Value ((Get-Location).Drive.Root) -Scope Global
   Set-Variable -Name "PORTABLE_DISK_LETTER" -Value (Get-Partition -DriveLetter (Get-Location).Drive.Name | Select-Object -ExpandProperty "DiskNumber") -Scope Global
-  
   
   create_from_refs $var $config
   create_from_scoopRefs $var $config

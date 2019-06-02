@@ -89,6 +89,7 @@ function write_path_to_config($var, $configFile, $binName, $filePath) {
     return
   }
   else {
+    print_warning "write_path_to_config" "Cannot write path to `"$$var.cmdUserAliases`""
     return
   }
   print_info "write_path_to_config" "Adding `"$binName`" to PATH for `"$(Split-Path -Path $configFile -Leaf)`""
@@ -113,6 +114,10 @@ function write_alias_to_config($var, $configFile, $aliasName, $aliasValue) {
   }
   elseif($configFile -eq $var.cmdUserAliases) {
     print_warning "write_alias_to_config" "Cannot write alias to `"$$var.cmdUserAliases`" because it can only contain aliases and comments"
+    return
+  }
+  else {
+    print_warning "write_alias_to_config" "Cannot write path to `"$$var.cmdUserAliases`""
     return
   }
   print_info "write_alias_to_config" "Adding `"$aliasName`" as `"$aliasValue`" for `"$(Split-Path -Path $configFile -Leaf)`""
