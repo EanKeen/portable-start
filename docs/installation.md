@@ -40,13 +40,13 @@ After running the autoconfig scripts, you may delete the downloaded zip folders 
 
 Both scripts will show progress with downloading and unpacking the zip files.
 
-### With Batch Script
+### w/ Batch Script
 
 ```cmd
 @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/InstallBare.ps1'))"
 ```
 
-### With PowerShell Script
+### w/ PowerShell Script
 
 ```ps
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/InstallBare.ps1'))

@@ -61,9 +61,9 @@ An array of objects that look like If name is not included, it will default to w
 ```
 
 ```md
-name: optional
+name: required
 path: required
-launch: optional
+launch: optional (defaults to 'none')
 ```
 
 If you have a path like `../alfa/.bravo/charlie`, you may want to put a name since the program will make the name something like `.bravo/` instead of `charlie`. However, if you have a path like `../alfa/.bravo/charlie.exe`, then the name will properly generate as `charlie` or something. `../alfa/bravo/charlie.exe` should work to `charlie`, though.
