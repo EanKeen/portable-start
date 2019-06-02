@@ -2,8 +2,11 @@
 
 ## Roadmap
 
-- Automatically create shortcuts
+- Create shortcuts
 - integrate with scoop
+- optimize generatevars
+- add some appliations to path?
+- fix scoop variables not adding to profiles
 
 ## Home
 

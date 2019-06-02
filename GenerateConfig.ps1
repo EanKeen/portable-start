@@ -30,7 +30,6 @@ function merge_aliases($config, $defaultConfig) {
   add_object_prop $config.aliasesObj "bash" $arr
   add_object_prop $config.aliasesObj "ps" $arr
   add_object_prop $config.aliasesObj "cmd" $arr
-  # merge_aliases_from_default $config $defaultConfig.aliases
 
   # Only add alias to array if defaultAlias is not present in regular config
   foreach ($alias in ($defaultConfig.aliases)) {

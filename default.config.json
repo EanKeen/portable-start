@@ -11,7 +11,8 @@
     "mainDir": "./_scoop"
   },
   "opts": {
-    "scoopDriveName": "OMIT"
+    "scoopDriveName": "OMIT",
+    "automaticallyClose": false
   },
   "aliases": [
     {

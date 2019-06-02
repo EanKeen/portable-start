@@ -21,6 +21,7 @@ function write_config_comments($var, $config) {
 
   }
 }
+
 function write_config_variables($var, $config) {
   foreach($variable in $config.variables) {
     write_variable_to_config $var $var.allConfig $variable.name $variable.value
@@ -33,6 +34,7 @@ function write_config_variables($var, $config) {
   write_variable_to_config $var $var.allConfig "portableDir" $var.portableDir
   write_to_config $var $var.allConfig ""
 }
+
 function write_config_bins($var, $config) {
   foreach($binary in $config.binaries) {
     $absolutePathToBin = normalize_path $var.binDir $binary.path
@@ -58,7 +60,6 @@ function write_config_aliases($var, $config) {
 }
 
 function create_config_files($var, $config) {
-  
   # Remove config files if they already exist
   if (Test-Path -Path $var.bashConfig -PathType Leaf) {
     Remove-Item -Path $var.bashConfig
@@ -88,12 +89,12 @@ function cmder_config_write($var, $config) {
       print_warning "cmder_config_write" "Old config files found. Overwriting them."
   }
 
-  print_title "Add comments"
+  print_title "Create Cmder Config Comments"
   write_config_comments $var $config
-  print_title "Add variables"
+  print_title "Create Cmder Config Variables"
   write_config_variables $var $config
-  print_title "Add binaries"
+  print_title "Create Cmder Config Binaries"
   write_config_bins $var $config
-  print_title "Add aliases"
+  print_title "Create Cmder Config Aliases"
   write_config_aliases $var $config
 }

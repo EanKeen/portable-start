@@ -1,11 +1,3 @@
-# function merge_aliases_from_default($config, $defaultConfigAliasArray) {
-#   foreach ($alias in $defaultConfigAliasArray) {
-#     if (alias_does_not_exist $config.aliases $alias.name) {
-#       $config.aliases = $config.aliases += $alias
-#     }
-#   }
-# }
-
 function add_shell_to_alias() {
   param(
     [Parameter(Position = 0)]
