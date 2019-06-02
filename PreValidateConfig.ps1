@@ -35,6 +35,10 @@ function prevalidate_applications($config) {
       print_error "prevalidate_applications" "An application specified does not have the `"path`" property. Add this required property to `"$app`""
       exit_program
     }
+    if($app | obj_not_has_prop "name") {
+      print_error "prevalidate_applications" "An application specified does not have the `"name`" property. Add this required property to `"$app`""
+      exit_program
+    }
   }
 
   # Make sure that it contains slashes

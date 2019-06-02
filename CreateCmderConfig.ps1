@@ -61,7 +61,9 @@ function write_config_aliases($var, $config) {
   # Create aliases to all the applications
   write_comment_to_config $var $var.refs.allConfig "Aliases generated from `$config.applications"
   foreach($app in $config.applications) {
-    write_alias_to_config $var $var.refs.allConfig $app.name.ToLower() "/$($(Convert-Path $(normalize_path $var.refs.appDir $app.path)).Replace(":\", "\").Replace("\", "/"))"
+    write_alias_to_config $var $var.refs.bashConfig $app.name.ToLower() "/$($(Convert-Path $(normalize_path $var.refs.appDir $app.path)).Replace(":\", "\").Replace("\", "/"))"
+    write_alias_to_config $var $var.refs.psConfig $app.name.ToLower() $(Convert-Path $(normalize_path $var.refs.appDir $app.path))
+    write_alias_to_config $var $var.refs.cmdConfig $app.name.ToLower() $(Convert-Path $(normalize_path $var.refs.appDir $app.path))
   }
   write_to_config $var $var.refs.allConfig ""
 }

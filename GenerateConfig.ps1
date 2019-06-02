@@ -100,27 +100,8 @@ function fill_applications($config) {
   add_object_prop $config "applications" $arr
 
   foreach($app in $config.applications) {
-    if($app | obj_not_has_prop "name") {
-      $oldName = $app.path
-      $newName
-
-      $key = "\"
-      if($oldName.IndexOf("\") -eq -1) { $key = "/" }
-
-      $lastPathDelimiter = $oldName.LastIndexOf($key) + 1
-      $upToDot = $oldName.LastIndexOf(".") - 1
-
-      if($upToDot -le 1) { $upToDot = $oldName.Length }
-
-      $newName = $oldName.Substring($lastPathDelimiter, $oldName.Length - $upToDot)
-    
-      # Convert "strings" => "Strings"
-      # $newName = (Get-Culture).TextInfo.ToTitleCase($newName.ToLower())
-      add_object_prop $app "name" $newName
-    }
-
     if($app | obj_not_has_prop "launch") {
-      add_object_prop $app "launch" "prompt"
+      add_object_prop $app "launch" "none"
     }
   }
 }
