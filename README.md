@@ -4,7 +4,6 @@
 
 - Create shortcuts
 - integrate with scoop
-- add some appliations to path?
 
 ## Home
 

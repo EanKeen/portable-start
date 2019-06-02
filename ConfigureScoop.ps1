@@ -9,7 +9,6 @@ function set_scoop_env_vars($var) {
 
 # Explicitly add Scoop to the PATH
 function add_scoop_path($var) {
-  write-host "doing it now"
   write_comment_to_config $var $var.refs.allConfig "Add Scoop to path - from ConfigureScoop.ps1"
   $scoopPath = normalize_path $var.scoopRefs.mainDir "./shims"
   write_path_to_config $var $var.refs.allConfig "Scoop" $scoopPath
