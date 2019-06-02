@@ -3,7 +3,6 @@
 ## Roadmap
 
 - Create shortcuts
-- integrate with scoop
 
 ## Home
 

@@ -75,8 +75,20 @@ function create_from_scoopRefs($var, $config) {
 }
 
 function print_variables($var) {
-  foreach($individualVar in $var.PsObject.Properties) {
-    print_info "`$vars.$($individualVar.Name)" $individualVar.Value
+  $props = @("opts", "isUsing.refs", "isUsing.scoopRefs", "isUsing.opts", "isUsing.custom", "refs", "scoopRefs")
+  
+  foreach($object in $var.PsObject.Properties) {
+    # Object may not be an object, but we'll treat it like one
+    foreach($prop in $var.($object.Name).PsObject.Properties) {
+      if($object.Name -eq "isUsing") {
+        foreach($p in $var.($object.Name).($prop.Name).PsObject.Properties) {
+          print_info "`$vars.$($object.Name).$($prop.Name).$($p.Name)" $p.Value
+        }
+      }
+      else {
+        print_info "`$vars.$($object.Name).$($prop.Name)" $prop.Value
+      }
+    }
   }
 }
 
@@ -100,7 +112,7 @@ function generate_vars($config) {
   create_from_refs $var $config
   create_from_scoopRefs $var $config
   
-  print_variables $var
+  print_variables $var 
 
   $var | ConvertTo-Json -Depth 8 | Out-File -FilePath "./log/abstraction.var.json" -Encoding "ASCII"
   $var

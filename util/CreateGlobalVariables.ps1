@@ -16,7 +16,7 @@ function create_global_scoop_drive($var) {
       }
     })"
   }
-  "${scoopDrive}:/"
+  "${scoopDrive}:\"
 }
 
 function create_global_portable_drive() {
@@ -31,4 +31,8 @@ function create_global_variables($var) {
   Set-Variable -Name "SCOOP_DRIVE" -Value (create_global_scoop_drive $var) -Scope Global
   Set-Variable -Name "PORTABLE_DRIVE" -Value (create_global_portable_drive) -Scope Global
   Set-Variable -Name "PORTABLE_DISK_LETTER" -Value (create_global_portable_disk_letter) -Scope Global
+  
+  print_info "create_global_variables" "Creating global varaible `$SCOOP_DRIVE: $SCOOP_DRIVE"
+  print_info "create_global_variables" "Creating global varaible `$PORTABLE_DRIVE: $PORTABLE_DRIVE"
+  print_info "create_global_variables" "Creating global varaible `$PORTABLE_DISK_LETTER: $PORTABLE_DISK_LETTER"
 }
