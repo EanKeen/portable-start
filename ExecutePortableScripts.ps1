@@ -27,7 +27,7 @@ print_title "Validate Config"
 validate_config $config $vars
 
 # RUN CUSTOM FILE WITH HOOK ACCESS
-if(Test-Path -Path $vars.hookFile) { . "$($vars.hookFile)" }
+if(Test-Path -Path $vars.refs.hookFile) { . "$($vars.refs.hookFile)" }
 attempt_to_run_hook $vars "portable_hook_after_create_variables `$config `$var"
 
 # CREATE STUFF FOR SCOOP

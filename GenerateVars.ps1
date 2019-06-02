@@ -47,13 +47,15 @@ function create_isUsing($var, $config) {
 
 
 function create_from_refs($var, $config) {
+  add_object_prop $var "refs" $(New-Object -TypeName PsObject)
+
   foreach($ref in $config.refs.PsObject.Properties) {
     if($ref.Value -eq "OMIT") {
       # add_object_prop $var $ref.Name "OMIT"
     }
     else {
       $absolutePath = (Resolve-Path -Path $ref.Value).Path
-      add_object_prop $var $ref.Name $absolutePath
+      add_object_prop $var.refs $ref.Name $absolutePath
     }
   }
 
@@ -65,15 +67,15 @@ function create_from_refs($var, $config) {
   )
 
   foreach($obj in $cmderConfigMappings) {
-    $absolutePath = Join-Path -Path $var.cmderConfigDir -ChildPath $obj.cmderFileName
-    add_object_prop $var $obj.internalVar $absolutePath
+    $absolutePath = Join-Path -Path $var.refs.cmderConfigDir -ChildPath $obj.cmderFileName
+    add_object_prop $var.refs $obj.internalVar $absolutePath
   }
 
   $allConfig = "allConfigFiles"
   $absolutePathToPortableDir = Split-Path $PSCommandPath
 
-  add_object_prop $var "portableDir" $absolutePathToPortableDir
-  add_object_prop $var "allConfig" $allConfig
+  add_object_prop $var.refs "portableDir" $absolutePathToPortableDir
+  add_object_prop $var.refs "allConfig" $allConfig
 }
 
 function create_from_scoopRefs($var, $config) {

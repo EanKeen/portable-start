@@ -34,15 +34,15 @@ function portable_hook_after_create_variables($config, $var) {
 * `$vars` variable ouputed to `./log/abstraction.vars.json`
 * It's an object that contains the following properties
 
-### `$var.appDir`
+### `$var.refs.appDir`
 
 Absolute path of `$config.refs.appDir`
 
-### `$var.binDir`
+### `$var.refs.binDir`
 
 Absolute path of `$config.refs.binDir`
 
-### `$var.shortcutsDir`
+### `$var.refs.shortcutsDir`
 
 Absolute path of `$config.refs.shortcutsDir`
 
@@ -50,7 +50,7 @@ Absolute path of `$config.refs.shortcutsDir`
 
 Absolute path of `$config.refs.scoopDir`
 
-### `$var.cmderConfigDir`
+### `$var.refs.cmderConfigDir`
 
 Absolute path of `$config.refs.cmderConfigDir`
 
@@ -58,34 +58,34 @@ Absolute path of `$config.refs.cmderConfigDir`
 
 Absolute path of `$config.refs.hookDir`
 
-### `$var.portableDir`
+### `$var.refs.portableDir`
 
 Absolute path of directory in which `./_portable-scripts/ExecutePortableScripts` is located, so absolute path of `./_portable-scripts`
 
-### `$var.bashConfig`, `$var.psConfig`, and `$var.cmdConfig`
+### `$var.refs.bashConfig`, `$var.refs.psConfig`, and `$var.refs.cmdConfig`
 
 Respectively, they are
 
 ```powershell
-Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.sh"
-Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.ps1"
-Join-Path -Path $var.cmderConfigDir -ChildPath "user_profile.cmd"
+Join-Path -Path $var.refs.cmderConfigDir -ChildPath "user_profile.sh"
+Join-Path -Path $var.refs.cmderConfigDir -ChildPath "user_profile.ps1"
+Join-Path -Path $var.refs.cmderConfigDir -ChildPath "user_profile.cmd"
 ```
 
 Note that these are absolute paths as well.
 
-### `$var.allConfig`
+### `$var.refs.allConfig`
 
 The string "allConfigFiles"
 
-Use this in any place you would use `$var.bashConfig`, `$var.psConfig`, or `$var.cmdConfig`.
+Use this in any place you would use `$var.refs.bashConfig`, `$var.refs.psConfig`, or `$var.refs.cmdConfig`.
 
-### `$var.cmdUserAliases`
+### `$var.refs.cmdUserAliases`
 
 Path of file to specify aliases for Cmd (used by Cmder)
 
 ```powershell
-Join-Path -Path $var.cmderConfigDir -ChildPath "user_aliases.cmd"
+Join-Path -Path $var.refs.cmderConfigDir -ChildPath "user_aliases.cmd"
 ```
 
 ## `$var.Usable` Methods

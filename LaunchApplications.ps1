@@ -47,7 +47,7 @@ function prompt_to_launch_app($app, $appExeName, $absolutePathToApp) {
 
 function prompt_to_launch_apps($var, $config) {
   foreach($app in $config.applications) {
-    $absolutePathToApp = normalize_path $var.appDir $app.path
+    $absolutePathToApp = normalize_path $var.refs.appDir $app.path
     if(Test-Path -Path $app.path) {
       $appExeName = Split-Path -Path $app.path -Leaf
   

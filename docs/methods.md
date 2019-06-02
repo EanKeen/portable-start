@@ -48,8 +48,8 @@ Writes to a `user_profile.sh` `user_profile.ps1` or `user_profile.cmd` Cmder con
 
 ```powershell
 write_to_config $var $configFile $content
-write_to_config $var $var.allConfig "Writing content to all config files"
-write_to_config $var $var.psConfig "Writing content to only Cmder ps config file"
+write_to_config $var $var.refs.allConfig "Writing content to all config files"
+write_to_config $var $var.refs.psConfig "Writing content to only Cmder ps config file"
 ```
 
 ### `write_comment_to_config`
@@ -62,22 +62,22 @@ write_comment_to_config $var $configFile $comment
 
 ```powershell
 write_variable_to_config $var $configFile $variableName $variableValue
-write_variable_to_config $var $var.cmdConfig "seven" "8"
+write_variable_to_config $var $var.refs.cmdConfig "seven" "8"
 ```
 
 ### `write_path_to_config`
 
 ```powershell
 write_path_to_config $var $configFile $binName $filePath
-write_path_to_config $var $var.allConfig "Java" "C:/zebra/bin"
-write_path_to_config $var $var.allConfig "Go" "C:\xray\bin"
+write_path_to_config $var $var.refs.allConfig "Java" "C:/zebra/bin"
+write_path_to_config $var $var.refs.allConfig "Go" "C:\xray\bin"
 ```
 
 ### `write_alias_to_config`
 
 ```powershell
 write_alias_to_config $var $configFile $aliasName $aliasValue
-write_alias_to_config $var $var.allConfig "gs" "git status"
+write_alias_to_config $var $var.refs.allConfig "gs" "git status"
 ```
 
 ## Miscenaleious
