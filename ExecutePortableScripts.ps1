@@ -4,28 +4,7 @@ Write-Host "Load Helpers" -BackgroundColor White -ForegroundColor Black
 . ./util/WriteToConfig.ps1
 . ./util/General.ps1
 . ./util/GenerateConfigUtil.ps1
-
-# CREATE VARIABLES
-function create_constant_scoop_drive($var, $config) {
-  if($var.isUsing.opts.scoopDriveName) {
-    $scoopDrive = Get-Disk | Get-Partition | Get-Volume | ForEach-Object {
-    if($_.FileSystemLabel -eq "SCOOP") {
-        $_.DriveLetter
-        return
-      }
-    }
-  }
-  else {
-    $portableDisk = Get-Partition -DriveLetter (Get-Location).Drive.Name | Select-Object -ExpandProperty "DiskNumber"
-    $scoopDrive = "$(Get-Partition -DiskNumber $portableDisk | Get-Volume | ForEach-Object {
-      if($_.FileSystemLabel -eq $var.opt.driveName) {
-        $_.DriveLetter | Out-Host
-        return
-      }
-    })"
-  }
-  "${scoopDrive}:/"
-}
+. ./util/CreateGlobalVariables.ps1
 
 # PRE-GEN VALIDATE CONFIG
 print_title "Prevalidate Config"
@@ -37,7 +16,7 @@ print_title "Generate Config"
 . ./GenerateConfig.ps1
 Set-Variable -Name "config" -Value $(generate_config) -Scope Private
 
-# GENERATE VARS OBJECT
+# GENERATE VARS OBJECT (GLOBAL VARS GENERATED IN HERE ALSO)
 print_title "Generate Vars"
 . ./GenerateVars.ps1
 Set-Variable -Name "vars" -Value $(generate_vars $config) -Scope Private

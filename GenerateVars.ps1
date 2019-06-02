@@ -101,17 +101,16 @@ function print_variables($var) {
 function generate_vars($config) {
   $var = New-Object -TypeName PsObject
 
-  # Ordering matters
   create_from_opts $var $config
   create_isUsing $var $config
   
-  Set-Variable -Name "SCOOP_DRIVE" -Value (create_constant_scoop_drive $var $config) -Scope Global
-  Set-Variable -Name "PORTABLE_DRIVE" -Value ((Get-Location).Drive.Root) -Scope Global
-  Set-Variable -Name "PORTABLE_DISK_LETTER" -Value (Get-Partition -DriveLetter (Get-Location).Drive.Name | Select-Object -ExpandProperty "DiskNumber") -Scope Global
+  # Depends on some parts of $var
+  create_global_variables $var
   
+  # Depends on variables created from create_global_variables 
   create_from_refs $var $config
   create_from_scoopRefs $var $config
-  create_from_cmderConfigDir $var $config
+  create_from_cmderConfigDir $var $config # depends on create_from_refs
   print_variables $var
 
   $var | ConvertTo-Json -Depth 8 | Out-File -FilePath "./log/abstraction.var.json" -Encoding "ASCII"

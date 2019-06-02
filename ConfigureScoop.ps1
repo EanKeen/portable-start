@@ -14,7 +14,6 @@ function addScoopPath($var, $config) {
   write_path_to_config $var $var.allConfig "Scoop" $scoopPath
 }
 
-
 function configure_scoop($var, $config) {
   set_scoop_env_vars $var $config
   addScoopPath $var $config
