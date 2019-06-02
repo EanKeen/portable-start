@@ -12,6 +12,22 @@ function create_from_opts($var, $config) {
   }
 }
 
+# Creates isUsing
+function create_isUsing_prop($var, $config, $propName) {
+  add_object_prop $var "isUsing" $(New-Object -TypeName PsObject)
+
+  add_object_prop $var.isUsing $propName $(New-Object -TypeName PsObject)
+
+  foreach($option in $config.($propName).PsObject.Properties) {
+    if($option.Value -eq "OMIT") {
+      add_object_prop $var.isUsing.($propName) $option.Name $false
+    }
+    else {
+      add_object_prop $var.isUsing.($propName) $option.Name $true
+    }
+  }
+}
+
 function create_isUsing($var, $config) {
   add_object_prop $var "isUsing" $(New-Object -TypeName PsObject)
 
@@ -25,26 +41,10 @@ function create_isUsing($var, $config) {
     }
   }
 
-  add_object_prop $var.isUsing "scoopRefs" (New-Object -TypeName PsObject)
-  foreach($scoopRef in $config.scoopRefs.PsObject.Properties) {
-    if($scoopRef.Value -eq "OMIT") {
-      add_object_prop $var.isUsing.scoopRefs $scoopRef.Name $false
-    }
-    else {
-      add_object_prop $var.isUsing.scoopRefs $scoopRef.Name $true
-    }
-  }
-
-  add_object_prop $var.isUsing "opts" (New-Object -TypeName PsObject)
-  foreach($opt in $config.opts.PsObject.Properties) {
-    if($opt.Value -eq "OMIT") {
-      add_object_prop $var.isUsing.opts $opt.Name $false
-    }
-    else {
-      add_object_prop $var.isUsing.opts $opt.Name $true
-    }
-  }
+  create_isUsing_prop $var $config "scoopRefs"
+  create_isUsing_prop $var $config "opts"
 }
+
 
 function create_from_refs($var, $config) {
   foreach($ref in $config.refs.PsObject.Properties) {
@@ -56,9 +56,24 @@ function create_from_refs($var, $config) {
       add_object_prop $var $ref.Name $absolutePath
     }
   }
-  
-  $absolutePathToPortableDir = (Split-Path $PSCommandPath)
+
+  $cmderConfigMappings = @(
+    @{ cmderFileName="user_profile.sh"; internalVar="bashConfig" },
+    @{ cmderFileName="user_profile.ps1"; internalVar="psConfig" },
+    @{ cmderFileName="user_profile.cmd"; internalVar="cmdConfig" },
+    @{ cmderFileName="user_aliases.cmd"; internalVar="cmdUserAliases" }
+  )
+
+  foreach($obj in $cmderConfigMappings) {
+    $absolutePath = Join-Path -Path $var.cmderConfigDir -ChildPath $obj.cmderFileName
+    add_object_prop $var $obj.internalVar $absolutePath
+  }
+
+  $allConfig = "allConfigFiles"
+  $absolutePathToPortableDir = Split-Path $PSCommandPath
+
   add_object_prop $var "portableDir" $absolutePathToPortableDir
+  add_object_prop $var "allConfig" $allConfig
 }
 
 function create_from_scoopRefs($var, $config) {
@@ -73,23 +88,6 @@ function create_from_scoopRefs($var, $config) {
       add_object_prop $var.scoopRefs $scoopRef.Name $absolutePath
     }
   }
-}
-
-function create_from_cmderConfigDir($var, $config) {
-  $variables = @(
-    @{ cmderFileName="user_profile.sh"; internalVar="bashConfig" },
-    @{ cmderFileName="user_profile.ps1"; internalVar="psConfig" },
-    @{ cmderFileName="user_profile.cmd"; internalVar="cmdConfig" },
-    @{ cmderFileName="user_aliases.cmd"; internalVar="cmdUserAliases" }
-  )
-
-  foreach($obj in $variables) {
-    $absolutePath = Join-Path -Path $var.cmderConfigDir -ChildPath $obj.cmderFileName
-    add_object_prop $var $obj.internalVar $absolutePath
-  }
-
-  $allConfig = "allConfigFiles"
-  add_object_prop $var "allConfig" $allConfig
 }
 
 function print_variables($var) {
@@ -111,7 +109,6 @@ function generate_vars($config) {
   # Depends on variables created from create_global_variables 
   create_from_refs $var $config
   create_from_scoopRefs $var $config
-  create_from_cmderConfigDir $var $config # depends on create_from_refs
   
   print_variables $var
 
