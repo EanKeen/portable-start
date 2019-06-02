@@ -5,6 +5,30 @@ Write-Host "Load Helpers" -BackgroundColor White -ForegroundColor Black
 . ./util/General.ps1
 . ./util/GenerateConfigUtil.ps1
 
+
+
+# CREATE VARIABLES
+function create_constant_scoop_drive($var, $config) {
+  if($var.isUsing.opts.scoopDriveName) {
+    $scoopDrive = Get-Disk | Get-Partition | Get-Volume | ForEach-Object {
+    if($_.FileSystemLabel -eq "SCOOP") {
+        $_.DriveLetter
+        return
+      }
+    }
+  }
+  else {
+    $portableDisk = Get-Partition -DriveLetter (Get-Location).Drive.Name | Select-Object -ExpandProperty "DiskNumber"
+    $scoopDrive = "$(Get-Partition -DiskNumber $portableDisk | Get-Volume | ForEach-Object {
+      if($_.FileSystemLabel -eq $config.opt.driveName) {
+        $_.DriveLetter | Out-Host
+        return
+      }
+    })"
+  }
+  "${scoopDrive}:/"
+}
+
 # PRE-GEN VALIDATE CONFIG
 print_title "Prevalidate Config"
 . ./PrevalidateConfig.ps1
@@ -15,15 +39,15 @@ print_title "Generate Config"
 . ./GenerateConfig.ps1
 Set-Variable -Name "config" -Value $(generate_config) -Scope Private
 
-VALIDATE CONFIG
-print_title "Validate Config"
-. ./ValidateConfig.ps1
-validate_config $config
-
 # GENERATE VARS OBJECT
 print_title "Generate Vars"
 . ./GenerateVars.ps1
 Set-Variable -Name "vars" -Value $(generate_vars $config) -Scope Private
+
+# VALIDATE CONFIG
+print_title "Validate Config"
+. ./ValidateConfig.ps1
+validate_config $config $vars
 
 # RUN CUSTOM FILE WITH HOOK ACCESS
 if(Test-Path -Path $vars.hookFile) { . "$($vars.hookFile)" }

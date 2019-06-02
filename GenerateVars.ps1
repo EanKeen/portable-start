@@ -1,9 +1,3 @@
-function create_constants($var, $config) {
-  add_object_prop $var PORTABLE_DRIVE (Get-Location).Drive.Root
-  add_object_prop $var SCOOP_DRIVE (get_scoop_drive)
-  add_object_prop $var PORTABLE_DISK_LETTER (Get-Partition -DriveLetter (Get-Location).Drive.Name | Select-Object -ExpandProperty "DiskNumber")
-}
-
 function create_from_refs($var, $config) {
   foreach($ref in $config.refs.PsObject.Properties) {
     if($ref.Value -eq "OMIT") {
@@ -27,7 +21,7 @@ function create_from_scoopRefs($var, $config) {
       # add_object_prop $var $scoopRef.Name "OMIT"
     }
     else {
-      $absolutePath = normalize_path (get_scoop_drive) $scoopRef.Value
+      $absolutePath = normalize_path $SCOOP_DRIVE $scoopRef.Value
       add_object_prop $var.scoopRefs $scoopRef.Name $absolutePath
     }
   }
@@ -107,12 +101,19 @@ function print_variables($var) {
 function generate_vars($config) {
   $var = New-Object -TypeName PsObject
 
-  create_constants $var $config
+  # Ordering matters
+  create_from_opts $var $config
+  create_isUsing $var $config
+  
+  Set-Variable -Name "SCOOP_DRIVE" -Value (create_constant_scoop_drive $var $config) -Scope Global
+  Write-Host "444$SCOOP_DRIVE"
+  Set-Variable -Name "PORTABLE_DRIVE" -Value ((Get-Location).Drive.Root) -Scope Global
+  Set-Variable -Name "PORTABLE_DISK_LETTER" -Value (Get-Partition -DriveLetter (Get-Location).Drive.Name | Select-Object -ExpandProperty "DiskNumber") -Scope Global
+  
+  
   create_from_refs $var $config
   create_from_scoopRefs $var $config
   create_from_cmderConfigDir $var $config
-  create_from_opts $var $config
-  create_isUsing $var $config
   print_variables $var
 
   $var | ConvertTo-Json -Depth 8 | Out-File -FilePath "./log/abstraction.var.json" -Encoding "ASCII"

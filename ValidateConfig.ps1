@@ -37,15 +37,18 @@ function validate_refs($config) {
 function validate_scoopRefs($config) {
   foreach ($relativePath in $config.scoopRefs.PsObject.Properties) {
     if($relativePath.Value -ne "OMIT") {
-      $absolutePath = normalize_path (get_scoop_drive) $relativePath.Value
+      $absolutePath = normalize_path $SCOOP_DRIVE $relativePath.Value
       check_path_exists $relativePath.Name $absolutePath
     }
   }
 }
 
+# For validation that required $config (but not $var)
 function validate_config($config, $var) {
   validate_applications $config
   validate_binaries $config
   validate_refs $config
-  validate_scoopRefs $config
+
+ 
+  validate_scoopRefs $config $var
 }

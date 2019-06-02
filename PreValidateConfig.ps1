@@ -79,6 +79,7 @@ function prevalidate_scoopRefs($config) {
   }
 }
 
+# For validatoins that neither require $config or $var
 function prevalidate_config() {
   $config = Get-Content -Path "./portable.config.json" -Raw | ConvertFrom-Json
 

@@ -5,24 +5,6 @@ function normalize_path($absPath, $relPath) {
   [IO.Path]::GetFullPath((Join-Path $absPath $relPath))
 }
 
-function get_scoop_drive($config, $var) {
-  $portableDisk = Get-Partition -DriveLetter (Get-Location).Drive.Name | Select-Object -ExpandProperty "DiskNumber"
-  $scoopDrive = "$(Get-Partition -DiskNumber $portableDisk | Get-Volume | ForEach-Object {
-    if($_.FileSystemLabel -eq $config.opt.driveName) {
-      $_.DriveLetter
-      return
-    }
-  }):\"
-  
-  write-host "E$scoopDrive"
-
-  "E:\"
-}
-
-function log($prirority, $function, $message) {
-
-}
-
 function attempt_to_run_hook ($var, $expression) {
   if(-not $var.isUsing.refs.hookFile) {
     return
