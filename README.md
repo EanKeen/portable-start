@@ -1,12 +1,12 @@
 # portable-workstation
 
-## Roadmap
-
-- Create shortcuts
-
 ## Home
 
 This Portable Workstation project includes scripts for geting a development workstation started on a Windows PC from a thumbdrive. However, a thumbdrive is not a requirement.
+
+## Roadmap
+
+- Create shortcuts
 
 ## Summary
 
