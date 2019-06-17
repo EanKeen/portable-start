@@ -13,6 +13,30 @@ function add_object_prop($obj, $prop, $propValue) {
     Add-Member -InputObject $obj -Name $prop -Value $propValue -MemberType NoteProperty
   }
 }
+function obj_not_has_prop() {
+  param(
+    [Parameter(ValueFromPipeline = $true)]
+    [object]
+    $obj,
+
+    [Parameter(Position = 0, Mandatory = $true)]
+    [string]
+    $prop
+  )
+
+  process {
+    $propFound = $false
+    $obj.PsObject.Properties | ForEach-Object {
+      if(($_.Name -eq $prop) -and -not $propFound) {
+        $propFound = $true
+        return
+      }
+    }
+    if(-not $propFound) {
+    }
+    !$propFound
+  }
+}
 
 function exit_program() {
   Write-Host "Program terminated. Press `"q`" to exit"
