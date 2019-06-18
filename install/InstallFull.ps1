@@ -160,15 +160,19 @@ function get_drive_number_to_nuke() {
 }
 
 $finalNumber = get_drive_number_to_nuke
-write-host $finalNumber
 $finalNumber = [int]$finalNumber
 
 try {
-  Clear-Disk -Number $finalNumber -Confirm -RemoveData
+  Clear-Disk -Number $finalNumber -Confirm -RemoveData -ErrorAction Stop
 }
 catch {
-  print_info "You need to be admin to run this script. Try running this on your home computer or something"
+  print_info "You likely have some error that that looks like this: 'Clear-Disk : Access to a CIM resource was not available to the client'"
+  print_info "You need to be admin to run this script."
   exit_program
+}
+
+if($ProcessError) {
+  write-host "thing"
 }
 
 print_info "How many Gibibytes do you want to leave for Scoop? (Recommended: 2; Maximum: 4)"
