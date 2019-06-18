@@ -4,7 +4,7 @@
     "cmderConfigDir": "OMIT"
   },
   "scoopRefs": {
-    "programsDir": "./_scoop-programs",
+    "globalDir": "./_scoop-global",
     "mainDir": "./_scoop"
   },
   "opts": {

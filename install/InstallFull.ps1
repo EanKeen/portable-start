@@ -45,6 +45,7 @@ function exit_program() {
   if($key.Character -eq "q") {
     exit
   }
+  Write-Host "`n"
   exit_program
 }
 
@@ -71,13 +72,13 @@ function get_scoop_size() {
 }
 
 function prompt_for_to_be_nuked_disk_drive_number($predictedDiskToNuke) {
-  Write-Host
+  # Write-Host
   $newDriveNumber = Read-Host
  
   # If user input is blank, retry
   if("" -eq $newDriveNumber) {
-    Write-Host "Not a valid input. Do not input nothing"
-    return prompt_for_to_be_nuked_disk_drive_number $driveNumberToNuke
+    Write-Host "Not a valid input. Do not input nothing. Restart the program to continue."
+    exit_program
     break
   }
   # If user input matches exact case, continue
@@ -87,7 +88,7 @@ function prompt_for_to_be_nuked_disk_drive_number($predictedDiskToNuke) {
   }
   elseif($newDriveNumber -eq $predictedDiskToNuke) {
     Write-Host "Please type `"nuke $predictedDiskToNuke`" (without quotations) to continue"
-    prompt_for_to_be_nuked_disk_drive_number $predictedDiskToNuke
+    return prompt_for_to_be_nuked_disk_drive_number $predictedDiskToNuke
   }
 
   # If user input matches valid drive letter, continue
@@ -98,7 +99,7 @@ function prompt_for_to_be_nuked_disk_drive_number($predictedDiskToNuke) {
       return $newDriveNumberAsInt
     }
     else {
-      Write-Host "Not a valid input. Your number did not correspond to a valid drive number"
+      Write-Host "Not a valid input. Your number did not correspond to a valid drive number. Try again."
       return prompt_for_to_be_nuked_disk_drive_number $predictedDiskToNuke
     }
   }
@@ -159,9 +160,16 @@ function get_drive_number_to_nuke() {
 }
 
 $finalNumber = get_drive_number_to_nuke
+write-host $finalNumber
 $finalNumber = [int]$finalNumber
 
-Clear-Disk -Number $finalNumber -Confirm -RemoveData
+try {
+  Clear-Disk -Number $finalNumber -Confirm -RemoveData
+}
+catch {
+  print_info "You need to be admin to run this script. Try running this on your home computer or something"
+  exit_program
+}
 
 print_info "How many Gibibytes do you want to leave for Scoop? (Recommended: 2; Maximum: 4)"
 $scoopSizeBytes = get_scoop_size
@@ -187,7 +195,7 @@ $env:SCOOP = $scoopItself
 [environment]::setEnvironmentVariable("SCOOP", $scoopItself, "User")
 
 
-$scoopPrograms = "${scoopDriveLetter}:\scoop-programs"
+$scoopPrograms = "${scoopDriveLetter}:\scoop-global"
 $env:SCOOP_GLOBAL = $scoopPrograms
 [environment]::setEnvironmentVariable("SCOOP_GLOBAL", $scoopPrograms, "User")
 
