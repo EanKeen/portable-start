@@ -1,8 +1,13 @@
 {
   "refs": {
-    
+    "appDir": "OMIT",
+    "cmderConfigDir": "OMIT"
   },
   "scoopRefs": {
-
+    "programsDir": "./_scoop-programs",
+    "mainDir": "./_scoop"
+  },
+  "opts": {
+    "scoopDriveName": "SCOOP"
   }
 }

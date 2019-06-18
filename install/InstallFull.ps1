@@ -223,17 +223,6 @@ New-Item -Path "./_portable-shortcuts" -ItemType Directory | Out-Null
 # Create portable.config.json
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/portable.config.json" -Method GET -OutFile "portable.config.json"
 $portableConfig = Get-Content -Path "./portable.config.json" -Raw | ConvertFrom-Json
-$obj = New-Object -TypeName PsObject
-add_object_prop $portableConfig "refs" $obj
-add_object_prop $portableCofig.refs "appDir" "OMIT"
-add_object_prop $portableConfig.refs "cmderConfigDir" "OMIT"
-
-add_object_prop $portableConfig "scoopRefs" $obj
-add_object_prop $portableConfig.scoopRefs "programsDir" "./_scoop-programs"
-add_object_prop $portableConfig.scoopRefs "mainDir" "./_scoop"
-
-add_object_prop $portableConfig "opts" $obj
-add_object_prop $portableConfg.opts "scoopDriveName" "SCOOP"
 
 $portableConfig | Set-Content -Path "./_portable-scripts/portable.config.json" -Encoding ASCII -Force
 
@@ -241,5 +230,11 @@ $portableConfig | Set-Content -Path "./_portable-scripts/portable.config.json" -
 print_info "Almost done. Now will install scoop. If you're receiving errors of using proper execution policy, simply change the execution policy and invoke the following command"
 print_info "Invoke-Expression (New-Object Net.WebClient).DownloadString('https://get.scoop.sh')"
 
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -ErrorAction SilentlyContinue
+Set-ExecutionPolicy RemoteSigned -Scope Process -ErrorAction SilentlyContinue
+
 Set-Location "${scoopDriveLetter}:\"
 Invoke-Expression (New-Object Net.WebClient).DownloadString('https://get.scoop.sh')
+
+print_info "`$env:SCOOP" $env:SCOOP
+print_info "`$env:SCOOP_GLOBAL" $env:SCOOP_GLOBAL
