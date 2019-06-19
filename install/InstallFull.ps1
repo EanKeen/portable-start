@@ -178,6 +178,8 @@ if($ProcessError) {
 print_info "How many Gibibytes do you want to leave for Scoop? (Recommended: 2; Maximum: 4)"
 $scoopSizeBytes = get_scoop_size
 
+print_info "Some File Explorer windows are probably going to popup. Some might ask you to 'reformat' the drives, but just ignore them and close them out. I haven't got around to prevent them from popping up."
+
 $scoopDrive = New-Partition -DiskNumber $finalNumber -Size $scoopSizeBytes -AssignDriveLetter | Format-Volume -FileSystem "NTFS" -NewFileSystemLabel "SCOOP"
 $workstationDrive = New-Partition -DiskNumber $finalNumber -UseMaximumSize -AssignDriveLetter | Format-Volume -FileSystem "exFAT" -NewFileSystemLabel "WORKSTATION" -AllocationUnitSize 4096
 
@@ -192,9 +194,9 @@ $workstationDriveLetter = $workstationDrive.DriveLetter
 Set-Location "${scoopDriveLetter}:\"
 
 New-Item -Path "./_scoop" -ItemType Directory | Out-Null
-New-Item -Path "./_scoop-programs" -ItemType Directory | Out-Null
+New-Item -Path "./_scoop-globals" -ItemType Directory | Out-Null
 
-$scoopItself = "${scoopItself}\scoop"
+$scoopItself = "${scoopDriveLetter}:\scoop"
 $env:SCOOP = $scoopItself
 [environment]::setEnvironmentVariable("SCOOP", $scoopItself, "User")
 
@@ -239,14 +241,26 @@ $portableConfig = Get-Content -Path "./portable.config.json" -Raw | ConvertFrom-
 $portableConfig | Set-Content -Path "./_portable-scripts/portable.config.json" -Encoding ASCII -Force
 
 ## Revisit scoop
-print_info "Almost done. Now will install scoop. If you're receiving errors of using proper execution policy, simply change the execution policy and invoke the following command"
+
+print_info "Almost done. About to install scoop. If you're receiving errors of using proper execution policy, simply change the execution policy and invoke the following command"
 print_info "Invoke-Expression (New-Object Net.WebClient).DownloadString('https://get.scoop.sh')"
 
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -ErrorAction SilentlyContinue
-Set-ExecutionPolicy RemoteSigned -Scope Process -ErrorAction SilentlyContinue
+$currentUser = Get-ExecutionPolicy -Scope CurrentUser
+$localMachine = Get-ExecutionPolicy -Scope LocalMachine
+
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope 'Process'
+
+# don't change user's preexisting settings. just trying to make this script work
+Set-ExecutionPolicy -ExecutionPolicy $currentUser -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy $localMachine -Scope LocalMachine
 
 Set-Location "${scoopDriveLetter}:\"
-Invoke-Expression (New-Object Net.WebClient).DownloadString('https://get.scoop.sh')
+Invoke-Expression -Command (New-Object Net.WebClient).DownloadString('https://get.scoop.sh')
 
-print_info "`$env:SCOOP" $env:SCOOP
-print_info "`$env:SCOOP_GLOBAL" $env:SCOOP_GLOBAL
+print_info "`$env:SCOOP"
+print_info $env:SCOOP
+Write-Host
+print_info "`$env:SCOOP_GLOBAL"
+print_info $env:SCOOP_GLOBAL

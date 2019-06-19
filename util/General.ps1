@@ -14,7 +14,7 @@ function attempt_to_run_hook ($var, $expression) {
 
   if(Get-Command $functionName -ErrorAction SilentlyContinue) {
     print_title "Running hook $functionName"
-    Invoke-Expression $expression
+    Invoke-Expression -Command $expression
   }
 }
 
