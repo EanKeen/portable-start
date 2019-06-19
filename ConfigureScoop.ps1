@@ -3,16 +3,16 @@ function set_scoop_env_vars($var) {
   [environment]::setEnvironmentVariable("SCOOP", $var.scoopRefs.mainDir, "User")
   $env:SCOOP = $var.scoopRefs.mainDir
 
-  [environment]::setEnvironmentVariable("SCOOP_GLOBAL", $var.scoopRefs.programsDir, "User")
-  $env:SCOOP_GLOBAL= $var.scoopRefs.programsDir
+  [environment]::setEnvironmentVariable("SCOOP_GLOBAL", $var.scoopRefs.globalDir, "User")
+  $env:SCOOP_GLOBAL= $var.scoopRefs.globalDir
 }
 
 # Explicitly add Scoop to the PATH
 function add_scoop_path($var) {
   write_comment_to_config $var $var.refs.allConfig "Add Scoop to path - from ConfigureScoop.ps1"
-  # $scoopPath = normalize_path $var.scoopRefs.mainDir "./shims"
-  # write_path_to_config $var $var.refs.allConfig "Scoop" $scoopPath
-  write_to_config "function scoop() { powershell -ex unrestricted scoop.ps1 `"$@`" ;} && export -f scoop"
+  write_path_to_config $var $var.refs.allConfig "scoop" (normalize_path $var.scoopRefs.mainDir './shims')
+  write_path_to_config $var $var.refs.allConfig "scoop" (normalize_path $var.scoopRefs.globalDir './shims')
+  # write_to_config "function scoop() { powershell -ex unrestricted scoop.ps1 `"$@`" ;} && export -f scoop"
 }
 
 function configure_scoop($var) {
