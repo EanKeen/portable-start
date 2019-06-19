@@ -196,12 +196,12 @@ Set-Location "${scoopDriveLetter}:\"
 New-Item -Path "./_scoop" -ItemType Directory | Out-Null
 New-Item -Path "./_scoop-globals" -ItemType Directory | Out-Null
 
-$scoopItself = "${scoopDriveLetter}:\scoop"
+$scoopItself = "${scoopDriveLetter}:\_scoop"
 $env:SCOOP = $scoopItself
 [environment]::setEnvironmentVariable("SCOOP", $scoopItself, "User")
 
 
-$scoopPrograms = "${scoopDriveLetter}:\scoop-global"
+$scoopPrograms = "${scoopDriveLetter}:\_scoop-global"
 $env:SCOOP_GLOBAL = $scoopPrograms
 [environment]::setEnvironmentVariable("SCOOP_GLOBAL", $scoopPrograms, "User")
 
@@ -248,19 +248,20 @@ print_info "Invoke-Expression (New-Object Net.WebClient).DownloadString('https:/
 $currentUser = Get-ExecutionPolicy -Scope CurrentUser
 $localMachine = Get-ExecutionPolicy -Scope LocalMachine
 
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope 'Process'
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope 'LocalMachine'
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope 'CurrentUser'
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope 'Process'
 
 # don't change user's preexisting settings. just trying to make this script work
-Set-ExecutionPolicy -ExecutionPolicy $currentUser -Scope CurrentUser
 Set-ExecutionPolicy -ExecutionPolicy $localMachine -Scope LocalMachine
-
-Set-Location "${scoopDriveLetter}:\"
-Invoke-Expression -Command (New-Object Net.WebClient).DownloadString('https://get.scoop.sh')
+Set-ExecutionPolicy -ExecutionPolicy $currentUser -Scope CurrentUser
 
 print_info "`$env:SCOOP"
 print_info $env:SCOOP
 Write-Host
 print_info "`$env:SCOOP_GLOBAL"
 print_info $env:SCOOP_GLOBAL
+
+Set-Location "${scoopDriveLetter}:\"
+Invoke-Expression -Command (New-Object Net.WebClient).DownloadString('https://get.scoop.sh')
+scoop bucket add extras
