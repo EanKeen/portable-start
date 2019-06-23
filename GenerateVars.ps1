@@ -49,6 +49,7 @@ function create_from_refs($var, $config) {
   )
 
   foreach($obj in $cmderConfigMappings) {
+    # broken
     $absolutePath = Join-Path -Path $var.refs.cmderConfigDir -ChildPath $obj.cmderFileName
     add_object_prop $var.refs $obj.internalVar $absolutePath
   }

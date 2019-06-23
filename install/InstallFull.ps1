@@ -194,7 +194,7 @@ $workstationDriveLetter = $workstationDrive.DriveLetter
 Set-Location "${scoopDriveLetter}:\"
 
 New-Item -Path "./_scoop" -ItemType Directory | Out-Null
-New-Item -Path "./_scoop-globals" -ItemType Directory | Out-Null
+New-Item -Path "./_scoop-global" -ItemType Directory | Out-Null
 
 $scoopItself = "${scoopDriveLetter}:\_scoop"
 $env:SCOOP = $scoopItself

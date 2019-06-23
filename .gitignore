@@ -1,7 +1,7 @@
 .vscode/
 .idea/
 custom/*
-!custom/.gitkeep
+!custom/script.ps1
 log/*
 !log/.gitkeep
 portable.config.json
