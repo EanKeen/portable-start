@@ -1,13 +1,7 @@
 {
-  "refs": {
-    "appDir": "OMIT",
-    "cmderConfigDir": "OMIT"
-  },
   "scoopRefs": {
+    "scoopDriveName": "SCOOP",
     "globalDir": "./_scoop-global",
     "mainDir": "./_scoop"
-  },
-  "opts": {
-    "scoopDriveName": "SCOOP"
   }
 }

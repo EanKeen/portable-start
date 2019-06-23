@@ -8,15 +8,9 @@ function create_global_scoop_drive($var) {
     }
   }
   else {
-    $portableDisk = Get-Partition -DriveLetter (Get-Location).Drive.Name | Select-Object -ExpandProperty "DiskNumber"
-    $scoopDrive = "$(Get-Partition -DiskNumber $portableDisk | Get-Volume | ForEach-Object {
-      if($_.FileSystemLabel -eq $var.opt.driveName) {
-        $_.DriveLetter | Out-Host
-        return
-      }
-    })"
+    print_error "Need to specify scoopDriveName"
+    exit_program
   }
-  "${scoopDrive}:\"
 }
 
 function create_global_portable_drive() {

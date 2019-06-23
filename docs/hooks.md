@@ -3,11 +3,8 @@
 From the `sourceToAccessHooks` property in your config, you can reference a PowerShell file. In there, you can access the following hooks:
 
 ```powershell
-portable_hook_after_create_variables
-portable_hook_after_create_cmder_files
+portable_hook_after_start
 portable_hook_after_create_scoop_files
-portable_hook_after_create_shortcuts
-portable_hook_after_launch apps
 ```
 
 The time at which they're executed can be implied from the name of the hook.
@@ -19,75 +16,3 @@ function portable_hook_after_create_variables($config, $var) {
   print_info "task" "Done creating variables"
 }
 ```
-
-## `$config`
-
-* A PowerShell Object representation of `./default.config.json`, with some extra transformations
-* Any implicit / optional properties in `./default.config.json` are made explicit
-* `$config` is a superset of `./log/abstraction.config.json`
-  * You're safe to use any properties of `$config` found in `./log/abstraction.config.json`
-  * *Do not* access properties of `$config.refs`, because they are relative paths. Look for absolute paths in `$vars`
-* See the [schema](/schema) page for how `$config` is structured
-
-## `$var`
-
-* `$vars` variable ouputed to `./log/abstraction.vars.json`
-* It's an object that contains the following properties
-
-### `$var.refs.appDir`
-
-Absolute path of `$config.refs.appDir`
-
-### `$var.refs.binDir`
-
-Absolute path of `$config.refs.binDir`
-
-### `$var.refs.shortcutsDir`
-
-Absolute path of `$config.refs.shortcutsDir`
-
-### `$var.scoopDir`
-
-Absolute path of `$config.refs.scoopDir`
-
-### `$var.refs.cmderConfigDir`
-
-Absolute path of `$config.refs.cmderConfigDir`
-
-### `$var.hookDir`
-
-Absolute path of `$config.refs.hookDir`
-
-### `$var.refs.portableDir`
-
-Absolute path of directory in which `./_portable-scripts/ExecutePortableScripts` is located, so absolute path of `./_portable-scripts`
-
-### `$var.refs.bashConfig`, `$var.refs.psConfig`, and `$var.refs.cmdConfig`
-
-Respectively, they are
-
-```powershell
-Join-Path -Path $var.refs.cmderConfigDir -ChildPath "user_profile.sh"
-Join-Path -Path $var.refs.cmderConfigDir -ChildPath "user_profile.ps1"
-Join-Path -Path $var.refs.cmderConfigDir -ChildPath "user_profile.cmd"
-```
-
-Note that these are absolute paths as well.
-
-### `$var.refs.allConfig`
-
-The string "allConfigFiles"
-
-Use this in any place you would use `$var.refs.bashConfig`, `$var.refs.psConfig`, or `$var.refs.cmdConfig`.
-
-### `$var.refs.cmdUserAliases`
-
-Path of file to specify aliases for Cmd (used by Cmder)
-
-```powershell
-Join-Path -Path $var.refs.cmderConfigDir -ChildPath "user_aliases.cmd"
-```
-
-## `$var.Usable` Methods
-
-Learn the built-in functions you can use [here](/methods)
