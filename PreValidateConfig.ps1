@@ -87,14 +87,20 @@ function prevalidate_scoopRefs($config) {
 
 # For validatoins that neither require $config or $var
 function prevalidate_config() {
-  $config = Get-Content -Path "./portable.config.json" -Raw | ConvertFrom-Json
+  if(Test-Path -Path "./portable.config.json") {
+    $config = Get-Content -Path "./portable.config.json" -Raw
 
-  prevalidate_aliases $config
-  prevalidate_aliasesObj $config
-  prevalidate_applications $config
-  prevalidate_binaries $config
-  prevalidate_refs $config
-  prevalidate_scoopRefs $config
+    # print_info $config
+    prevalidate_aliases $config
+    prevalidate_aliasesObj $config
+    prevalidate_applications $config
+    prevalidate_binaries $config
+    prevalidate_refs $config
+    prevalidate_scoopRefs $config
 
-  print_info "prevalidate_config" "Checked errors in portable config not found"
+    print_info "prevalidate_config" "Checked errors in portable config not found"
+  }
+  else {
+    print_info "prevalidate_config" "No custom config found. Skipping prevalidation check"
+  }
 }

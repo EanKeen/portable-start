@@ -238,7 +238,9 @@ New-Item -Path "./_portable-shortcuts" -ItemType Directory | Out-Null
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/portable.config.json" -Method GET -OutFile "portable.config.json"
 $portableConfig = Get-Content -Path "./portable.config.json" -Raw | ConvertFrom-Json
 
-$portableConfig | Set-Content -Path "./_portable-scripts/portable.config.json" -Encoding ASCII -Force
+$portableConfig | ConvertTo-Json -Depth 100 | Set-Content -Path "./_portable-scripts/portable.config.json" -Encoding ASCII -Force
+
+Remove-Item -Path "./portable.config.json" | Out-Null
 
 ## Revisit scoop
 

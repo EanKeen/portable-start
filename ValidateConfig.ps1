@@ -1,6 +1,10 @@
 # Check to be sure all paths user is entering is correct
 
 function check_path_exists($pathName, $pathValue) {
+  if($pathValue -eq "OMIT") {
+    print_info "check_path_exists": "path `"$pathName`" at `"$pathValue`" will be skipped"
+    return
+  }
   if (Test-Path -Path $pathValue) {
     print_info "check_path_exists" "path `"$pathName`" at `"$pathValue`" reference exists"
     return

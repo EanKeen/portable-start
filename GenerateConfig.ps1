@@ -8,15 +8,7 @@ function create_config() {
     $configFile = "./default.config.json"
   }
   
-  $config = New-Object -TypeName PsObject
-  try {
-    $configAsString = Get-Content -Path $configFile -Raw
-    $config = ConvertFrom-Json $configAsString -ErrorAction Stop
-  }
-  catch {
-    print_error "create_config" "Config not valid JSON. Creating blank configuration object"
-    # by default $config is PsObject
-  }
+  $config = Get-Content -Path $configFile | Out-String | ConvertFrom-Json
   $config
 }
 
