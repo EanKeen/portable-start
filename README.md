@@ -16,8 +16,6 @@ This repository contains tooling that allows you to use whatever tooling you nee
 
 ### Method Full (Recommended)
 
-#### Do not test yet. Not yet complete
-
 Nukes and partitions a selected disk. It downloads the following programs (including the Scoop package manager). See the [docs](https://eankeen.github.io/portable-workstation) for more information.
 
 - Powershell
@@ -28,7 +26,7 @@ Nukes and partitions a selected disk. It downloads the following programs (inclu
 Paste the following in any elevated Cmd or PowerShell shell to install (and nuke) a thumbdrive.
 
 ```batch
-@"%SystemRoot%\System32\WinsdowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/InstallFull.ps1'))"
+@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/InstallFull.ps1'))"
 ```
 
 ### Install Bare
