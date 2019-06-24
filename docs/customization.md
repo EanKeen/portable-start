@@ -1,3 +1,22 @@
+# Hooks
+
+You can use hooks starting from the `custom/script.ps1` file. There are two hooks.
+
+```powershell
+portable_hook_after_start
+portable_hook_after_scoop
+```
+
+The hook name implies when the hook executes. See exactly where they execute in the [`ExecutePortableScripts.ps1`](https://github.com/eankeen/portable-workstation/blob/feat/simplify/ExecutePortableScripts.ps1) file.
+
+## Example
+
+```powershell
+function portable_hook_after_scoop($config) {
+  print_info "task" "Done creating Scoop environment variables"
+}
+```
+
 # Built-In Methods
 
 You can customize how this application functions by using the in-built hooks. There in-build methods you can use. Most are in `/util\/.*\.ps1/`.

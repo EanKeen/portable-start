@@ -1,5 +1,3 @@
 * [Home](/)
 * [Installation](installation.md)
-* [Usage](usage.md)
-* [Using Hooks](hooks.md)
-* [Built-In Methods](methods.md)
+* [Customization](customization.md)

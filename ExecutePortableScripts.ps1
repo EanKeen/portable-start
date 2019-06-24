@@ -4,16 +4,16 @@ Write-Host "Load Helpers" -BackgroundColor White -ForegroundColor Black
 . ./util/WriteToConfig.ps1
 . ./util/General.ps1
 
-. ./ConfigureVariables.ps1
-$config = configure_variables
-print_info "Your Config"
-Write-Host $config | ConvertTo-Json | Write-Host
-
-
-# RUN CUSTOM FILE WITH HOOK ACCESS
+# SOURCE HOOK FILE
 $hookFile = "./custom/script.ps1"
 if(Test-Path -Path $hookFile) { . $hookFile }
+
+# CONFIGURE VARIABLES
+. ./ConfigureVariables.ps1
+$config = configure_variables
 attempt_to_run_hook $config "portable_hook_after_start `$config"
+print_info "`$config"
+$config | ConvertTo-Json | Write-Host
 
 # CREATE STUFF FOR SCOOP
 print_title "Configure Scoop"
