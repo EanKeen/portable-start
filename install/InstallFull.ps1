@@ -265,11 +265,5 @@ print_info $env:SCOOP_GLOBAL
 Set-Location "${scoopDriveLetter}:\"
 Invoke-Expression -Command (New-Object Net.WebClient).DownloadString('https://get.scoop.sh')
 
-Write-Host "Adding 'extras' Scoop bucket'"
+Write-Host "Adding 'extras' Scoop bucket. Find more buckets here: https://github.com/lukesampson/scoop/blob/master/buckets.json"
 scoop bucket add extras
-
-Write-Host "Addng 'cmder-full' Scoop package"
-scoop install cmder
-
-Write-Host "Adding 'git' Scoop package"
-scoop insstall git

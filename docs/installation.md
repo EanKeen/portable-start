@@ -1,6 +1,6 @@
 # Installation
 
-## Full Installation (Recommended)
+## Installation Scripts
 
 Bootstraps the creation of a USB configured with Scoop using an elevated Batch or PowerShell shell. It does the following
 
@@ -42,6 +42,14 @@ The scrip above should work, if you're still having problems with [ExecutionPoli
 ## Next steps
 
 Everything is now setup!
-You should have access to the `scoop` command. Learn more about it [here](https://github.com/lukesampson/scoop). Be sure to check out the [ConEmu](https://conemu.github.io/en/ConEmuEnvironment.html) documentation if you're using Cmder.
+You should have access to the `scoop` command. Learn more about it [here](https://github.com/lukesampson/scoop).
+
+You may want to install some other programs
+
+```sh
+scoop install cmder
+scoop install git
+```
+Be sure to check out the [ConEmu](https://conemu.github.io/en/ConEmuEnvironment.html) documentation if you're using Cmder.
 
 If you want to customize your installation further, see [customization](./customization.md)
