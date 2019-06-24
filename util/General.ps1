@@ -1,29 +1,12 @@
-## Other helper functions
-# Combines relative path relative to absolute path
-
+# Combines relative path relative to absolute path (see https://stackoverflow.com/a/13847304)
 function normalize_path($absPath, $relPath) {
   [IO.Path]::GetFullPath((Join-Path $absPath $relPath))
 }
 
-function attempt_to_run_hook ($var, $expression) {
-  if(-not $var.isUsing.refs.hookFile) {
-    return
-  }
-
-  $functionName = $expression.Split(" ")[0]
-
-  if(Get-Command $functionName -ErrorAction SilentlyContinue) {
-    print_title "Running hook $functionName"
-    Invoke-Expression -Command $expression
-  }
-}
-
+# adds a property on an object if it does not already exist
 function add_object_prop($obj, $prop, $propValue) {
   if($obj | obj_not_has_prop $prop) {
     Add-Member -InputObject $obj -Name $prop -Value $propValue -MemberType NoteProperty
-  }
-  else {
-    # print_info "add_object_prop" "Property `"$prop`" already exists on object as `"$(ConvertTo-Json $propValue)`""
   }
 }
 
@@ -77,6 +60,20 @@ function exit_program() {
     exit
   }
   exit_program
+}
+
+# internal
+function attempt_to_run_hook ($var, $expression) {
+  if(-not $var.isUsing.refs.hookFile) {
+    return
+  }
+
+  $functionName = $expression.Split(" ")[0]
+
+  if(Get-Command $functionName -ErrorAction SilentlyContinue) {
+    print_title "Running hook $functionName"
+    Invoke-Expression -Command $expression
+  }
 }
 
 function create_global_variables($var) {
