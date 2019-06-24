@@ -231,8 +231,6 @@ New-Item -Path $portableStartBatchScript -ItemType File -Force | Out-Null
 Add-Content -Path $portableStartBatchScript -Value "cd .\_portable-scripts"
 Add-Content -Path $portableStartBatchScript -Value  "start ..\_portable-binaries\powershell\pwsh.exe -ExecutionPolicy Bypass -file .\ExecutePortableScripts.ps1"
 
-# Create required folders
-New-Item -Path "./_portable-shortcuts" -ItemType Directory | Out-Null
 
 # Create portable.config.json
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/portable.config.json" -Method GET -OutFile "portable.config.json"
