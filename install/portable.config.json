@@ -1,7 +1,5 @@
 {
-  "scoopRefs": {
-    "scoopDriveName": "SCOOP",
-    "globalDir": "./_scoop-global",
-    "mainDir": "./_scoop"
-  }
+  "scoopDriveName": "SCOOP",
+  "scoopMainDir": "./_scoop",
+  "scoopGlobalDir": "./_scoop-global"
 }
