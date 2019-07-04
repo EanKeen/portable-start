@@ -1,6 +1,6 @@
 # portable-workstation
 
-Bootstraps the creation of a USB configured with Scoop. Contains scripts to modify Scoop environment variables accordingly.
+Bootstraps the creation of a USB configured with Scoop. Contains scripts to make Scoop more portable.
 
 ## Installation Procedure
 
