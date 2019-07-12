@@ -27,21 +27,4 @@ If you see something like `Access to a CIM resource was not available to the cli
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/InstallFull.ps1'))
 ```
 
-### Install Bare
-
-Using Bare only gives you Powershell and Cmder. It works, but you must manually configure other apps or binaries to use with it. See the [docs](https://eankeen.github.io/portable-workstation) for more information.
-
-- Cmder (with Git for Windows)
-- Powershell
-
-Paste the following in any directory of your thumbdrive to install it in that directory.
-
-```batch
-@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/InstallBare.ps1'))"
-```
-
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/eankeen/portable-workstation/master/install/InstallBare.ps1'))
-```
-
 See the [installation](installation.md) for more details.
