@@ -2,6 +2,9 @@
 
 Bootstraps the creation of a USB configured with Scoop. Contains scripts to make Scoop more portable.
 
+## Archive
+This project has been archived. Expect no further deveopment. Rather than using this tool, simply format the file system on your portable device as NTFS. Then follow the [scoop instalation procedures](https://github.com/lukesampson/scoop) and create a simple script that changes environmental variables on the fly. No abstractions that obfuscate a simple procedure; no fancy setup.
+
 ## Installation Procedure
 
 Nukes and partitions a selected disk. It installs
